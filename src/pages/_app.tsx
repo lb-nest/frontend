@@ -1,14 +1,53 @@
-import '../styles/globals.css'
+import { ApolloProvider } from '@apollo/client';
+import { CssBaseline } from '@mui/material';
+import { NextPage } from 'next';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { client } from '../apollo';
+import { GuardContextProvider } from '../components/guard-context';
+import { initI18n } from '../i18n';
+import { store } from '../redux';
+import { AppThemeProvider } from '../theme';
 
-import { Provider } from 'react-redux'
-import type { AppProps } from 'next/app'
+initI18n();
 
-import store from '../app/store'
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
+};
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+export default function LeaballApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page: React.ReactElement) => page);
+
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  )
+    <>
+      <Head>
+        <title>leadball.io</title>
+        <meta name='description' content='The most powerful & intuitive chatbot builder' />
+        <link rel='apple-touch-icon' href='/favicon.png' />
+        <link rel='icon' href='/favicon.png' />
+        <link rel='shortcut icon' href='/favicon.png' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name='robots' content='noindex, nofollow' />
+      </Head>
+      <ApolloProvider client={client}>
+        <Provider store={store}>
+          <GuardContextProvider>
+            <AppThemeProvider>
+              <CssBaseline />
+              {getLayout(<Component {...pageProps} />)}
+              <ToastContainer />
+            </AppThemeProvider>
+          </GuardContextProvider>
+        </Provider>
+      </ApolloProvider>
+    </>
+  );
 }
