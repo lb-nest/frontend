@@ -1,10 +1,10 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import chatList from './features/chat-list';
+import chats from './features/chat-list';
 
 export function makeStore() {
   return configureStore({
     reducer: {
-      chatList,
+      chats,
     },
   });
 }

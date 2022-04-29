@@ -7,7 +7,7 @@ import { NextPageWithLayout } from '../_app';
 const ChatPage: NextPageWithLayout = () => {
   const GuardWrapper = useGuard(projectGuard);
 
-  return <GuardWrapper>13</GuardWrapper>;
+  return <GuardWrapper>chat</GuardWrapper>;
 };
 
 ChatPage.getLayout = (page) => <ChatsLayout>{page}</ChatsLayout>;

@@ -1,28 +1,45 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Chat, ChatsCount } from '../../core/types';
 import type { AppState } from '../store';
 
-export interface ChatListState {
-  items: any[];
-  type: string;
+export interface ChatsState {
+  count: ChatsCount;
+  items: Chat[];
+  type: number;
 }
 
-const initialState: ChatListState = {
+const initialState: ChatsState = {
+  count: {
+    assigned: 0,
+    unassigned: 0,
+  },
   items: [],
-  type: 'assigned',
+  type: 1,
 };
 
-export const chatListSlice = createSlice({
-  name: 'chatList',
+export const chatsSlice = createSlice({
+  name: 'chats',
   initialState,
   reducers: {
-    setType: (state, action: PayloadAction<string>) => {
+    setCount: (state, action: PayloadAction<ChatsCount>) => {
+      state.count = action.payload;
+    },
+    setType: (state, action: PayloadAction<number>) => {
       state.type = action.payload;
+    },
+    pushItems: (state, action: PayloadAction<Chat[]>) => {
+      state.items = action.payload;
+    },
+    clearItems: (state) => {
+      state.items = [];
     },
   },
 });
 
-export const { setType } = chatListSlice.actions;
+export const { setCount, setType, pushItems, clearItems } = chatsSlice.actions;
 
-export const selectChatList = (state: AppState) => state.chatList;
+export const selectChats = (state: AppState) => state.chats.items;
+export const selectType = (state: AppState) => state.chats.type;
+export const selectChatsCount = (state: AppState) => state.chats.count;
 
-export default chatListSlice.reducer;
+export default chatsSlice.reducer;

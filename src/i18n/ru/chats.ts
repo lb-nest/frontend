@@ -2,9 +2,14 @@ import { ResourceLanguage } from 'i18next';
 
 export const chats: ResourceLanguage = {
   open: 'Открытые',
-  assigned: 'В обработке',
-  unassigned: 'В очереди',
+  assigned: 'Мои',
+  unassigned: 'Неназначенные',
   closed: 'Закрытые',
-  selectChat: 'Выберите чат',
+  types: {
+    0: 'Мои',
+    1: 'Неназначенные',
+    2: 'Закрытые',
+  },
+  noChat: 'Выберите чат',
   noData: 'Нет данных',
 };

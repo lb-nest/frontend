@@ -13,7 +13,7 @@ const ChatsPage: NextPageWithLayout = () => {
   return (
     <GuardWrapper>
       <Box display='flex' alignItems='center' justifyContent='center' flexGrow={1}>
-        <Typography color='#858585'>{t<string>('chats:selectChat')}</Typography>
+        <Typography color='#858585'>{t<string>('chats:noChat')}</Typography>
       </Box>
     </GuardWrapper>
   );

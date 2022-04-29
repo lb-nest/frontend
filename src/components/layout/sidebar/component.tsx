@@ -15,7 +15,7 @@ import { Avatar, Box } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { USER } from '../../../core/api';
-import { TabItem } from './tab-item';
+import { SidebarItem } from './item';
 
 export const Sidebar: React.FC = () => {
   const { t } = useTranslation();
@@ -41,33 +41,33 @@ export const Sidebar: React.FC = () => {
           overflow: 'hidden auto',
         }}>
         <Box display='flex' flexDirection='column' width={80}>
-          <TabItem title={t('common:pages.chats')} href='/chats'>
+          <SidebarItem title={t('common:pages.chats')} href='/chats'>
             <ChatOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.contacts')} href='/contacts'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.contacts')} href='/contacts'>
             <ContactPhoneOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.mailings')} href='/mailings'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.mailings')} href='/mailings'>
             <ContactMailOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.channels')} href='/channels'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.channels')} href='/channels'>
             <SyncAltOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.chatbots')} href='/chatbots'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.chatbots')} href='/chatbots'>
             <SmartToyOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.webhooks')} href='/webhooks'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.webhooks')} href='/webhooks'>
             <WebhookOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.integrations')} href='/integrations'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.integrations')} href='/integrations'>
             <IntegrationInstructionsOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.tags')} href='/tags'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.tags')} href='/tags'>
             <TagOutlined />
-          </TabItem>
-          <TabItem title={t('common:pages.hsm')} href='/hsm'>
+          </SidebarItem>
+          <SidebarItem title={t('common:pages.hsm')} href='/hsm'>
             <CodeOutlined />
-          </TabItem>
+          </SidebarItem>
         </Box>
       </Box>
       <Box
@@ -76,9 +76,9 @@ export const Sidebar: React.FC = () => {
         padding='25px 0 50px'
         overflow='auto'
         flexShrink={0}>
-        <TabItem title={t('common:pages.settings')} href='/settings'>
+        <SidebarItem title={t('common:pages.settings')} href='/settings'>
           <SettingsOutlined />
-        </TabItem>
+        </SidebarItem>
         <Box display='flex' flexDirection='column' alignItems='center' mt='30px'>
           <Avatar src={user.data?.user.avatarUrl} />
         </Box>
