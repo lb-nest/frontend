@@ -21,6 +21,9 @@ export const CREATE_PROJECT: TypedDocumentNode<CreateProjectResult, CreateProjec
       roles {
         role
       }
+      token {
+        token
+      }
       createdAt
       updatedAt
     }

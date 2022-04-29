@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { GuardContext } from '../../components/guard-context';
 import { ProjectsLayout } from '../../components/projects';
-import { CREATE_PROJECT, SIGNIN_PROJECT } from '../../core/api';
+import { CREATE_PROJECT } from '../../core/api';
 import { useGuard, userGuard } from '../../hooks/use-guard';
 import { NextPageWithLayout } from '../_app';
 
@@ -25,32 +25,25 @@ const NewProjectPage: NextPageWithLayout = () => {
   const GuardWrapper = useGuard(userGuard);
 
   const [createProject] = useMutation(CREATE_PROJECT);
-  const [signInProject] = useMutation(SIGNIN_PROJECT);
 
   const form = useForm<Variables>();
 
   const handleSubmit: SubmitHandler<Variables> = async (variables) => {
     try {
-      const result = await toast.promise(
+      const res = await toast.promise(
         createProject({
           variables,
         }),
         t<any, any>('common:promise', { returnObjects: true }),
       );
 
-      if (result.data) {
-        const token = await signInProject({
-          variables: {
-            id: result.data.createProject.id,
-          },
-        });
-
-        if (token.data) {
-          guard.signIn?.(token.data.signInProject.token);
-          await router.replace('/');
-        }
+      if (res.data) {
+        guard.signIn?.(res.data.createProject.token.token);
+        await router.replace('/');
       }
-    } catch {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

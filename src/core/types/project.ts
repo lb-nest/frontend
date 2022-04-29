@@ -19,6 +19,9 @@ export interface Project {
   roles: Array<{
     role: RoleType;
   }>;
+  token: {
+    token: string;
+  };
   createdAt: string;
   updatedAt: string;
 }

@@ -30,13 +30,38 @@ export const chatsSlice = createSlice({
     pushItems: (state, action: PayloadAction<Chat[]>) => {
       state.items = action.payload;
     },
+    handleReceived: (state, action: PayloadAction<Chat>) => {
+      if (!~state.type) {
+        return;
+      }
+
+      const counter = Object.keys(state.count)[state.type];
+
+      const index = state.items.findIndex((item) => action.payload.id === item.id);
+      if (~index) {
+        const flag =
+          action.payload.contact.assignedTo?.id !== state.items[index].contact.assignedTo?.id ||
+          action.payload.contact.status !== state.items[index].contact.status;
+
+        state.items.splice(index, 1);
+
+        if (flag) {
+          state.count[counter] -= 1;
+          return;
+        }
+      } else {
+        state.count[counter] += 1;
+      }
+
+      state.items.unshift(action.payload);
+    },
     clearItems: (state) => {
       state.items = [];
     },
   },
 });
 
-export const { setCount, setType, pushItems, clearItems } = chatsSlice.actions;
+export const { setCount, setType, pushItems, handleReceived, clearItems } = chatsSlice.actions;
 
 export const selectChats = (state: AppState) => state.chats.items;
 export const selectType = (state: AppState) => state.chats.type;

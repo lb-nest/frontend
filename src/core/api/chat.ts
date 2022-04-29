@@ -29,7 +29,14 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
       id
       contact {
         id
+        username
         name
+        avatarUrl
+        assignedTo {
+          id
+          name
+        }
+        status
       }
       messages {
         id
@@ -39,6 +46,35 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
         }
         createdAt
         updatedAt
+      }
+    }
+  }
+`;
+
+interface ChatsReceivedResult {
+  chatsReceived: Chat;
+}
+
+export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
+  subscription ChatsReceived {
+    chatsReceived {
+      id
+      contact {
+        id
+        username
+        name
+        avatarUrl
+        assignedTo {
+          id
+          name
+        }
+        status
+      }
+      messages {
+        fromMe
+        content {
+          text
+        }
       }
     }
   }
