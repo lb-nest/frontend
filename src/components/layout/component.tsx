@@ -17,7 +17,7 @@ export const Layout: React.FC<LayoutProps> = ({ i18n, children }) => {
       <Header title={i18n && t<string>(i18n)} />
       <Box display='flex' flexGrow={1} height='100%'>
         <Sidebar />
-        <Box component='main' flex={1}>
+        <Box component='main' width='100%' height='calc(100vh - 50px)'>
           {children}
         </Box>
       </Box>

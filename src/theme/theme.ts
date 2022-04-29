@@ -11,12 +11,12 @@ export const theme = createTheme({
         },
         '*': {
           '&::-webkit-scrollbar': {
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 6,
           },
           '&::-webkit-scrollbar-thumb': {
-            borderRadius: 4,
-            backgroundColor: '#00000040',
+            borderRadius: 2,
+            backgroundColor: '#0004',
           },
         },
       },

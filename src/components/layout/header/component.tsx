@@ -23,7 +23,9 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
         <Typography
           component='span'
           sx={{
-            ml: '15px',
+            ml: '30px',
+            fontSize: 24,
+            fontWeight: 700,
           }}>
           {title}
         </Typography>
