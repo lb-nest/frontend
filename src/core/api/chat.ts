@@ -32,6 +32,7 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
         username
         name
         avatarUrl
+        resolved
         assignedTo {
           id
           name
@@ -40,9 +41,16 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
       }
       messages {
         id
+        status
         fromMe
         content {
           text
+          attachments {
+            type
+            url
+            name
+          }
+          buttons
         }
         createdAt
         updatedAt
@@ -64,6 +72,7 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
         username
         name
         avatarUrl
+        resolved
         assignedTo {
           id
           name
@@ -71,10 +80,64 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
         status
       }
       messages {
+        id
+        status
         fromMe
         content {
           text
+          attachments {
+            type
+            url
+            name
+          }
+          buttons
         }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
+interface ChatByIdResult {
+  chatById: Chat;
+}
+
+interface ChatByIdVariables {
+  id: number;
+}
+
+export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = gql`
+  query ChatById($id: Int!) {
+    chatById(id: $id) {
+      id
+      contact {
+        id
+        username
+        name
+        avatarUrl
+        resolved
+        assignedTo {
+          id
+          name
+        }
+        status
+      }
+      messages {
+        id
+        status
+        fromMe
+        content {
+          text
+          attachments {
+            type
+            url
+            name
+          }
+          buttons
+        }
+        createdAt
+        updatedAt
       }
     }
   }

@@ -1,4 +1,5 @@
-import { ContactStatus } from './contact';
+import { Contact } from './contact';
+import { Message } from './message';
 
 export interface ChatsCount {
   assigned: number;
@@ -7,24 +8,6 @@ export interface ChatsCount {
 
 export interface Chat {
   id: number;
-  contact: {
-    id: number;
-    username: string;
-    name: string;
-    avatarUrl: string;
-    assignedTo?: {
-      id: number;
-      name: string;
-    };
-    status: ContactStatus;
-  };
-  messages: Array<{
-    id: number;
-    fromMe: boolean;
-    content: Array<{
-      text: string;
-    }>;
-    createdAt: number;
-    updatedAt: number;
-  }>;
+  contact: Contact;
+  messages: Message[];
 }

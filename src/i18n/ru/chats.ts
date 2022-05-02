@@ -12,4 +12,12 @@ export const chats: ResourceLanguage = {
   },
   noChat: 'Выберите чат',
   noData: 'Нет данных',
+  chat: {
+    header: {
+      assignedTo: 'Назначен на',
+    },
+    message: {
+      empty: '<пустое сообщение>',
+    },
+  },
 };
