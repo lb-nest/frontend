@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material';
-import React, { useTransition } from 'react';
-import { Message } from '../../../../core/types';
-import { format, formatDistanceToNow } from 'date-fns';
-import { useTranslation } from 'react-i18next';
+import { formatDistanceToNow } from 'date-fns';
 import * as locales from 'date-fns/locale';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Message } from '../../../../core/types';
 
 interface ChatItemProps extends Message {}
 

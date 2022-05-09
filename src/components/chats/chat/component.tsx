@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Contact, Message } from '../../../core/types';
 import { ChatHeader } from './header';
 import { ChatItem } from './item';
+import { TextInput } from './text-input';
 
 interface ChatProps {
   contact: Contact;
@@ -41,6 +42,7 @@ export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
           ))}
         </InfiniteScroll>
       </Box>
+      <TextInput />
     </Box>
   );
 };

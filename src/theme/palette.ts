@@ -17,7 +17,7 @@ export const palette: PaletteOptions = {
     main: '#43b4ff',
   },
   success: {
-    main: '#43ff8e',
+    main: '#36ad68',
   },
   common: {
     black: '#000000',

@@ -1,5 +1,42 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Message } from '../types';
+import { Attachment, Message } from '../types';
+
+interface CreateMessageResult {
+  createMessage: Message;
+}
+
+interface CreateMessageVariables {
+  chatId: number;
+  text?: string;
+  attachments?: Attachment[];
+  buttons?: any[];
+}
+
+export const CREATE_MESSAGE: TypedDocumentNode<CreateMessageResult, CreateMessageVariables> = gql`
+  mutation CreateMessage(
+    $chatId: Int!
+    $text: String
+    $attachments: [CreateAttachmentInput!]
+    $buttons: [JSON!]
+  ) {
+    createMessage(chatId: $chatId, text: $text, attachments: $attachments, buttons: $buttons) {
+      id
+      fromMe
+      status
+      content {
+        text
+        attachments {
+          type
+          url
+          name
+        }
+        buttons
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 
 interface MessagesResult {
   messages: Message[];

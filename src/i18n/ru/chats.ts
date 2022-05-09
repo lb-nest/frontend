@@ -19,5 +19,6 @@ export const chats: ResourceLanguage = {
     message: {
       empty: '<пустое сообщение>',
     },
+    input: 'Введите сообщение здесь...',
   },
 };

@@ -5,7 +5,11 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { createClient } from 'graphql-ws';
 
-const BACKEND_URI = 'http://localhost:8080/graphql';
+const BACKEND_URI = 'http://localhost:8020/graphql';
+
+const getAuthorization = () => {
+  return 'Bearer '.concat(localStorage.getItem('token'));
+};
 
 const wsLink =
   typeof window === 'undefined'
@@ -14,7 +18,7 @@ const wsLink =
         createClient({
           url: BACKEND_URI.replace('http', 'ws'),
           connectionParams: () => ({
-            authorization: 'Bearer '.concat(localStorage.getItem('token')),
+            authorization: getAuthorization(),
           }),
         }),
       );
@@ -22,7 +26,7 @@ const wsLink =
 const link = ApolloLink.from([
   setContext(() => ({
     headers: {
-      authorization: 'Bearer '.concat(localStorage.getItem('token')),
+      authorization: getAuthorization(),
     },
   })),
   split(

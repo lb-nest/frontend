@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import { CssBaseline } from '@mui/material';
+import ModalProvider from 'mui-modal-provider';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -39,13 +40,15 @@ export default function LeaballApp({ Component, pageProps }: AppPropsWithLayout)
       </Head>
       <ApolloProvider client={client}>
         <Provider store={store}>
-          <GuardContextProvider>
-            <AppThemeProvider>
-              <CssBaseline />
-              {getLayout(<Component {...pageProps} />)}
-              <ToastContainer />
-            </AppThemeProvider>
-          </GuardContextProvider>
+          <ModalProvider>
+            <GuardContextProvider>
+              <AppThemeProvider>
+                <CssBaseline />
+                {getLayout(<Component {...pageProps} />)}
+                <ToastContainer />
+              </AppThemeProvider>
+            </GuardContextProvider>
+          </ModalProvider>
         </Provider>
       </ApolloProvider>
     </>
