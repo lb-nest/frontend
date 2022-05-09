@@ -27,7 +27,7 @@ export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
         <InfiniteScroll
           style={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'column-reverse',
           }}
           scrollableTarget={id}
           dataLength={messages.length}

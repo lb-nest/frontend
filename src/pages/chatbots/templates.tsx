@@ -1,3 +1,4 @@
+import { Container, Box } from '@mui/material';
 import React from 'react';
 import { Layout } from '../../components/layout';
 import { projectGuard, useGuard } from '../../hooks/use-guard';
@@ -8,7 +9,9 @@ const ChatbotTemplatesPage: NextPageWithLayout = () => {
 
   return (
     <GuardWrapper>
-      <div>chatbot templates</div>
+      <Container maxWidth='lg'>
+        <Box mt={1}>content here...</Box>
+      </Container>
     </GuardWrapper>
   );
 };

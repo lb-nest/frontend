@@ -47,8 +47,8 @@ interface CreateChannelVariables {
 }
 
 export const CREATE_CHANNEL: TypedDocumentNode<CreateChannelResult, CreateChannelVariables> = gql`
-  mutation CreateChannel($name: String!, $type: ChannelType!, $token: String!) {
-    createChannel(name: $name, type: $type, token: $token) {
+  mutation CreateChannel($name: String!, $type: ChannelType!, $accountId: String, $token: String!) {
+    createChannel(name: $name, type: $type, accountId: $accountId, token: $token) {
       id
       name
       status

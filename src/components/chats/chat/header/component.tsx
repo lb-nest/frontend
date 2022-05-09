@@ -19,17 +19,17 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
             <Typography component='span' variant='inherit'>
               {contact.name}
             </Typography>
+          </Typography>
+          <Typography component='div' variant='body2'>
+            <Typography component='span' variant='inherit'>
+              {contact.username}
+            </Typography>
             <Typography
               component='span'
               variant='inherit'
               sx={{
                 ml: 1,
               }}>
-              {contact.username}
-            </Typography>
-          </Typography>
-          <Typography component='div' variant='body2'>
-            <Typography component='span' variant='inherit'>
               {t('chats:chat.header.assignedTo')}:
             </Typography>
             <Typography

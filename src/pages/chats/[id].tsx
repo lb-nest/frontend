@@ -1,8 +1,7 @@
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { ChatsLayout } from '../../components/chats';
-import { Chat } from '../../components/chats/chat';
+import { Chat, ChatsLayout } from '../../components/chats';
 import { CHAT_BY_ID } from '../../core/api';
 import { MESSAGES } from '../../core/api/message';
 import { projectGuard, useGuard } from '../../hooks/use-guard';

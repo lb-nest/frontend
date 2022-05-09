@@ -41,6 +41,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
       }}
       onClick={handleOpen}>
       <Avatar
+        src={contact.avatarUrl}
         sx={{
           flexShrink: 0,
         }}
