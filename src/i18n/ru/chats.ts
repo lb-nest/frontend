@@ -16,6 +16,13 @@ export const chats: ResourceLanguage = {
     header: {
       assignedTo: 'Назначен на',
     },
+    list: {
+      accept: 'Принять',
+      reopen: 'Открыть заново',
+      view: 'Посмотреть контакт',
+      return: 'Возврат в очередь',
+      close: 'Закрыть',
+    },
     message: {
       empty: '<пустое сообщение>',
     },

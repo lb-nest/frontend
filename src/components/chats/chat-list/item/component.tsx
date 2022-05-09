@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/client';
 import { AddTaskOutlined } from '@mui/icons-material';
 import { Avatar, Box, ButtonBase, IconButton, Typography } from '@mui/material';
 import { formatDistanceToNow } from 'date-fns';
@@ -5,7 +6,9 @@ import * as locales from 'date-fns/locale';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Chat } from '../../../../core/types';
+import { toast } from 'react-toastify';
+import { ACCEPT_CONTACT } from '../../../../core/api';
+import { Chat, ContactStatus } from '../../../../core/types';
 
 interface ChatListItemProps extends Chat {
   showAssign?: boolean;
@@ -15,11 +18,13 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
   id,
   contact,
   messages,
-  showAssign = true,
+  showAssign = contact.assignedTo == null && contact.status === ContactStatus.Open,
 }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const router = useRouter();
+
+  const [acceptContact] = useMutation(ACCEPT_CONTACT);
 
   const handleOpen: React.MouseEventHandler = () => {
     router.push(`/chats/${id}`);
@@ -27,6 +32,17 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
 
   const handleAssign: React.MouseEventHandler = (e) => {
     e.stopPropagation();
+
+    toast
+      .promise(
+        acceptContact({
+          variables: {
+            id: contact.id,
+          },
+        }),
+        t<any, any>('common:promise'),
+      )
+      .catch(() => null);
   };
 
   return (

@@ -1,7 +1,11 @@
-import { Box } from '@mui/material';
+import { useMutation } from '@apollo/client';
+import { Box, Button } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Contact, Message } from '../../../core/types';
+import { toast } from 'react-toastify';
+import { ACCEPT_CONTACT, REOPEN_CONTACT } from '../../../core/api';
+import { Contact, ContactStatus, Message } from '../../../core/types';
 import { ChatHeader } from './header';
 import { ChatItem } from './item';
 import { TextInput } from './text-input';
@@ -12,7 +16,40 @@ interface ChatProps {
 }
 
 export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
+  const { t } = useTranslation();
+
   const id = crypto.randomUUID();
+
+  const [accectContact] = useMutation(ACCEPT_CONTACT);
+  const [reopenContact] = useMutation(REOPEN_CONTACT);
+
+  const handleAccept = () => {
+    toast
+      .promise(
+        accectContact({
+          variables: {
+            id: contact.id,
+          },
+        }),
+        t<any, any>('common:promise'),
+      )
+      .catch(() => null);
+  };
+
+  const handleReopen = () => {
+    toast
+      .promise(
+        reopenContact({
+          variables: {
+            id: contact.id,
+          },
+        }),
+        t<any, any>('common:promise'),
+      )
+      .catch(() => null);
+  };
+
+  const closed = contact.status === ContactStatus.Closed;
 
   return (
     <Box display='flex' flexDirection='column' height='100%'>
@@ -31,9 +68,7 @@ export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
           }}
           scrollableTarget={id}
           dataLength={messages.length}
-          next={() => {
-            console.log(1);
-          }}
+          next={() => {}}
           loader={<div />}
           hasMore
           inverse>
@@ -42,7 +77,24 @@ export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
           ))}
         </InfiniteScroll>
       </Box>
-      <TextInput />
+      <Box position='relative'>
+        <TextInput />
+        {contact.assignedTo == null && (
+          <Button
+            sx={{
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              bgcolor: '#4356ff0a',
+              zIndex: 1,
+            }}
+            onClick={closed ? handleReopen : handleAccept}>
+            {t<string>('chats:chat.list.'.concat(closed ? 'reopen' : 'accept'))}
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 };
