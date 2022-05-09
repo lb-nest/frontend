@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Chat, ChatsCount } from '../../core/types';
+import { Chat, ChatsCount, ContactStatus } from '../../core/types';
 import type { AppState } from '../store';
 
 export interface ChatsState {
@@ -15,6 +15,14 @@ const initialState: ChatsState = {
   },
   items: [],
   type: 1,
+};
+
+const toType = (chat: Chat) => {
+  if (chat.contact.status === ContactStatus.Closed) {
+    return 2;
+  }
+
+  return chat.contact.assignedTo == null ? 1 : 0;
 };
 
 export const chatsSlice = createSlice({
@@ -35,25 +43,15 @@ export const chatsSlice = createSlice({
         return;
       }
 
-      const counter = Object.keys(state.count)[state.type];
-
       const index = state.items.findIndex((item) => action.payload.id === item.id);
       if (~index) {
-        const flag =
-          action.payload.contact.assignedTo?.id !== state.items[index].contact.assignedTo?.id ||
-          action.payload.contact.status !== state.items[index].contact.status;
-
         state.items.splice(index, 1);
-
-        if (flag) {
-          state.count[counter] -= 1;
-          return;
-        }
-      } else {
-        state.count[counter] += 1;
       }
 
-      state.items.unshift(action.payload);
+      const type = toType(action.payload);
+      if (state.type === type) {
+        state.items.unshift(action.payload);
+      }
     },
     clearItems: (state) => {
       state.items = [];

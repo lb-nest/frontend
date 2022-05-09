@@ -47,6 +47,21 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
       .catch(() => null);
   };
 
+  const items: JSX.Element[] = [];
+
+  if (contact.assignedTo != null) {
+    items.push(
+      <MenuItem key='return' onClick={handleReturn}>
+        {t<string>('chats:chat.list.return')}
+      </MenuItem>,
+    );
+    items.push(
+      <MenuItem key='close' onClick={handleClose}>
+        {t<string>('chats:chat.list.close')}
+      </MenuItem>,
+    );
+  }
+
   return (
     <Box display='flex' alignItems='center' height={50} padding='0 15px' flexShrink={0}>
       <Box display='flex' alignItems='center' flexGrow={1}>
@@ -86,12 +101,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
         </IconButton>
         <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={() => setAnchorEl(undefined)}>
           <MenuItem onClick={handleView}>{t<string>('chats:chat.list.view')}</MenuItem>
-          {contact.assignedTo != null && (
-            <>
-              <MenuItem onClick={handleReturn}>{t<string>('chats:chat.list.return')}</MenuItem>
-              <MenuItem onClick={handleClose}>{t<string>('chats:chat.list.close')}</MenuItem>
-            </>
-          )}
+          {items}
         </Menu>
       </Box>
     </Box>
