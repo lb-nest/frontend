@@ -17,7 +17,7 @@ const ChannelsPage: NextPageWithLayout = () => {
     <GuardWrapper>
       <Container maxWidth='lg'>
         <Box display='flex' justifyContent='flex-end' mt={1} mb={1}>
-          <CreateChannelButton />
+          <CreateChannelButton onCreate={() => channels.refetch()} />
         </Box>
         <Box>
           {channels.data?.channels.map((channel) => (

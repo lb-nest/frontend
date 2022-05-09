@@ -5,7 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { ChannelType } from '../../../core/types';
 import { CreateChannelModal } from '../modal';
 
-export const CreateChannelButton: React.FC = () => {
+interface CreateChannelButtonProps {
+  onCreate?: () => void;
+}
+
+export const CreateChannelButton: React.FC<CreateChannelButtonProps> = ({ onCreate }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement>();
 
   const { t } = useTranslation();
@@ -16,9 +20,12 @@ export const CreateChannelButton: React.FC = () => {
     const modal = showModal(CreateChannelModal, {
       type,
       onSubmit: () => {
+        onCreate?.();
+        setAnchorEl(undefined);
         modal.hide();
       },
       onCancel: () => {
+        setAnchorEl(undefined);
         modal.hide();
       },
     });

@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/client';
 import {
   Button,
   Dialog,
@@ -11,12 +12,20 @@ import {
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { CREATE_CHANNEL } from '../../../../core/api/channel';
 import { ChannelType } from '../../../../core/types';
 
 interface CreateChannelModalProps extends DialogProps {
   type: ChannelType;
   onSubmit?: () => void;
   onCancel?: () => void;
+}
+
+interface Variables {
+  name: string;
+  accountId?: string;
+  token: string;
 }
 
 export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
@@ -29,8 +38,21 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
 
   const form = useForm();
 
-  const handleSubmit = (variables: unknown) => {
-    onSubmit?.();
+  const [createChannel] = useMutation(CREATE_CHANNEL);
+
+  const handleSubmit = (variables: Variables) => {
+    toast
+      .promise(
+        createChannel({
+          variables: {
+            type,
+            ...variables,
+          },
+        }),
+        t<any, any>('common:promise'),
+      )
+      .then(() => onSubmit?.())
+      .catch(() => null);
   };
 
   return (
@@ -39,6 +61,15 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
         <DialogTitle>{t<string>(`channels:modal.${type}.title`)}</DialogTitle>
         <DialogContent>
           <DialogContentText>{t<string>(`channels:modal.${type}.description`)}</DialogContentText>
+          <TextField
+            autoFocus
+            margin='dense'
+            label={t(`channels:modal.${type}.name`)}
+            type='text'
+            fullWidth
+            variant='outlined'
+            {...form.register('name')}
+          />
           {type === ChannelType.Whatsapp && (
             <TextField
               autoFocus
@@ -47,6 +78,7 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
               type='text'
               fullWidth
               variant='outlined'
+              {...form.register('accountId')}
             />
           )}
           <TextField
@@ -56,13 +88,16 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
             type='text'
             fullWidth
             variant='outlined'
+            {...form.register('token')}
           />
         </DialogContent>
         <DialogActions>
           <Button color='error' onClick={onCancel}>
             {t<string>('channels:modal.cancel')}
           </Button>
-          <Button variant='outlined'>{t<string>('channels:modal.submit')}</Button>
+          <Button variant='outlined' type='submit'>
+            {t<string>('channels:modal.submit')}
+          </Button>
         </DialogActions>
       </form>
     </Dialog>

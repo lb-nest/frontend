@@ -7,18 +7,21 @@ export const channels: ResourceLanguage = {
     [ChannelType.Telegram]: {
       title: 'Telegram',
       description: 'Добавление канала Telegram',
+      name: 'Название',
       token: 'Токен',
     },
     [ChannelType.Webchat]: {
       title: 'Веб-чат',
       description: 'Добавление канала Веб-чат',
+      name: 'Название',
       token: 'URL',
     },
     [ChannelType.Whatsapp]: {
       title: 'Whatsapp',
       description: 'Добавление канала Whatsapp',
-      token: 'Название приложения',
-      accountId: 'Номер телефона',
+      name: 'Название',
+      token: 'Номер телефона',
+      accountId: 'Название приложения',
     },
     submit: 'Добавить',
     cancel: 'Отмена',
