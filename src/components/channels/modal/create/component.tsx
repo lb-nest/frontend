@@ -72,7 +72,6 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
           />
           {type === ChannelType.Whatsapp && (
             <TextField
-              autoFocus
               margin='dense'
               label={t(`channels:modal.${type}.accountId`)}
               type='text'
@@ -82,7 +81,6 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
             />
           )}
           <TextField
-            autoFocus
             margin='dense'
             label={t(`channels:modal.${type}.token`)}
             type='text'
