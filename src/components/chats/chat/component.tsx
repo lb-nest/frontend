@@ -80,19 +80,23 @@ export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
       <Box position='relative'>
         <TextInput />
         {contact.assignedTo == null && (
-          <Button
-            sx={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bgcolor: '#4356ff0a',
-              zIndex: 1,
-            }}
-            onClick={closed ? handleReopen : handleAccept}>
-            {t<string>('chats:chat.list.'.concat(closed ? 'reopen' : 'accept'))}
-          </Button>
+          <Box
+            width='100%'
+            height='100%'
+            position='absolute'
+            left={0}
+            top={0}
+            bgcolor='#f7f7f7'
+            zIndex={1}>
+            <Button
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+              onClick={closed ? handleReopen : handleAccept}>
+              {t<string>('chats:chat.list.'.concat(closed ? 'reopen' : 'accept'))}
+            </Button>
+          </Box>
         )}
       </Box>
     </Box>
