@@ -15,7 +15,7 @@ interface Variables {
   buttons?: any[];
 }
 
-export const TextInput: React.FC = () => {
+export const TextArea: React.FC = () => {
   const { t } = useTranslation();
 
   const form = useForm<Variables>();

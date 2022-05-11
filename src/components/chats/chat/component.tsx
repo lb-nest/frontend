@@ -8,7 +8,7 @@ import { ACCEPT_CONTACT, REOPEN_CONTACT } from '../../../core/api';
 import { Contact, ContactStatus, Message } from '../../../core/types';
 import { ChatHeader } from './header';
 import { ChatItem } from './item';
-import { TextInput } from './text-input';
+import { TextArea } from './textarea';
 
 interface ChatProps {
   contact: Contact;
@@ -78,7 +78,7 @@ export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
         </InfiniteScroll>
       </Box>
       <Box position='relative'>
-        <TextInput />
+        <TextArea />
         {contact.assignedTo == null && (
           <Box
             width='100%'
