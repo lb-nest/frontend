@@ -8,7 +8,7 @@ export const channels: ResourceLanguage = {
       title: 'Telegram',
       description: 'Добавление канала Telegram',
       name: 'Название',
-      token: 'Токен',
+      token: 'API-токен',
     },
     [ChannelType.Webchat]: {
       title: 'Веб-чат',
@@ -20,8 +20,8 @@ export const channels: ResourceLanguage = {
       title: 'Whatsapp',
       description: 'Добавление канала Whatsapp',
       name: 'Название',
-      token: 'Номер телефона',
       accountId: 'Название приложения',
+      token: 'API-ключ',
     },
     submit: 'Добавить',
     cancel: 'Отмена',
