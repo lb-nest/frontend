@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { toast } from 'react-toastify';
+import shortid from 'shortid';
 import { ACCEPT_CONTACT, REOPEN_CONTACT } from '../../../core/api';
 import { Contact, ContactStatus, Message } from '../../../core/types';
 import { ChatHeader } from './header';
@@ -18,7 +19,7 @@ interface ChatProps {
 export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
   const { t } = useTranslation();
 
-  const id = crypto.randomUUID();
+  const id = shortid();
 
   const [accectContact] = useMutation(ACCEPT_CONTACT);
   const [reopenContact] = useMutation(REOPEN_CONTACT);
