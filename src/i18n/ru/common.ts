@@ -32,5 +32,8 @@ export const common: ResourceLanguage = {
     },
     categorieslabel: '',
   },
-  messengerType: {},
+  comingSoon: {
+    title: 'В процессе разработки',
+    description: 'Данный функционал пока недоступен',
+  },
 };

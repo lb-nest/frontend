@@ -1,6 +1,6 @@
-import { Container, Box, Button } from '@mui/material';
+import { Container } from '@mui/material';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { ComingSoon } from '../../components/coming-soon';
 import { Layout } from '../../components/layout';
 import { projectGuard, useGuard } from '../../hooks/use-guard';
 import { NextPageWithLayout } from '../_app';
@@ -8,15 +8,14 @@ import { NextPageWithLayout } from '../_app';
 const MailingsPage: NextPageWithLayout = () => {
   const GuardWrapper = useGuard(projectGuard);
 
-  const { t } = useTranslation();
-
   return (
     <GuardWrapper>
       <Container maxWidth='lg'>
-        <Box display='flex' justifyContent='flex-end' mt={1} mb={1}>
+        <ComingSoon />
+        {/* <Box display='flex' justifyContent='flex-end' mt={1} mb={1}>
           <Button variant='outlined'>{t<string>('mailings:create')}</Button>
         </Box>
-        <Box>content here...</Box>
+        <Box>content here...</Box> */}
       </Container>
     </GuardWrapper>
   );

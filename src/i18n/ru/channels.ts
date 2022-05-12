@@ -2,28 +2,35 @@ import { ResourceLanguage } from 'i18next';
 import { ChannelType } from '../../core/types';
 
 export const channels: ResourceLanguage = {
-  create: 'Добавить канал',
+  create: 'Добавить новый канал',
   modal: {
-    [ChannelType.Telegram]: {
-      title: 'Telegram',
-      description: 'Добавление канала Telegram',
-      name: 'Название',
-      token: 'API-токен',
+    [ChannelType.Telegram]: 'Telegram',
+    [ChannelType.Webchat]: 'Веб-чат',
+    [ChannelType.Whatsapp]: 'Whatsapp',
+    create: {
+      title: 'Добавление нового канала',
+      description: '',
     },
-    [ChannelType.Webchat]: {
-      title: 'Веб-чат',
-      description: 'Добавление канала Веб-чат',
-      name: 'Название',
-      token: 'URL',
+    update: {
+      title: 'Редактирование канала',
+      description: '',
     },
-    [ChannelType.Whatsapp]: {
-      title: 'Whatsapp',
-      description: 'Добавление канала Whatsapp',
-      name: 'Название',
-      accountId: 'Название приложения',
-      token: 'API-ключ',
+    fields: {
+      [ChannelType.Telegram]: {
+        name: 'Название',
+        token: 'API-токен',
+      },
+      [ChannelType.Webchat]: {
+        name: 'Название',
+        token: 'URL',
+      },
+      [ChannelType.Whatsapp]: {
+        name: 'Название',
+        accountId: 'Название приложения',
+        token: 'API-ключ',
+      },
     },
-    submit: 'Добавить',
+    submit: 'Сохранить',
     cancel: 'Отмена',
   },
 };

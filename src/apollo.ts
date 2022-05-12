@@ -5,7 +5,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { createClient } from 'graphql-ws';
 
-const BACKEND_URI = 'http://localhost:8020/graphql';
+const BACKEND_URI = 'http://192.168.0.2:8020/graphql';
 
 const getAuthorization = () => {
   return 'Bearer '.concat(localStorage.getItem('token'));

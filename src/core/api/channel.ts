@@ -56,3 +56,23 @@ export const CREATE_CHANNEL: TypedDocumentNode<CreateChannelResult, CreateChanne
     }
   }
 `;
+
+interface UpdateChannelResult {
+  createChannel: Channel;
+}
+
+interface UpdateChannelVariables {
+  id: number;
+  name: string;
+}
+
+export const UPDATE_CHANNEL: TypedDocumentNode<UpdateChannelResult, UpdateChannelVariables> = gql`
+  mutation UpdateChannel($id: Int!, $name: String!) {
+    updateChannel(id: $id, name: $name) {
+      id
+      name
+      status
+      type
+    }
+  }
+`;

@@ -36,3 +36,25 @@ export const CREATE_WEBHOOK: TypedDocumentNode<CreateWebhookResult, CreateWebhoo
     }
   }
 `;
+
+interface UpdateWebhookResult {
+  updateWebhook: Webhook;
+}
+
+interface UpdateWebhookVariables {
+  id: number;
+  name: string;
+  url: string;
+  eventType: WebhookEventType;
+}
+
+export const UPDATE_WEBHOOK: TypedDocumentNode<UpdateWebhookResult, UpdateWebhookVariables> = gql`
+  mutation UpdateWebhook($id: Int!, $name: String!, $url: String!, $eventType: WebhookEventType!) {
+    updateWebhook(id: $id, name: $name, url: $url, eventType: $eventType) {
+      id
+      name
+      url
+      eventType
+    }
+  }
+`;

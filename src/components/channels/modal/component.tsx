@@ -13,11 +13,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { CREATE_CHANNEL } from '../../../../core/api/channel';
-import { ChannelType } from '../../../../core/types';
+import { CREATE_CHANNEL, UPDATE_CHANNEL } from '../../../core/api';
+import { Channel, ChannelType } from '../../../core/types';
 
-interface CreateChannelModalProps extends DialogProps {
+interface ChannelModalProps extends DialogProps {
   type: ChannelType;
+  initData?: Channel;
   onSubmit?: () => void;
   onCancel?: () => void;
 }
@@ -28,43 +29,66 @@ interface Variables {
   token: string;
 }
 
-export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
+export const ChannelModal: React.FC<ChannelModalProps> = ({
   type,
+  initData,
   onSubmit,
   onCancel,
   ...props
 }) => {
+  const isCreate = initData === undefined;
+
   const { t } = useTranslation();
 
-  const form = useForm();
+  const form = useForm<Variables>();
 
   const [createChannel] = useMutation(CREATE_CHANNEL);
+  const [updateChannel] = useMutation(UPDATE_CHANNEL);
 
   const handleSubmit = (variables: Variables) => {
-    toast
-      .promise(
-        createChannel({
-          variables: {
-            type,
-            ...variables,
-          },
-        }),
-        t<any, any>('common:promise'),
-      )
-      .then(() => onSubmit?.())
-      .catch(() => null);
+    if (isCreate) {
+      toast
+        .promise(
+          createChannel({
+            variables: {
+              type,
+              ...variables,
+            },
+          }),
+          t<any, any>('common:promise'),
+        )
+        .then(() => onSubmit?.())
+        .catch(() => null);
+    } else {
+      toast
+        .promise(
+          updateChannel({
+            variables: {
+              id: initData.id,
+              name: variables.name,
+            },
+          }),
+          t<any, any>('common:promise'),
+        )
+        .then(() => onSubmit?.())
+        .catch(() => null);
+    }
   };
 
   return (
     <Dialog {...props} maxWidth='sm' fullWidth>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <DialogTitle>{t<string>(`channels:modal.${type}.title`)}</DialogTitle>
+        <DialogTitle>
+          {t<string>(`channels:modal.${isCreate ? 'create' : 'update'}.title`)}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>{t<string>(`channels:modal.${type}.description`)}</DialogContentText>
+          <DialogContentText>
+            {t<string>(`channels:modal.${isCreate ? 'create' : 'update'}.description`)}
+          </DialogContentText>
           <TextField
             autoFocus
             margin='dense'
-            label={t(`channels:modal.${type}.name`)}
+            label={t(`channels:modal.fields.${type}.name`)}
             type='text'
             fullWidth
             variant='outlined'
@@ -73,7 +97,7 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
           {type === ChannelType.Whatsapp && (
             <TextField
               margin='dense'
-              label={t(`channels:modal.${type}.accountId`)}
+              label={t(`channels:modal.fields.${type}.accountId`)}
               type='text'
               fullWidth
               variant='outlined'
@@ -82,7 +106,7 @@ export const CreateChannelModal: React.FC<CreateChannelModalProps> = ({
           )}
           <TextField
             margin='dense'
-            label={t(`channels:modal.${type}.token`)}
+            label={t(`channels:modal.fields.${type}.token`)}
             type='text'
             fullWidth
             variant='outlined'
