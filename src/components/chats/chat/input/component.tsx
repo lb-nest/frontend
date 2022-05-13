@@ -19,7 +19,14 @@ interface Variables {
 export const ChatInput: React.FC = React.memo(() => {
   const { t } = useTranslation();
 
-  const { control, ...form } = useForm<Variables>();
+  const { control, ...form } = useForm<Variables>({
+    defaultValues: {
+      text: undefined,
+      attachments: undefined,
+      buttons: undefined,
+    },
+  });
+
   const { append, remove } = useFieldArray({
     control,
     name: 'attachments',
@@ -63,11 +70,7 @@ export const ChatInput: React.FC = React.memo(() => {
         t<any, any>('common:promise'),
       );
 
-      form.reset({
-        text: undefined,
-        attachments: [],
-        buttons: undefined,
-      });
+      form.reset();
     } catch {}
   };
 
