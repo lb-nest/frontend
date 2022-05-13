@@ -45,6 +45,8 @@ export const ChatInput: React.FC = React.memo(() => {
             ? types.AttachmentType.Image
             : types.AttachmentType.Document;
 
+          // TODO: validate file size (image 5mb, document 20 mb)
+
           const result = await upload({
             variables: {
               file,
