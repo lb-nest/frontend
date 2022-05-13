@@ -2,12 +2,13 @@ import { useLazyQuery, useSubscription } from '@apollo/client';
 import React from 'react';
 import { CHATS_COUNT, CHATS_RECEIVED } from '../core/api';
 import { useAppDispatch } from '../redux';
-import { handleReceived, setCount } from '../redux/features/chat-list';
+import * as chatList from '../redux/features/chat-list';
+import * as chat from '../redux/features/chat';
 
 export const useChatsUpdates = () => {
   const dispatch = useAppDispatch();
 
-  const [getChatsCount] = useLazyQuery(CHATS_COUNT, {
+  const [fetchChatsCount] = useLazyQuery(CHATS_COUNT, {
     fetchPolicy: 'no-cache',
   });
 
@@ -15,11 +16,13 @@ export const useChatsUpdates = () => {
 
   React.useEffect(() => {
     if (chats.data) {
-      dispatch(handleReceived(chats.data.chatsReceived));
-      getChatsCount()
+      dispatch(chatList.handleReceived(chats.data.chatsReceived));
+      dispatch(chat.handleReceived(chats.data.chatsReceived));
+
+      fetchChatsCount()
         .then((chatsCount) => {
           if (chatsCount.data) {
-            dispatch(setCount(chatsCount.data.chatsCount));
+            dispatch(chatList.setCount(chatsCount.data.chatsCount));
           }
         })
         .catch(() => null);

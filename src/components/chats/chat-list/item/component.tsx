@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { AddTaskOutlined } from '@mui/icons-material';
 import { Avatar, Box, ButtonBase, IconButton, Typography } from '@mui/material';
-import { formatDistanceToNow } from 'date-fns';
+import { format, formatDistanceToNow } from 'date-fns';
 import * as locales from 'date-fns/locale';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -75,10 +75,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
           flexShrink: 0,
         }}>
         <Typography component='span' variant='body2'>
-          {formatDistanceToNow(new Date(messages[0].updatedAt), {
-            addSuffix: true,
-            locale: locales[i18n.language],
-          })}
+          {format(new Date(messages[0].updatedAt), 'dd.mm.yyyy')}
         </Typography>
       </Box>
       {showAssign && (

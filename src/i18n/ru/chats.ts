@@ -25,6 +25,9 @@ export const chats: ResourceLanguage = {
     },
     message: {
       empty: '<пустое сообщение>',
+      defaultFileName: 'Вложение',
+      download: 'Скачать',
+      unsupportedMediaType: 'Собеседник отправил неподдерживаемое сообщение',
     },
     input: 'Введите сообщение здесь...',
   },

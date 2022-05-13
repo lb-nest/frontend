@@ -1,50 +1,75 @@
-import { Box, Typography } from '@mui/material';
-import { formatDistanceToNow } from 'date-fns';
-import * as locales from 'date-fns/locale';
+import { Box, ImageList, ImageListItem, Typography } from '@mui/material';
+import { format } from 'date-fns';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Message } from '../../../../core/types';
+import { Attachment } from './attachment';
 
 interface ChatItemProps extends Message {}
 
-export const ChatItem: React.FC<ChatItemProps> = ({
-  fromMe,
-  status,
-  content,
-  createdAt,
-  updatedAt,
-}) => {
-  const { t, i18n } = useTranslation();
+export const ChatItem: React.FC<ChatItemProps> = React.memo(
+  ({ fromMe, status, content, createdAt, updatedAt }) => {
+    const { t } = useTranslation();
 
-  const [{ text, attachments, buttons }] = content;
-  const empty = [null, ''].includes(text) && attachments.length === 0 && buttons == null;
+    const [{ text, attachments, buttons }] = content;
+    const empty = [null, ''].includes(text) && attachments.length === 0 && buttons == null;
 
-  return (
-    <Box display='flex' flexDirection='column' alignItems={fromMe ? 'flex-end' : 'flex-start'}>
-      <Box maxWidth='80%' mt='15px'>
-        <Box
-          padding='5px'
-          color={fromMe ? '#fff' : '#000'}
-          bgcolor={fromMe ? '#4356ff' : '#cacaca'}
-          borderRadius='10px'
-          sx={
-            fromMe
-              ? {
-                  borderBottomRightRadius: 0,
-                }
-              : {
-                  borderTopLeftRadius: 0,
-                }
-          }>
-          <Typography component='span'>{empty ? t('chats:chat.message.empty') : text}</Typography>
+    const maxWidth = React.useMemo(() => {
+      if (attachments.length) {
+        return `${250 * Math.min(attachments.length, 3)}px`;
+      }
+
+      return undefined;
+    }, [attachments.length]);
+
+    return (
+      <Box display='flex' flexDirection='column' alignItems={fromMe ? 'flex-end' : 'flex-start'}>
+        <Box display='flex' flexDirection='column' maxWidth='60%' mt='15px'>
+          <Box
+            bgcolor={fromMe ? '#3d5afe' : '#cacaca'}
+            color={fromMe ? '#ffffff' : '#000000'}
+            borderRadius='10px'
+            overflow='hidden'
+            sx={
+              fromMe
+                ? {
+                    borderBottomRightRadius: 0,
+                  }
+                : {
+                    borderTopLeftRadius: 0,
+                  }
+            }>
+            <ImageList
+              gap={0}
+              cols={Math.max(1, Math.min(attachments.length, 3))}
+              sx={{
+                margin: 0,
+              }}>
+              {attachments.map((attachment, i) => (
+                <ImageListItem key={i}>
+                  <Attachment {...attachment} />
+                </ImageListItem>
+              ))}
+            </ImageList>
+            {text && (
+              <Typography
+                component='div'
+                padding='5px'
+                sx={{
+                  maxWidth,
+                  wordBreak: 'break-all',
+                }}>
+                {empty ? t('chats:chat.message.empty') : text}
+              </Typography>
+            )}
+          </Box>
+          <Box alignSelf={fromMe ? 'flex-end' : 'flex-start'}>
+            <Typography component='span' variant='caption'>
+              {format(new Date(updatedAt), 'hh:MM')}
+            </Typography>
+          </Box>
         </Box>
-        <Typography component='span' variant='body2'>
-          {formatDistanceToNow(new Date(updatedAt), {
-            addSuffix: true,
-            locale: locales[i18n.language],
-          })}
-        </Typography>
       </Box>
-    </Box>
-  );
-};
+    );
+  },
+);

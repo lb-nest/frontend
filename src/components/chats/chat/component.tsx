@@ -1,56 +1,18 @@
-import { useMutation } from '@apollo/client';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { nanoid } from 'nanoid';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { toast } from 'react-toastify';
-import { ACCEPT_CONTACT, REOPEN_CONTACT } from '../../../core/api';
-import { Contact, ContactStatus, Message } from '../../../core/types';
+import { useAppSelector } from '../../../redux';
+import { selectChat } from '../../../redux/features/chat';
 import { ChatHeader } from './header';
+import { ChatInput } from './input';
 import { ChatItem } from './item';
-import { TextArea } from './textarea';
+import { ChatOverlay } from './overlay';
 
-interface ChatProps {
-  contact: Contact;
-  messages?: Message[];
-}
+export const Chat: React.FC = () => {
+  const { contact, messages } = useAppSelector(selectChat);
 
-export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
-  const { t } = useTranslation();
-
-  const id = nanoid();
-
-  const [accectContact] = useMutation(ACCEPT_CONTACT);
-  const [reopenContact] = useMutation(REOPEN_CONTACT);
-
-  const handleAccept = () => {
-    toast
-      .promise(
-        accectContact({
-          variables: {
-            id: contact.id,
-          },
-        }),
-        t<any, any>('common:promise'),
-      )
-      .catch(() => null);
-  };
-
-  const handleReopen = () => {
-    toast
-      .promise(
-        reopenContact({
-          variables: {
-            id: contact.id,
-          },
-        }),
-        t<any, any>('common:promise'),
-      )
-      .catch(() => null);
-  };
-
-  const closed = contact.status === ContactStatus.Closed;
+  const id = React.useMemo(() => nanoid(), []);
 
   return (
     <Box display='flex' flexDirection='column' height='100%'>
@@ -79,26 +41,8 @@ export const Chat: React.FC<ChatProps> = ({ contact, messages = [] }) => {
         </InfiniteScroll>
       </Box>
       <Box position='relative'>
-        <TextArea />
-        {contact.assignedTo == null && (
-          <Box
-            width='100%'
-            height='100%'
-            position='absolute'
-            left={0}
-            top={0}
-            bgcolor='#f7f7f7'
-            zIndex={1}>
-            <Button
-              sx={{
-                width: '100%',
-                height: '100%',
-              }}
-              onClick={closed ? handleReopen : handleAccept}>
-              {t<string>('chats:chat.list.'.concat(closed ? 'reopen' : 'accept'))}
-            </Button>
-          </Box>
-        )}
+        <ChatInput />
+        <ChatOverlay contact={contact} />
       </Box>
     </Box>
   );
