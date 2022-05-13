@@ -34,7 +34,7 @@ export const Webhook: React.FC<WebhookProps> = ({
             readOnly: true,
           }}
         />
-        <Typography component='span'>
+        <Typography component='span' variant='caption'>
           {t('webhooks:webhook.fields.eventType')}: {t(`webhooks:eventType.${eventType}`)}
         </Typography>
       </CardContent>
