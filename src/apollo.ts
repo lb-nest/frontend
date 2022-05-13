@@ -20,6 +20,8 @@ const wsLink =
           connectionParams: () => ({
             authorization: getAuthorization(),
           }),
+          shouldRetry: () => true,
+          retryAttempts: 5,
         }),
       );
 
