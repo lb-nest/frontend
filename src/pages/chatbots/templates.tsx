@@ -9,7 +9,12 @@ const ChatbotTemplatesPage: NextPageWithLayout = () => {
 
   return (
     <GuardWrapper>
-      <Container maxWidth='lg'>
+      <Container
+        maxWidth='lg'
+        sx={{
+          height: '100%',
+          overflow: 'auto',
+        }}>
         <Box mt={1}>content here...</Box>
       </Container>
     </GuardWrapper>

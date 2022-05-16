@@ -14,7 +14,12 @@ const ContactsPage: NextPageWithLayout = () => {
 
   return (
     <GuardWrapper>
-      <Container maxWidth='lg'>
+      <Container
+        maxWidth='lg'
+        sx={{
+          height: '100%',
+          overflow: 'auto',
+        }}>
         <Box mt={1}>{contacts.data && <ContactsTable items={contacts.data.contacts} />}</Box>
       </Container>
     </GuardWrapper>
