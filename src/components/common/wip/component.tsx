@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const ComingSoon: React.FC = () => {
+export const WorkInProgress: React.FC = () => {
   const { t } = useTranslation();
 
   return (
