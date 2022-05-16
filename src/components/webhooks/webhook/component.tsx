@@ -27,7 +27,7 @@ export const Webhook: React.FC<WebhookProps> = ({
         <TextField
           fullWidth
           margin='dense'
-          label={t('webhooks:webhook.fields.url')}
+          label={t<string>('webhooks:webhook.fields.url')}
           variant='standard'
           value={url}
           InputProps={{
@@ -35,16 +35,18 @@ export const Webhook: React.FC<WebhookProps> = ({
           }}
         />
         <Typography component='span' variant='caption'>
-          {t('webhooks:webhook.fields.eventType')}: {t(`webhooks:eventType.${eventType}`)}
+          {t<string>('webhooks:webhook.fields.eventType')}
+          {': '}
+          {t<string>(`webhooks:eventType.${eventType}`)}
         </Typography>
       </CardContent>
       <CardActions>
         <Box>
           <Button size='small' onClick={onUpdate}>
-            {t('webhooks:webhook.update')}
+            {t<string>('webhooks:webhook.update')}
           </Button>
           <Button size='small' onClick={onDelete} color='error'>
-            {t('webhooks:webhook.delete')}
+            {t<string>('webhooks:webhook.delete')}
           </Button>
         </Box>
       </CardActions>

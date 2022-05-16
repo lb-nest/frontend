@@ -88,7 +88,7 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
           <TextField
             autoFocus
             margin='dense'
-            label={t(`channels:modal.fields.${type}.name`)}
+            label={t<string>(`channels:modal.fields.${type}.name`)}
             type='text'
             fullWidth
             variant='outlined'
@@ -97,7 +97,7 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
           {type === ChannelType.Whatsapp && (
             <TextField
               margin='dense'
-              label={t(`channels:modal.fields.${type}.accountId`)}
+              label={t<string>(`channels:modal.fields.${type}.accountId`)}
               type='text'
               fullWidth
               variant='outlined'
@@ -106,7 +106,7 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
           )}
           <TextField
             margin='dense'
-            label={t(`channels:modal.fields.${type}.token`)}
+            label={t<string>(`channels:modal.fields.${type}.token`)}
             type='text'
             fullWidth
             variant='outlined'

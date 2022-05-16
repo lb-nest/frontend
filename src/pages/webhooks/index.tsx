@@ -34,7 +34,12 @@ const WebhooksPage: NextPageWithLayout = () => {
 
   return (
     <GuardWrapper>
-      <Container maxWidth='lg'>
+      <Container
+        maxWidth='lg'
+        sx={{
+          height: '100%',
+          overflow: 'auto',
+        }}>
         <Box display='flex' justifyContent='flex-end' mt={1} mb={1}>
           <Button
             variant='outlined'
