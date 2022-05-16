@@ -49,6 +49,7 @@ export const Tag: React.FC<TagProps> = ({
             <Chip
               key={children.id}
               size='small'
+              variant='outlined'
               avatar={
                 <Avatar
                   sx={{
