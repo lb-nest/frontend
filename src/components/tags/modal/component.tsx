@@ -47,7 +47,8 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
 
   const handleSubmit = React.useCallback(
     (variables: Variables) => {
-      if (String(variables.parentId) === 'none') {
+      variables.parentId = Number(variables.parentId);
+      if (Number.isNaN(variables.parentId)) {
         variables.parentId = null;
       }
 
@@ -110,9 +111,9 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             <InputLabel>{t<string>('tags:modal.fields.parentId')}</InputLabel>
             <Select
               label={t<string>('tags:modal.fields.parentId')}
-              defaultValue={initData?.parent?.id ?? 'none'}
+              defaultValue={initData?.parent?.id ?? '-'}
               {...form.register('parentId')}>
-              <MenuItem key={0} value={'none'}>
+              <MenuItem key={0} value='-'>
                 {t<string>('tags:modal.fields.default.parentId')}
               </MenuItem>
               {tags.data?.tags

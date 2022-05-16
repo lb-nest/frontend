@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layout } from '../../components/layout';
 import { Tag, TagModal } from '../../components/tags';
-import { REMOVE_TAG, TAGS, UPDATE_TAG } from '../../core/api';
+import { REMOVE_TAG, TAGS } from '../../core/api';
 import * as types from '../../core/types';
 import { projectGuard, useGuard } from '../../hooks/use-guard';
 import { NextPageWithLayout } from '../_app';
@@ -16,8 +16,7 @@ const TagsPage: NextPageWithLayout = () => {
   const { t } = useTranslation();
 
   const tags = useQuery(TAGS);
-  const [updateTag] = useMutation(UPDATE_TAG);
-  const [removeTag] = useMutation(REMOVE_TAG);
+  const [deleteTag] = useMutation(REMOVE_TAG);
 
   const { showModal } = useModal();
 
@@ -38,7 +37,7 @@ const TagsPage: NextPageWithLayout = () => {
 
   const handleDelete = (id: number) => {
     return () => {
-      removeTag({
+      deleteTag({
         variables: {
           id,
         },
