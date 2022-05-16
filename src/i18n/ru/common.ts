@@ -2,6 +2,7 @@ import { ResourceLanguage } from 'i18next';
 
 export const common: ResourceLanguage = {
   pages: {
+    dashboard: 'Дешборд',
     chats: 'Диалоги',
     contacts: 'Контакты',
     mailings: 'Рассылки',
