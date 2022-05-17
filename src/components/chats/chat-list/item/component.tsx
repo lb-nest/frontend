@@ -40,7 +40,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
             id: contact.id,
           },
         }),
-        t<any, any>('common:promise'),
+        t<any, any>('common:promise', { returnObjects: true }),
       )
       .catch(() => null);
   };

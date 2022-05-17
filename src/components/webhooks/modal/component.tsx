@@ -54,7 +54,7 @@ export const WebhookModal: React.FC<WebhookModalProps> = ({
           createWebhook({
             variables,
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .then(() => onSubmit?.())
         .catch(() => null);
@@ -67,7 +67,7 @@ export const WebhookModal: React.FC<WebhookModalProps> = ({
               ...variables,
             },
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .then(() => onSubmit?.())
         .catch(() => null);

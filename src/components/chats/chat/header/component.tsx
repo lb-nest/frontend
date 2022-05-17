@@ -33,7 +33,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
               id,
             },
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .catch(() => null);
     };
@@ -48,7 +48,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
               id,
             },
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .catch(() => null);
     };

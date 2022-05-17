@@ -25,7 +25,7 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({ contact }) => {
               id,
             },
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .catch(() => null);
     };
@@ -40,7 +40,7 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({ contact }) => {
               id,
             },
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .catch(() => null);
     };

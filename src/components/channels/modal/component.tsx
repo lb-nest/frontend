@@ -55,7 +55,7 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
               ...variables,
             },
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .then(() => onSubmit?.())
         .catch(() => null);
@@ -68,7 +68,7 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
               name: variables.name,
             },
           }),
-          t<any, any>('common:promise'),
+          t<any, any>('common:promise', { returnObjects: true }),
         )
         .then(() => onSubmit?.())
         .catch(() => null);

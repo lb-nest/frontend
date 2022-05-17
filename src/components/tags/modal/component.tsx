@@ -61,7 +61,7 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             createTag({
               variables,
             }),
-            t<any, any>('common:promise'),
+            t<any, any>('common:promise', { returnObjects: true }),
           )
           .then(() => onSubmit?.())
           .catch(() => null);
@@ -74,7 +74,7 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
                 ...variables,
               },
             }),
-            t<any, any>('common:promise'),
+            t<any, any>('common:promise', { returnObjects: true }),
           )
           .then(() => onSubmit?.())
           .catch(() => null);

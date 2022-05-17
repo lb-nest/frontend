@@ -37,4 +37,9 @@ export const common: ResourceLanguage = {
     title: 'В процессе разработки',
     description: 'Данный функционал пока недоступен',
   },
+  promise: {
+    pending: 'Загрузка...',
+    success: 'Успешно!',
+    error: 'Во время выполнения запроса произошла ошибка!',
+  },
 };

@@ -1,6 +1,28 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
 import { Channel, ChannelType } from '../types';
 
+interface CreateChannelResult {
+  createChannel: Channel;
+}
+
+interface CreateChannelVariables {
+  name: string;
+  type: ChannelType;
+  accountId?: string;
+  token: string;
+}
+
+export const CREATE_CHANNEL: TypedDocumentNode<CreateChannelResult, CreateChannelVariables> = gql`
+  mutation CreateChannel($name: String!, $type: ChannelType!, $accountId: String, $token: String!) {
+    createChannel(name: $name, type: $type, accountId: $accountId, token: $token) {
+      id
+      name
+      status
+      type
+    }
+  }
+`;
+
 interface ChannelsResult {
   channels: Channel[];
 }
@@ -27,28 +49,6 @@ interface ChannelByIdVariables {
 export const CHANNEL_BY_ID: TypedDocumentNode<ChannelByIdResult, ChannelByIdVariables> = gql`
   query ChannelById($id: Int!) {
     channelById(id: $id) {
-      id
-      name
-      status
-      type
-    }
-  }
-`;
-
-interface CreateChannelResult {
-  createChannel: Channel;
-}
-
-interface CreateChannelVariables {
-  name: string;
-  type: ChannelType;
-  accountId?: string;
-  token: string;
-}
-
-export const CREATE_CHANNEL: TypedDocumentNode<CreateChannelResult, CreateChannelVariables> = gql`
-  mutation CreateChannel($name: String!, $type: ChannelType!, $accountId: String, $token: String!) {
-    createChannel(name: $name, type: $type, accountId: $accountId, token: $token) {
       id
       name
       status

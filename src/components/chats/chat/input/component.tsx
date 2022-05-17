@@ -3,7 +3,7 @@ import { AttachFileOutlined, SendOutlined } from '@mui/icons-material';
 import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { SubmitHandler, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { CREATE_MESSAGE, UPLOAD } from '../../../../core/api';
@@ -69,14 +69,17 @@ export const ChatInput: React.FC = React.memo(() => {
             attachments,
           },
         }),
-        t<any, any>('common:promise'),
+        t<any, any>('common:promise', { returnObjects: true }),
       );
 
       form.reset();
     } catch {}
   };
 
-  const attachments = form.getValues('attachments');
+  const attachments = useWatch({
+    control,
+    name: 'attachments',
+  });
 
   return (
     <Box>
