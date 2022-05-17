@@ -1,6 +1,9 @@
 import { useMutation, useQuery } from '@apollo/client';
+import { TagOutlined } from '@mui/icons-material';
 import {
+  Avatar,
   Button,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -111,6 +114,7 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             <InputLabel>{t<string>('tags:modal.fields.parentId')}</InputLabel>
             <Select
               label={t<string>('tags:modal.fields.parentId')}
+              type='number'
               defaultValue={initData?.parent?.id ?? '-'}
               {...form.register('parentId')}>
               <MenuItem key={0} value='-'>
@@ -120,7 +124,25 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
                 .filter((tag) => tag.id !== initData?.id)
                 .map((tag) => (
                   <MenuItem key={tag.id} value={tag.id}>
-                    {tag.name}
+                    <Chip
+                      variant='outlined'
+                      size='small'
+                      avatar={
+                        <Avatar
+                          sx={{
+                            bgcolor: tag.color,
+                          }}>
+                          <TagOutlined
+                            sx={{
+                              width: 20,
+                              height: 20,
+                              color: '#ffffff',
+                            }}
+                          />
+                        </Avatar>
+                      }
+                      label={tag.name}
+                    />
                   </MenuItem>
                 ))}
             </Select>

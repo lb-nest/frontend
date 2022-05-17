@@ -50,6 +50,12 @@ export const Tag: React.FC<TagProps> = ({
               key={children.id}
               size='small'
               variant='outlined'
+              sx={{
+                ml: 0.5,
+                ':first-child': {
+                  ml: 0,
+                },
+              }}
               avatar={
                 <Avatar
                   sx={{
