@@ -2,8 +2,6 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { en } from './en';
 import { ru } from './ru';
-import locales from 'date-fns/locale';
-import { isDate } from 'date-fns';
 
 const LNG_KEY = 'lng';
 
