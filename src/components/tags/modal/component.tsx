@@ -41,7 +41,9 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
 
   const { t } = useTranslation();
 
-  const form = useForm<Variables>();
+  const form = useForm<Variables>({
+    defaultValues: initData,
+  });
 
   const tags = useQuery(TAGS);
 
@@ -98,7 +100,6 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             type='text'
             fullWidth
             variant='outlined'
-            defaultValue={initData?.name}
             {...form.register('name')}
           />
           <TextField
@@ -107,7 +108,6 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             type='text'
             fullWidth
             variant='outlined'
-            defaultValue={initData?.description}
             {...form.register('description')}
           />
           <FormControl fullWidth margin='dense'>
@@ -115,7 +115,7 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             <Select
               label={t<string>('tags:modal.fields.parentId')}
               type='number'
-              defaultValue={initData?.parent?.id ?? '-'}
+              defaultValue={'-'}
               {...form.register('parentId')}>
               <MenuItem key={0} value='-'>
                 {t<string>('tags:modal.fields.default.parentId')}
@@ -153,7 +153,7 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             type='color'
             fullWidth
             variant='outlined'
-            defaultValue={initData?.color ?? '#3d5afe'}
+            defaultValue={'#3d5afe'}
             {...form.register('color')}
           />
         </DialogContent>

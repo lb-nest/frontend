@@ -40,7 +40,9 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
 
   const { t } = useTranslation();
 
-  const form = useForm<Variables>();
+  const form = useForm<Variables>({
+    defaultValues: initData,
+  });
 
   const [createChannel] = useMutation(CREATE_CHANNEL);
   const [updateChannel] = useMutation(UPDATE_CHANNEL);
@@ -101,6 +103,7 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
               type='text'
               fullWidth
               variant='outlined'
+              disabled={!isCreate}
               {...form.register('accountId')}
             />
           )}
@@ -110,6 +113,7 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
             type='text'
             fullWidth
             variant='outlined'
+            disabled={!isCreate}
             {...form.register('token')}
           />
         </DialogContent>

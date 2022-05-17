@@ -1,8 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Box, Container } from '@mui/material';
 import React from 'react';
-import { Channel } from '../../components/channels';
-import { CreateChannelButton } from '../../components/channels';
+import { Channel, CreateChannelButton } from '../../components/channels';
 import { Layout } from '../../components/layout';
 import { CHANNELS } from '../../core/api/channel';
 import { projectGuard, useGuard } from '../../hooks/use-guard';

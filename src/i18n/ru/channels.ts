@@ -3,6 +3,10 @@ import { ChannelType } from '../../core/types';
 
 export const channels: ResourceLanguage = {
   create: 'Добавить новый канал',
+  channel: {
+    update: 'Редактировать',
+    delete: 'Удалить',
+  },
   modal: {
     [ChannelType.Telegram]: 'Telegram',
     [ChannelType.Webchat]: 'Веб-чат',

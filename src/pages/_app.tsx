@@ -46,7 +46,7 @@ export default function LeaballApp({ Component, pageProps }: AppPropsWithLayout)
               <CssBaseline />
               <ModalProvider>
                 {getLayout(<Component {...pageProps} />)}
-                <ToastContainer />
+                <ToastContainer position='bottom-right' />
               </ModalProvider>
             </AppThemeProvider>
           </GuardContextProvider>
