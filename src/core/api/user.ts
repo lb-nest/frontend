@@ -40,3 +40,26 @@ export const USER_PROJECTS: TypedDocumentNode<UserProjectsResult> = gql`
     }
   }
 `;
+
+interface UpdateUserResult {
+  updateUser: User;
+}
+
+interface UpdateUserVariables {
+  name?: string;
+  avatarUrl?: string;
+}
+
+export const UPDATE_USER: TypedDocumentNode<UpdateUserResult, UpdateUserVariables> = gql`
+  mutation UpdateUser($name: String, $avatarUrl: String) {
+    updateUser(name: $name, avatarUrl: $avatarUrl) {
+      id
+      name
+      avatarUrl
+      email
+      confirmed
+      createdAt
+      updatedAt
+    }
+  }
+`;

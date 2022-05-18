@@ -1,23 +1,28 @@
 import { useQuery } from '@apollo/client';
 import {
+  AccountBoxOutlined,
   ChatOutlined,
   CodeOutlined,
   ContactMailOutlined,
   ContactPhoneOutlined,
   IntegrationInstructionsOutlined,
+  LogoutOutlined,
   SettingsOutlined,
   SmartToyOutlined,
   SyncAltOutlined,
   TagOutlined,
   WebhookOutlined,
 } from '@mui/icons-material';
-import { Avatar, Box } from '@mui/material';
+import { Avatar, Box, Button, IconButton, Menu, Popover, Typography } from '@mui/material';
+import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { USER } from '../../../core/api';
 import { SidebarItem } from './item';
 
 export const Sidebar: React.FC = () => {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement>();
+
   const { t } = useTranslation();
 
   const user = useQuery(USER);
@@ -80,7 +85,72 @@ export const Sidebar: React.FC = () => {
           <SettingsOutlined />
         </SidebarItem>
         <Box display='flex' flexDirection='column' alignItems='center' mt='30px'>
-          <Avatar src={user.data?.user.avatarUrl} />
+          <IconButton
+            disableRipple
+            sx={{
+              padding: 0,
+            }}
+            onClick={(e) => {
+              setAnchorEl(e.currentTarget);
+            }}>
+            <Avatar src={user.data?.user.avatarUrl} />
+          </IconButton>
+          <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            onClose={() => {
+              setAnchorEl(undefined);
+            }}>
+            <Box
+              display='flex'
+              flexDirection='column'
+              alignItems='flex-start'
+              minWidth={150}
+              maxWidth={300}
+              padding='15px'>
+              <Typography fontSize={22} fontWeight={700}>
+                {user.data?.user.name}
+              </Typography>
+              <Link href='/settings/profile' passHref>
+                <Button
+                  disableRipple
+                  sx={{
+                    color: 'inherit',
+                    textTransform: 'none',
+                    fontSize: 12,
+                    fontWeight: 500,
+                    ':hover': {
+                      bgcolor: 'transparent',
+                    },
+                  }}
+                  startIcon={<AccountBoxOutlined />}>
+                  {t<string>('sidebar:popover.profile')}
+                </Button>
+              </Link>
+              <Button
+                disableRipple
+                sx={{
+                  color: 'inherit',
+                  textTransform: 'none',
+                  fontSize: 12,
+                  fontWeight: 500,
+                  ':hover': {
+                    bgcolor: 'transparent',
+                  },
+                }}
+                startIcon={<LogoutOutlined />}>
+                {t<string>('sidebar:popover.logout')}
+              </Button>
+            </Box>
+          </Popover>
         </Box>
       </Box>
     </Box>

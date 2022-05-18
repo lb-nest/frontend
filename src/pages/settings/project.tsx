@@ -5,7 +5,7 @@ import { SettingsLayout } from '../../components/settings';
 import { projectGuard, useGuard } from '../../hooks/use-guard';
 import { NextPageWithLayout } from '../_app';
 
-const SettingsPage: NextPageWithLayout = () => {
+const ProjectSettingsPage: NextPageWithLayout = () => {
   const GuardWrapper = useGuard(projectGuard);
 
   return (
@@ -17,6 +17,6 @@ const SettingsPage: NextPageWithLayout = () => {
   );
 };
 
-SettingsPage.getLayout = (page) => <SettingsLayout>{page}</SettingsLayout>;
+ProjectSettingsPage.getLayout = (page) => <SettingsLayout>{page}</SettingsLayout>;
 
-export default SettingsPage;
+export default ProjectSettingsPage;

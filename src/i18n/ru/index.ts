@@ -13,6 +13,7 @@ import { mailings } from './mailings';
 import { notifications } from './nitifications';
 import { projects } from './projects';
 import { settings } from './settings';
+import { sidebar } from './sidebar';
 import { tags } from './tags';
 import { webhooks } from './webhooks';
 
@@ -31,6 +32,7 @@ export const ru: ResourceLanguage = {
   notifications,
   projects,
   settings,
+  sidebar,
   tags,
   webhooks,
 };
