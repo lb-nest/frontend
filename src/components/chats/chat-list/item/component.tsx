@@ -1,8 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { AddTaskOutlined } from '@mui/icons-material';
 import { Avatar, Box, ButtonBase, IconButton, Typography } from '@mui/material';
-import { format, formatDistanceToNow } from 'date-fns';
-import * as locales from 'date-fns/locale';
+import { format } from 'date-fns';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +19,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
   messages,
   showAssign = contact.assignedTo == null && contact.status === ContactStatus.Open,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const router = useRouter();
 
