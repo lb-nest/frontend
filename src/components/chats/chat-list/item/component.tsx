@@ -75,7 +75,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
           flexShrink: 0,
         }}>
         <Typography component='span' variant='body2'>
-          {format(new Date(messages[0].updatedAt), 'dd.mm.yyyy')}
+          {format(new Date(messages[0].updatedAt), 'dd.MM.yyyy')}
         </Typography>
       </Box>
       {showAssign && (
