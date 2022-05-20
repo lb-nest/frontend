@@ -20,6 +20,8 @@ interface Variables {
 export const ChatInput: React.FC = React.memo(() => {
   const { t } = useTranslation();
 
+  const router = useRouter();
+
   const { control, ...form } = useForm<Variables>({
     defaultValues: {
       text: undefined,
@@ -28,15 +30,18 @@ export const ChatInput: React.FC = React.memo(() => {
     },
   });
 
+  const files = useWatch({
+    control,
+    name: 'files',
+  });
+
   const { append, remove } = useFieldArray({
     control,
     name: 'files',
   });
 
-  const router = useRouter();
-
-  const upload = useUpload();
   const [createMessage, { loading }] = useMutation(CREATE_MESSAGE);
+  const upload = useUpload();
 
   const handleSubmit: SubmitHandler<Variables> = async ({ files, ...variables }) => {
     try {
@@ -73,11 +78,6 @@ export const ChatInput: React.FC = React.memo(() => {
       form.reset();
     } catch {}
   };
-
-  const files = useWatch({
-    control,
-    name: 'files',
-  });
 
   return (
     <Box>
