@@ -10,13 +10,13 @@ import { ChatListMenu } from './menu';
 interface ChatListProps {}
 
 export const ChatList: React.FC<ChatListProps> = () => {
-  const { t } = useTranslation();
-
   const [expand, setExpand] = React.useState(true);
 
-  const chats = useAppSelector(selectChats);
+  const { t } = useTranslation();
 
+  const chats = useAppSelector(selectChats);
   const type = useAppSelector(selectType);
+
   const title = React.useMemo(() => t<string>(`chats:types.${type}`), [t, type]);
 
   const handleExpand = () => {

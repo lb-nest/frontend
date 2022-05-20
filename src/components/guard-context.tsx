@@ -15,8 +15,8 @@ interface GuardContextProviderProps {
 
 export const GuardContext = React.createContext<Partial<Token>>({});
 export const GuardContextProvider: React.FC<GuardContextProviderProps> = ({ children }) => {
-  const [loading, setLoading] = React.useState(true);
-  const [payload, setPayload] = React.useState<any>(null);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [payload, setPayload] = React.useState<any>();
 
   const signIn = React.useCallback(
     (token: string) => {

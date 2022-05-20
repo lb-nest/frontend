@@ -17,7 +17,7 @@ export const useGuard = (guardFn: GuardFn) => {
   }, [guardFn, guard.payload, router]);
 
   const GuardWrapper: React.FC<GuardWrapperProps> = ({ children }) => {
-    return <>{Boolean(result) && children}</>;
+    return <>{result && children}</>;
   };
 
   return GuardWrapper;

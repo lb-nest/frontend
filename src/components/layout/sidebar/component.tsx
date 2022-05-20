@@ -18,6 +18,7 @@ import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { USER } from '../../../core/api';
+import { GuardContext } from '../../guard-context';
 import { SidebarItem } from './item';
 
 export const Sidebar: React.FC = () => {
@@ -26,6 +27,8 @@ export const Sidebar: React.FC = () => {
   const { t } = useTranslation();
 
   const user = useQuery(USER);
+
+  const guard = React.useContext(GuardContext);
 
   return (
     <Box
@@ -146,7 +149,10 @@ export const Sidebar: React.FC = () => {
                     bgcolor: 'transparent',
                   },
                 }}
-                startIcon={<LogoutOutlined />}>
+                startIcon={<LogoutOutlined />}
+                onClick={() => {
+                  guard?.signOut();
+                }}>
                 {t<string>('sidebar:popover.logout')}
               </Button>
             </Box>

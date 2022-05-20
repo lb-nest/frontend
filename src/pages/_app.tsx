@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { client } from '../apollo';
+import { ChatsUpdatesProvider } from '../components/chats-updates-provider';
 import { GuardContextProvider } from '../components/guard-context';
 import { initI18n } from '../i18n';
 import { store } from '../redux';
@@ -45,7 +46,9 @@ export default function LeaballApp({ Component, pageProps }: AppPropsWithLayout)
             <AppThemeProvider>
               <CssBaseline />
               <ModalProvider>
-                {getLayout(<Component {...pageProps} />)}
+                <ChatsUpdatesProvider>
+                  {getLayout(<Component {...pageProps} />)}
+                </ChatsUpdatesProvider>
                 <ToastContainer position='bottom-right' />
               </ModalProvider>
             </AppThemeProvider>

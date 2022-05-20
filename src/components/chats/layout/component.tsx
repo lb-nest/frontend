@@ -5,6 +5,7 @@ import { Layout } from '../../layout';
 import { ChatList } from '../chat-list';
 
 interface ChatsLayoutProps {
+  type: number;
   children?: React.ReactNode;
 }
 

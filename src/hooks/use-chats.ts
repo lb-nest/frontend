@@ -1,31 +1,20 @@
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import React from 'react';
 import { CHATS, CHATS_COUNT, USER } from '../core/api';
 import { ContactStatus } from '../core/types';
 import { useAppDispatch, useAppSelector } from '../redux';
-import { clearItems, pushItems, selectType, setCount } from '../redux/features/chat-list';
+import { clearChats, selectType, setChats, setChatsCount } from '../redux/features/chat-list';
 
 export const useChats = () => {
   const dispatch = useAppDispatch();
 
-  const user = useQuery(USER);
-
   const type = useAppSelector(selectType);
   React.useEffect(() => {
-    dispatch(clearItems());
+    dispatch(clearChats());
   }, [type]);
 
-  const chatsCount = useQuery(CHATS_COUNT, {
-    fetchPolicy: 'no-cache',
-  });
-
-  React.useEffect(() => {
-    if (chatsCount.data) {
-      dispatch(setCount(chatsCount.data.chatsCount));
-    }
-  }, [chatsCount.data]);
-
-  const queries = React.useMemo(
+  const user = useQuery(USER);
+  const variables = React.useMemo(
     () => [
       {
         assignedTo: user.data?.user.id,
@@ -40,22 +29,27 @@ export const useChats = () => {
         status: ContactStatus.Closed,
       },
     ],
-    [user.data],
+    [user.data?.user.id],
   );
 
-  const [fetchChats] = useLazyQuery(CHATS, {
+  const chats = useQuery(CHATS, {
+    variables: variables[type],
     fetchPolicy: 'no-cache',
   });
 
   React.useEffect(() => {
-    (async () => {
-      const chats = await fetchChats({
-        variables: queries[type],
-      });
+    if (chats.data) {
+      dispatch(setChats(chats.data.chats));
+    }
+  }, [chats]);
 
-      if (chats.data) {
-        dispatch(pushItems(chats.data.chats));
-      }
-    })();
-  }, [fetchChats, type, queries]);
+  const chatsCount = useQuery(CHATS_COUNT, {
+    fetchPolicy: 'no-cache',
+  });
+
+  React.useEffect(() => {
+    if (chatsCount.data) {
+      dispatch(setChatsCount(chatsCount.data.chatsCount));
+    }
+  }, [chatsCount.data]);
 };

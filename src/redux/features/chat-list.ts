@@ -29,13 +29,13 @@ export const chatsSlice = createSlice({
   name: 'chats',
   initialState,
   reducers: {
-    setCount: (state, action: PayloadAction<ChatsCount>) => {
+    setChatsCount: (state, action: PayloadAction<ChatsCount>) => {
       state.count = action.payload;
     },
     setType: (state, action: PayloadAction<number>) => {
       state.type = action.payload;
     },
-    pushItems: (state, action: PayloadAction<Chat[]>) => {
+    setChats: (state, action: PayloadAction<Chat[]>) => {
       state.items = action.payload;
     },
     handleReceived: (state, action: PayloadAction<Chat>) => {
@@ -53,13 +53,13 @@ export const chatsSlice = createSlice({
         state.items.unshift(action.payload);
       }
     },
-    clearItems: (state) => {
+    clearChats: (state) => {
       state.items = [];
     },
   },
 });
 
-export const { setCount, setType, pushItems, handleReceived, clearItems } = chatsSlice.actions;
+export const { setChatsCount, setType, setChats, handleReceived, clearChats } = chatsSlice.actions;
 
 export const selectChats = (state: AppState) => state.chats.items;
 export const selectType = (state: AppState) => state.chats.type;
