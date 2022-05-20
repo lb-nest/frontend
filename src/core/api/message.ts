@@ -1,5 +1,5 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Attachment, Message } from '../types';
+import { Attachment, HsmButton, Message } from '../types';
 
 interface CreateMessageResult {
   createMessage: Message;
@@ -9,7 +9,7 @@ interface CreateMessageVariables {
   chatId: number;
   text?: string;
   attachments?: Attachment[];
-  buttons?: any[];
+  buttons?: HsmButton[];
 }
 
 export const CREATE_MESSAGE: TypedDocumentNode<CreateMessageResult, CreateMessageVariables> = gql`

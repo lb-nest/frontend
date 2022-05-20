@@ -1,4 +1,3 @@
-export * from './attachment';
 export * from './channel';
 export * from './chat';
 export * from './contact';

@@ -15,7 +15,7 @@ export enum HsmButtonType {
   QuickReply = 'QuickReply',
 }
 
-export interface HsmButton {
+export interface HsmButton extends Record<string, any> {
   type: HsmButtonType;
   text: string;
 }
@@ -24,6 +24,6 @@ export interface Hsm {
   id: number;
   code: string;
   text: string;
-  buttons?: any[];
+  buttons?: HsmButton[];
   approval: Approval[];
 }

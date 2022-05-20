@@ -1,5 +1,5 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Hsm } from '../types';
+import { Hsm, HsmButton } from '../types';
 
 interface CreateHsmResult {
   createHsm: Hsm;
@@ -8,7 +8,7 @@ interface CreateHsmResult {
 interface CreateHsmVariables {
   code: string;
   text: string;
-  buttons?: any[];
+  buttons?: HsmButton[];
 }
 
 export const CREATE_HSM: TypedDocumentNode<CreateHsmResult, CreateHsmVariables> = gql`
@@ -62,7 +62,7 @@ interface UpdateHsmResult {
 interface UpdateHsmVariables {
   id: number;
   text?: string;
-  buttons?: any[];
+  buttons?: HsmButton[];
 }
 
 export const UPDATE_HSM: TypedDocumentNode<UpdateHsmResult, UpdateHsmVariables> = gql`
