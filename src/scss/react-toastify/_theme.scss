@@ -33,21 +33,27 @@
   &-theme--light {
     background: var(--toastify-color-progress-light);
   }
+
   &-theme--dark {
     background: var(--toastify-color-progress-dark);
   }
+
   &--info {
     background: var(--toastify-color-progress-info);
   }
+
   &--success {
     background: var(--toastify-color-progress-success);
   }
+
   &--warning {
     background: var(--toastify-color-progress-warning);
   }
+
   &--error {
     background: var(--toastify-color-progress-error);
   }
+
   &-theme--colored#{&}--info,
   &-theme--colored#{&}--success,
   &-theme--colored#{&}--warning,
