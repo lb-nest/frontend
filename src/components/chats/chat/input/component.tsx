@@ -30,12 +30,7 @@ export const ChatInput: React.FC = React.memo(() => {
     },
   });
 
-  const files = useWatch({
-    control,
-    name: 'files',
-  });
-
-  const { append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'files',
   });
@@ -81,9 +76,9 @@ export const ChatInput: React.FC = React.memo(() => {
 
   return (
     <Box>
-      {files?.length > 0 && (
+      {fields?.length > 0 && (
         <Box display='flex' padding='15px 15px 0 10px'>
-          {files.map((file, i) => (
+          {fields.map((file, i) => (
             <Attachment key={i} file={file} onRemove={() => remove(i)} />
           ))}
         </Box>
@@ -100,7 +95,7 @@ export const ChatInput: React.FC = React.memo(() => {
             type='file'
             multiple
             onChange={(event) => {
-              const length = files?.length ?? 0;
+              const length = fields?.length ?? 0;
               append(Array.from(event.target.files).slice(0, 10 - length));
             }}
           />

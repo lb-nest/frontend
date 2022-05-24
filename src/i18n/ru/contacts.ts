@@ -8,9 +8,22 @@ export const contacts: ResourceLanguage = {
     controls: 'Действия',
   },
   modal: {
-    update: {
-      title: '',
+    create: {
+      title: 'Добавление контакта',
       description: '',
     },
+    update: {
+      title: 'Редактирование контакта',
+      description: '',
+    },
+    fields: {
+      id: 'Идентификатор',
+      username: 'Имя пользователя',
+      name: 'Имя',
+      notes: 'Заметки',
+      tags: 'Теги',
+    },
+    submit: 'Сохранить',
+    cancel: 'Отмена',
   },
 };

@@ -31,9 +31,11 @@ const headCells: HeadCell[] = [
 
 interface ContactsTableProps {
   items: Contact[];
+  onUpdate?: (contact: Contact) => void;
+  onDelete?: (contact: Contact) => void;
 }
 
-export const ContactsTable: React.FC<ContactsTableProps> = ({ items }) => {
+export const ContactsTable: React.FC<ContactsTableProps> = ({ items, onUpdate, onDelete }) => {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Contact>('id');
 
@@ -70,10 +72,10 @@ export const ContactsTable: React.FC<ContactsTableProps> = ({ items }) => {
             <TableCell>{item.username}</TableCell>
             <TableCell>{item.name}</TableCell>
             <TableCell align='right'>
-              <IconButton>
+              <IconButton onClick={() => onUpdate?.(item)}>
                 <CreateOutlined />
               </IconButton>
-              <IconButton>
+              <IconButton onClick={() => onDelete?.(item)}>
                 <DeleteOutlined />
               </IconButton>
             </TableCell>

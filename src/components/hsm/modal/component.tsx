@@ -45,7 +45,7 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
     defaultValues: initData,
   });
 
-  const { append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'buttons',
   });
@@ -53,11 +53,6 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
   const text = useWatch({
     control,
     name: 'text',
-  });
-
-  const buttons = useWatch({
-    control,
-    name: 'buttons',
   });
 
   const [createHsm] = useMutation(CREATE_HSM);
@@ -110,7 +105,7 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
     setAnchorEl(undefined);
     setIndex(undefined);
 
-    if (buttons.at(-1).text) {
+    if (fields.at(-1).text) {
       append({
         type: HsmButtonType.QuickReply,
         text: '',
@@ -154,7 +149,7 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
               </Typography>
             </Box>
             <Box display='flex' flexDirection='column' alignItems='flex-end' mt={0.5}>
-              {buttons?.map((button, index, array) => (
+              {fields?.map((button, index, array) => (
                 <Chip
                   key={index}
                   variant='outlined'

@@ -1,3 +1,5 @@
+import { Tag } from './tag';
+
 export interface AssignedTo {
   id: number;
   name: string;
@@ -13,6 +15,10 @@ export interface Contact {
   username: string;
   name: string;
   avatarUrl: string;
+  notes: string;
+  tags: Array<{
+    tag: Omit<Tag, 'parent' | 'children'>;
+  }>;
   resolved: boolean;
   assignedTo?: AssignedTo;
   status: ContactStatus;

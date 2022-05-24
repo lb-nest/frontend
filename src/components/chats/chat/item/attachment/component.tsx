@@ -52,7 +52,7 @@ export const Attachment: React.FC<AttachmentProps> = React.memo(({ type, url, na
     case types.AttachmentType.Image:
       return (
         <Box display='flex' maxWidth={250} width='100%' flexShrink={0}>
-          <Zoom overlayBgColorStart='#00000000' overlayBgColorEnd='#000000b3'>
+          <Zoom overlayBgColorStart='#00000000' overlayBgColorEnd='#00000080'>
             <Box
               component='img'
               display='block'

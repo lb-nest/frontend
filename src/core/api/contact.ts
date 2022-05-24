@@ -12,6 +12,68 @@ export const CONTACTS: TypedDocumentNode<ContactsResult> = gql`
       username
       name
       avatarUrl
+      notes
+      tags {
+        tag {
+          id
+          name
+          description
+          color
+        }
+      }
+      resolved
+      assignedTo {
+        id
+        name
+      }
+      status
+    }
+  }
+`;
+
+interface UpdateContactResult {
+  updateContact: Contact;
+}
+
+interface UpdateContactVariables {
+  id: number;
+  username?: string;
+  name?: string;
+  notes?: string;
+  tags?: number[];
+  resolved?: boolean;
+}
+
+export const UPDATE_CONTACT: TypedDocumentNode<UpdateContactResult, UpdateContactVariables> = gql`
+  mutation UpdateContact(
+    $id: Int!
+    $username: String
+    $name: String
+    $notes: String
+    $tags: [Int!]
+    $resolved: Boolean
+  ) {
+    updateContact(
+      id: $id
+      username: $username
+      name: $name
+      notes: $notes
+      tags: $tags
+      resolved: $resolved
+    ) {
+      id
+      username
+      name
+      avatarUrl
+      notes
+      tags {
+        tag {
+          id
+          name
+          description
+          color
+        }
+      }
       resolved
       assignedTo {
         id
