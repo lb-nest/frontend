@@ -69,7 +69,7 @@ const ProjectsPage: NextPageWithLayout = () => {
                 cursor: 'pointer',
                 transition: '200ms ease',
                 ':hover': {
-                  bgcolor: '#f1f1f1',
+                  bgcolor: '#f0f1f3',
                 },
               }}>
               <Add />

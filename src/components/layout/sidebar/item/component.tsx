@@ -18,16 +18,16 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ title, href, children 
         sx={{
           height: 50,
           position: 'relative',
-          color: '#fff',
+          color: '#f0f1f3',
           '::before': router.pathname.startsWith(href)
             ? {
                 content: '""',
-                width: 3,
+                width: 2,
                 position: 'absolute',
                 right: 0,
                 top: 0,
                 bottom: 0,
-                bgcolor: '#fff',
+                bgcolor: '#f0f1f3',
               }
             : undefined,
         }}>

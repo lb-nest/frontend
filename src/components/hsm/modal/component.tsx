@@ -135,18 +135,18 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
             flexDirection='column'
             alignItems='flex-end'
             padding={2}
-            bgcolor='#f7f7f7'
+            bgcolor='#f0f1f3'
             borderRadius={1}>
             <Box
               maxWidth='80%'
               bgcolor='#3d5afe'
               color='#ffffff'
-              borderRadius='10px'
+              borderRadius={2}
               sx={{
                 borderBottomRightRadius: 0,
               }}>
               <Typography
-                padding='5px'
+                padding={0.5}
                 sx={{
                   wordBreak: 'break-all',
                 }}>

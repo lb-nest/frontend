@@ -21,10 +21,9 @@ export const Attachment: React.FC<AttachmentProps> = React.memo(({ type, url, na
             display='flex'
             alignItems='center'
             width='min-content'
-            margin='5px'
-            padding='10px'
+            margin={0.5}
+            padding={1}
             color='inherit'
-            borderRadius='10px'
             sx={{
               textDecoration: 'none',
             }}
@@ -35,8 +34,8 @@ export const Attachment: React.FC<AttachmentProps> = React.memo(({ type, url, na
             <IconButton
               disableRipple
               sx={{
-                mr: '5px',
-                bgcolor: '#f7f7f7',
+                mr: 1,
+                bgcolor: '#f0f1f3',
               }}>
               <FileUploadOutlined />
             </IconButton>
@@ -53,7 +52,7 @@ export const Attachment: React.FC<AttachmentProps> = React.memo(({ type, url, na
     case types.AttachmentType.Image:
       return (
         <Box display='flex' maxWidth={250} width='100%' flexShrink={0}>
-          <Zoom overlayBgColorStart='#0000' overlayBgColorEnd='#000c'>
+          <Zoom overlayBgColorStart='#00000000' overlayBgColorEnd='#000000b3'>
             <Box
               component='img'
               display='block'
@@ -69,11 +68,11 @@ export const Attachment: React.FC<AttachmentProps> = React.memo(({ type, url, na
 
     default:
       return (
-        <Box display='flex' alignItems='center' padding='5px' color='#f44336'>
+        <Box display='flex' alignItems='center' padding={0.5} color='#f44336'>
           <ErrorOutline />
           <Typography
             sx={{
-              ml: '5px',
+              ml: 0.5,
             }}>
             {t('chats:chat.message.unsupportedMediaType')}
           </Typography>

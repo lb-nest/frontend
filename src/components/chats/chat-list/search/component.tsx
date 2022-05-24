@@ -20,7 +20,7 @@ export const ChatListSearch: React.FC<ChatListSearchProps> = ({ onChange }) => {
           variant='outlined'
           size='small'
           sx={{
-            bgcolor: '#fff',
+            bgcolor: '#ffffff',
           }}
           onChange={handleChange}
           InputProps={{

@@ -10,7 +10,7 @@ interface SettingsLayoutProps {
 export const SettingsLayout: React.FC<SettingsLayoutProps> = ({ children }) => {
   return (
     <Layout i18n='common:pages.settings'>
-      <Box display='flex' width='100%' height='100%' bgcolor='#f7f7f7'>
+      <Box display='flex' width='100%' height='100%' bgcolor='#f0f1f3'>
         <Box
           display='flex'
           flexDirection='column'
@@ -24,7 +24,7 @@ export const SettingsLayout: React.FC<SettingsLayoutProps> = ({ children }) => {
           display='flex'
           flexDirection='column'
           flexGrow={1}
-          borderLeft='1px solid #0002'
+          borderLeft='1px solid #0000003b'
           padding='50px 0'
           overflow='auto'>
           {children}

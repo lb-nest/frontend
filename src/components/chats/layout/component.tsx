@@ -5,7 +5,6 @@ import { Layout } from '../../layout';
 import { ChatList } from '../chat-list';
 
 interface ChatsLayoutProps {
-  type: number;
   children?: React.ReactNode;
 }
 
@@ -14,7 +13,7 @@ export const ChatsLayout: React.FC<ChatsLayoutProps> = ({ children }) => {
 
   return (
     <Layout i18n='common:pages.chats'>
-      <Box display='flex' width='100%' height='100%' bgcolor='#f7f7f7'>
+      <Box display='flex' width='100%' height='100%' bgcolor='#f0f1f3'>
         <Box
           display='flex'
           flexDirection='column'
@@ -24,7 +23,7 @@ export const ChatsLayout: React.FC<ChatsLayoutProps> = ({ children }) => {
           maxWidth={360}>
           <ChatList />
         </Box>
-        <Box display='flex' flexDirection='column' flexGrow={1} borderLeft='1px solid #0002'>
+        <Box display='flex' flexDirection='column' flexGrow={1} borderLeft='1px solid #0000003b'>
           {children}
         </Box>
       </Box>

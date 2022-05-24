@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { CREATE_TAG, TAGS, UPDATE_TAG } from '../../../core/api';
 import { Tag } from '../../../core/types';
+import { randomColor } from './helpers';
 
 interface TagModalProps extends DialogProps {
   initData?: Tag;
@@ -153,7 +154,7 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             type='color'
             fullWidth
             variant='outlined'
-            defaultValue={'#3d5afe'}
+            defaultValue={randomColor()}
             {...form.register('color')}
           />
         </DialogContent>

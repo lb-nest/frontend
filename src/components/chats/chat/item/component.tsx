@@ -26,7 +26,7 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
       <Box display='flex' flexDirection='column' alignItems={fromMe ? 'flex-end' : 'flex-start'}>
         <Box display='flex' flexDirection='column' maxWidth='60%' mt='15px'>
           <Box
-            bgcolor={fromMe ? '#3d5afe' : '#cacaca'}
+            bgcolor={fromMe ? '#3d5afe' : '#c4c8d0'}
             color={fromMe ? '#ffffff' : '#000000'}
             borderRadius='10px'
             overflow='hidden'

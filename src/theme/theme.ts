@@ -16,7 +16,7 @@ export const theme = createTheme({
           },
           '&::-webkit-scrollbar-thumb': {
             borderRadius: 2,
-            backgroundColor: '#0004',
+            backgroundColor: '#0000003b',
           },
         },
       },

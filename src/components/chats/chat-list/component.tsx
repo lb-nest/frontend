@@ -32,7 +32,7 @@ export const ChatList: React.FC<ChatListProps> = () => {
       <Box flexGrow={1} overflow='auto'>
         {chats.length === 0 ? (
           <Box display='flex' alignItems='center' justifyContent='center' height='100%'>
-            <Typography color='#858585'>{t<string>('chats:noData')}</Typography>
+            <Typography color='#6e778a'>{t<string>('chats:noData')}</Typography>
           </Box>
         ) : (
           chats.map((item) => <ChatListItem key={item.id} {...item} />)

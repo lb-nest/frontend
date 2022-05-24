@@ -52,7 +52,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
         alignItems: 'center',
         position: 'relative',
         padding: '5px 15px',
-        bgcolor: Number(router.query.id) === id && '#e1e1e1',
+        bgcolor: Number(router.query.id) === id && '#c4c8d0',
       }}
       onClick={handleOpen}>
       <Avatar
@@ -82,7 +82,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
           sx={{
             position: 'absolute',
             left: 15,
-            color: '#000',
+            color: '#000000',
             zIndex: 1,
           }}
           onClick={handleAssign}>

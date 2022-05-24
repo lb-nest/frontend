@@ -63,7 +63,7 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({ contact }) => {
       position='absolute'
       left={0}
       top={0}
-      bgcolor='#f7f7f7'
+      bgcolor='#f0f1f3'
       zIndex={1}>
       <Button
         sx={{
