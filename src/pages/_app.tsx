@@ -8,12 +8,12 @@ import React from 'react';
 import 'react-medium-image-zoom/dist/styles.css';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { client } from '../apollo';
 import { ChatsUpdatesProvider } from '../components/chats-updates-provider';
 import { GuardContextProvider } from '../components/guard-context';
 import { initI18n } from '../i18n';
 import { store } from '../redux';
+import '../scss/react-toastify/main.scss';
 import { AppThemeProvider } from '../theme';
 
 initI18n();
