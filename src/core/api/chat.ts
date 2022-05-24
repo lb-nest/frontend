@@ -32,6 +32,15 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
         username
         name
         avatarUrl
+        notes
+        tags {
+          tag {
+            id
+            name
+            description
+            color
+          }
+        }
         resolved
         assignedTo {
           id
@@ -72,6 +81,15 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
         username
         name
         avatarUrl
+        notes
+        tags {
+          tag {
+            id
+            name
+            description
+            color
+          }
+        }
         resolved
         assignedTo {
           id
@@ -116,6 +134,15 @@ export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = 
         username
         name
         avatarUrl
+        notes
+        tags {
+          tag {
+            id
+            name
+            description
+            color
+          }
+        }
         resolved
         assignedTo {
           id

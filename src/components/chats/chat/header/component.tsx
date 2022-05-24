@@ -1,11 +1,13 @@
 import { useMutation } from '@apollo/client';
 import { MoreVert } from '@mui/icons-material';
 import { Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { useModal } from 'mui-modal-provider';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { CLOSE_CONTACT, RETURN_CONTACT } from '../../../../core/api';
 import { Contact } from '../../../../core/types';
+import { ContactModal } from '../../../contacts';
 import { ContactCard } from '../contact-card';
 
 interface ChatHeaderProps {
@@ -20,8 +22,20 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
   const [returnContact] = useMutation(RETURN_CONTACT);
   const [closeContact] = useMutation(CLOSE_CONTACT);
 
-  const handleView = () => {
-    return () => {};
+  const { showModal } = useModal();
+
+  const handleShowModal = (initData?: Contact) => {
+    return () => {
+      const modal = showModal(ContactModal, {
+        initData,
+        onSubmit: () => {
+          modal.hide();
+        },
+        onCancel: () => {
+          modal.hide();
+        },
+      });
+    };
   };
 
   const handleReturn = (id: number) => {
@@ -81,7 +95,9 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
           <MoreVert />
         </IconButton>
         <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={() => setAnchorEl(undefined)}>
-          <MenuItem onClick={handleView}>{t<string>('chats:chat.list.view')}</MenuItem>
+          <MenuItem onClick={handleShowModal(contact)}>
+            {t<string>('chats:chat.list.view')}
+          </MenuItem>
           {items}
         </Menu>
       </Box>
