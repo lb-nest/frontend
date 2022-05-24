@@ -43,7 +43,10 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
   const { t } = useTranslation();
 
   const form = useForm<Variables>({
-    defaultValues: initData,
+    defaultValues: {
+      ...initData,
+      parentId: initData?.parent?.id,
+    },
   });
 
   const tags = useQuery(TAGS);
@@ -116,7 +119,7 @@ export const TagModal: React.FC<TagModalProps> = ({ initData, onSubmit, onCancel
             <Select
               label={t<string>('tags:modal.fields.parentId')}
               type='number'
-              defaultValue={'-'}
+              defaultValue={initData?.parent?.id ?? '-'}
               {...form.register('parentId')}>
               <MenuItem key={0} value='-'>
                 {t<string>('tags:modal.fields.default.parentId')}
