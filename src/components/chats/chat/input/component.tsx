@@ -25,8 +25,8 @@ export const ChatInput: React.FC = React.memo(() => {
   const { control, ...form } = useForm<Variables>({
     defaultValues: {
       text: undefined,
-      buttons: undefined,
-      files: undefined,
+      buttons: [],
+      files: [],
     },
   });
 
@@ -71,7 +71,9 @@ export const ChatInput: React.FC = React.memo(() => {
       );
 
       form.reset();
-    } catch {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
