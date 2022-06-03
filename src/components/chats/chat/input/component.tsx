@@ -25,12 +25,17 @@ export const ChatInput: React.FC = React.memo(() => {
   const { control, ...form } = useForm<Variables>({
     defaultValues: {
       text: undefined,
-      buttons: [],
-      files: [],
+      buttons: undefined,
+      files: undefined,
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { append, remove } = useFieldArray({
+    control,
+    name: 'files',
+  });
+
+  const files = useWatch({
     control,
     name: 'files',
   });
@@ -41,8 +46,9 @@ export const ChatInput: React.FC = React.memo(() => {
   const handleSubmit: SubmitHandler<Variables> = async ({ files, ...variables }) => {
     try {
       const attachments =
-        files.length > 0
-          ? await toast.promise(
+        files === undefined
+          ? undefined
+          : await toast.promise(
               Promise.all(
                 files.map(async (file) => ({
                   type:
@@ -54,8 +60,7 @@ export const ChatInput: React.FC = React.memo(() => {
                 })),
               ),
               t<any, any>('common:promise', { returnObjects: true }),
-            )
-          : [];
+            );
 
       await toast.promise(
         createMessage({
@@ -76,9 +81,9 @@ export const ChatInput: React.FC = React.memo(() => {
 
   return (
     <Box>
-      {fields?.length > 0 && (
+      {files?.length > 0 && (
         <Box display='flex' padding='15px 15px 0 10px'>
-          {fields.map((file, i) => (
+          {files.map((file, i) => (
             <Attachment key={i} file={file} onRemove={() => remove(i)} />
           ))}
         </Box>
@@ -95,7 +100,7 @@ export const ChatInput: React.FC = React.memo(() => {
             type='file'
             multiple
             onChange={(event) => {
-              const length = fields?.length ?? 0;
+              const length = files?.length ?? 0;
               append(Array.from(event.target.files).slice(0, 10 - length));
             }}
           />
