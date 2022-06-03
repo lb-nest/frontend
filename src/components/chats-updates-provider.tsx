@@ -1,4 +1,5 @@
 import { useQuery, useSubscription } from '@apollo/client';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { CHATS_COUNT, CHATS_RECEIVED } from '../core/api';
 import { useAppDispatch } from '../redux';
@@ -9,7 +10,9 @@ interface ChatsUpdatesProvider {
   children?: React.ReactNode;
 }
 
-export const ChatsUpdatesProvider: React.FC<ChatsUpdatesProvider> = ({ children }) => {
+export const ChatsUpdatesProvider: React.FC<ChatsUpdatesProvider> = React.memo(({ children }) => {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
 
   const chatsCount = useQuery(CHATS_COUNT);
@@ -17,7 +20,7 @@ export const ChatsUpdatesProvider: React.FC<ChatsUpdatesProvider> = ({ children 
     if (chatsCount.data) {
       dispatch(chatList.setChatsCount(chatsCount.data.chatsCount));
     }
-  }, [chatsCount.data]);
+  }, [dispatch, chatsCount.data]);
 
   const chats = useSubscription(CHATS_RECEIVED, {
     shouldResubscribe: () => true,
@@ -26,11 +29,13 @@ export const ChatsUpdatesProvider: React.FC<ChatsUpdatesProvider> = ({ children 
   React.useEffect(() => {
     if (chats.data) {
       dispatch(chatList.handleReceived(chats.data.chatsReceived));
-      dispatch(chat.handleReceived(chats.data.chatsReceived));
+      if (Number(router.query.chatId) === chats.data.chatsReceived.id) {
+        dispatch(chat.handleReceived(chats.data.chatsReceived));
+      }
 
       chatsCount.refetch();
     }
-  }, [chats.data]);
+  }, [dispatch, chats.data]);
 
   return <>{children}</>;
-};
+});
