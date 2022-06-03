@@ -32,7 +32,7 @@ export default function LeaballApp({ Component, pageProps }: AppPropsWithLayout)
   return (
     <>
       <Head>
-        <title>leadball.io</title>
+        <title>lb-nest</title>
         <meta name='description' content='The most powerful & intuitive chatbot builder' />
         <link rel='apple-touch-icon' href='/favicon.png' />
         <link rel='icon' href='/favicon.png' />

@@ -67,7 +67,7 @@ const SignIn: NextPage = () => {
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <Box display='flex' alignItems='center' justifyContent='space-between'>
             <Box display='flex' alignItems='center'>
-              <Image src='/icon.png' alt='leadball.io' width={64} height={35} />
+              <Image src='/icon.png' alt='logo' width={64} height={35} />
               <Box width={2} height={35} bgcolor='#0000003b' ml={1} mr={1} />
               <Typography>{t('auth:signIn')}</Typography>
             </Box>
