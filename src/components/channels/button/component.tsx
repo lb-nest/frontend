@@ -43,9 +43,9 @@ export const CreateChannelButton: React.FC<CreateChannelButtonProps> = ({ onCrea
         <MenuItem onClick={() => handleShowModal(ChannelType.Webchat)}>
           {t<string>('channels:modal.Webchat')}
         </MenuItem>
-        <MenuItem onClick={() => handleShowModal(ChannelType.Whatsapp)}>
+        {/* <MenuItem onClick={() => handleShowModal(ChannelType.Whatsapp)}>
           {t<string>('channels:modal.Whatsapp')}
-        </MenuItem>
+        </MenuItem> */}
       </Menu>
     </>
   );
