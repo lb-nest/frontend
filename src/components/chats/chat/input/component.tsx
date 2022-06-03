@@ -40,24 +40,22 @@ export const ChatInput: React.FC = React.memo(() => {
 
   const handleSubmit: SubmitHandler<Variables> = async ({ files, ...variables }) => {
     try {
-      const attachments = await toast.promise(
-        Promise.all(
-          files?.map(async (file) => {
-            const type =
-              file.type.startsWith('image/') && file.size <= 5242880
-                ? types.AttachmentType.Image
-                : types.AttachmentType.Document;
-
-            const url = await upload(file);
-            return {
-              type,
-              url,
-              name: file.name,
-            };
-          }),
-        ),
-        t<any, any>('common:promise', { returnObjects: true }),
-      );
+      const attachments =
+        files.length > 0
+          ? await toast.promise(
+              Promise.all(
+                files.map(async (file) => ({
+                  type:
+                    file.type.startsWith('image/') && file.size <= 5242880
+                      ? types.AttachmentType.Image
+                      : types.AttachmentType.Document,
+                  url: await upload(file),
+                  name: file.name,
+                })),
+              ),
+              t<any, any>('common:promise', { returnObjects: true }),
+            )
+          : [];
 
       await toast.promise(
         createMessage({
