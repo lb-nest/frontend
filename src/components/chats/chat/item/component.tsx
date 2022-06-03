@@ -65,7 +65,7 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
           </Box>
           <Box alignSelf={fromMe ? 'flex-end' : 'flex-start'}>
             <Typography component='span' variant='caption'>
-              {format(new Date(updatedAt), 'hh:MM')}
+              {format(new Date(updatedAt), 'HH:mm')}
             </Typography>
           </Box>
         </Box>
