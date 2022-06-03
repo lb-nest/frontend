@@ -29,7 +29,7 @@ export const ChatsUpdatesProvider: React.FC<ChatsUpdatesProvider> = React.memo((
   React.useEffect(() => {
     if (chats.data) {
       dispatch(chatList.handleReceived(chats.data.chatsReceived));
-      if (Number(router.query.chatId) === chats.data.chatsReceived.id) {
+      if (Number(router.query.id) === chats.data.chatsReceived.id) {
         dispatch(chat.handleReceived(chats.data.chatsReceived));
       }
 
