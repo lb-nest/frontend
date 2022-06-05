@@ -23,7 +23,12 @@ export const ChatsLayout: React.FC<ChatsLayoutProps> = ({ children }) => {
           maxWidth={360}>
           <ChatList />
         </Box>
-        <Box display='flex' flexDirection='column' flexGrow={1} borderLeft='1px solid #0000003b'>
+        <Box
+          display='flex'
+          flexDirection='column'
+          flexGrow={1}
+          borderLeft='1px solid #0000003b'
+          overflow='hidden'>
           {children}
         </Box>
       </Box>

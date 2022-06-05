@@ -10,20 +10,19 @@ export const ContactCard: React.FC<ContactCardProps> = React.memo(
     const { t } = useTranslation();
 
     return (
-      <Box display='flex' alignItems='center' flexGrow={1}>
+      <Box display='flex' alignItems='center' flexGrow={1} flexShrink={1} overflow='hidden'>
         <Avatar src={avatarUrl} alt={name} />
         <Box ml='10px'>
-          <Typography component='div' variant='body1'>
-            <Typography component='span' variant='inherit'>
-              {name}
-            </Typography>
+          <Typography component='div' variant='body1' noWrap>
+            {name}
           </Typography>
           <Typography
             component='div'
             variant='body2'
             sx={{
               display: 'flex',
-            }}>
+            }}
+            noWrap>
             <Typography component='div' variant='inherit'>
               {username}
             </Typography>
