@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import deepEqual from 'deep-equal';
 import { Chat, ChatsCount, ContactStatus } from '../../core/types';
 import type { AppState } from '../store';
 
@@ -45,6 +46,11 @@ export const chatsSlice = createSlice({
 
       const index = state.items.findIndex((item) => action.payload.id === item.id);
       if (~index) {
+        if (deepEqual(action.payload.messages[0], state.items[index].messages[0])) {
+          state.items[index] = action.payload;
+          return;
+        }
+
         state.items.splice(index, 1);
       }
 
