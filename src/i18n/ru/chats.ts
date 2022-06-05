@@ -25,10 +25,14 @@ export const chats: ResourceLanguage = {
       sendHsm: 'Шабонное сообщение',
     },
     message: {
-      empty: '<пустое сообщение>',
+      empty: 'Пустое сообщение',
       defaultFileName: 'Вложение',
       download: 'Скачать',
       unsupportedMediaType: 'Собеседник отправил неподдерживаемое сообщение',
+    },
+    system: {
+      today: 'Сегодня',
+      yesterday: 'Вчера',
     },
     input: 'Введите сообщение здесь...',
     sendHsmModal: {

@@ -1,6 +1,8 @@
 import { Box } from '@mui/material';
+import { isSameDay, isToday, isYesterday, format } from 'date-fns';
 import { nanoid } from 'nanoid';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppSelector } from '../../../redux';
 import { selectChat } from '../../../redux/features/chat';
@@ -10,6 +12,8 @@ import { ChatItem } from './item';
 import { ChatOverlay } from './overlay';
 
 export const Chat: React.FC = () => {
+  const { t, i18n } = useTranslation();
+
   const { messages, ...chat } = useAppSelector(selectChat);
 
   const id = React.useMemo(() => nanoid(), []);
@@ -35,8 +39,24 @@ export const Chat: React.FC = () => {
           loader={<div />}
           hasMore
           inverse>
-          {messages.map((message) => (
-            <ChatItem key={message.id} {...message} />
+          {messages.map((message, index, array) => (
+            <React.Fragment key={message.id}>
+              <ChatItem {...message} />
+              {isSameDay(
+                new Date(message.createdAt),
+                new Date(array[index + 1]?.createdAt),
+              ) ? null : (
+                <Box display='flex' flexDirection='column' alignItems='center'>
+                  <Box>
+                    {isToday(new Date(message.createdAt))
+                      ? t<string>('chats:chat.system.today')
+                      : isYesterday(new Date(message.createdAt))
+                      ? t<string>('chats:chat.system.yesterday')
+                      : format(new Date(message.createdAt), 'dd.MM.yyyy')}
+                  </Box>
+                </Box>
+              )}
+            </React.Fragment>
           ))}
         </InfiniteScroll>
       </Box>

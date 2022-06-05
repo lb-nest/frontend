@@ -51,7 +51,7 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
                 </ImageListItem>
               ))}
             </ImageList>
-            {text && (
+            {(Boolean(text) || empty) && (
               <Typography
                 component='div'
                 padding='5px'
@@ -59,7 +59,7 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
                   maxWidth,
                   wordBreak: 'break-all',
                 }}>
-                {empty ? t('chats:chat.message.empty') : text}
+                {empty ? <em>{t('chats:chat.message.empty')}</em> : text}
               </Typography>
             )}
           </Box>

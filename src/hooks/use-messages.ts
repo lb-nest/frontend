@@ -6,10 +6,13 @@ import { handleReceived, setMessages } from '../redux/features/chat';
 export const useMessages = (chatId: number) => {
   const dispatch = useAppDispatch();
 
+  const skip = Number.isNaN(chatId);
+
   useQuery(MESSAGES, {
     variables: {
       chatId,
     },
+    skip,
     fetchPolicy: 'no-cache',
     onCompleted: (data) => {
       dispatch(setMessages(data.messages));
@@ -20,6 +23,7 @@ export const useMessages = (chatId: number) => {
     variables: {
       chatId,
     },
+    skip,
     onSubscriptionData: ({ subscriptionData }) => {
       if (subscriptionData.data) {
         dispatch(handleReceived(subscriptionData.data.messagesReceived));
