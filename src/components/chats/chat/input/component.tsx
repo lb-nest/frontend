@@ -46,7 +46,7 @@ export const ChatInput: React.FC = React.memo(() => {
   const handleSubmit: SubmitHandler<Variables> = async ({ files, ...variables }) => {
     try {
       const attachments =
-        files === undefined
+        files.length === 0
           ? undefined
           : await toast.promise(
               Promise.all(

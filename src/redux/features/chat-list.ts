@@ -3,18 +3,18 @@ import { Chat, ChatsCount, ContactStatus } from '../../core/types';
 import type { AppState } from '../store';
 
 export interface ChatsState {
-  count: ChatsCount;
-  items: Chat[];
   type: number;
+  items: Chat[];
+  count: ChatsCount;
 }
 
 const initialState: ChatsState = {
+  type: 1,
+  items: [],
   count: {
     assigned: 0,
     unassigned: 0,
   },
-  items: [],
-  type: 1,
 };
 
 const toType = (chat: Chat) => {

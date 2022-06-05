@@ -66,3 +66,35 @@ export const MESSAGES: TypedDocumentNode<MessagesResult, MessagesVariables> = gq
     }
   }
 `;
+
+interface MessagesReceivedResult {
+  messagesReceived: Message;
+}
+
+interface MessagesReceivedVariables {
+  chatId: number;
+}
+
+export const MESSAGES_RECEIVED: TypedDocumentNode<
+  MessagesReceivedResult,
+  MessagesReceivedVariables
+> = gql`
+  subscription MessagesReceived($chatId: Int!) {
+    messagesReceived(chatId: $chatId) {
+      id
+      fromMe
+      status
+      content {
+        text
+        attachments {
+          type
+          url
+          name
+        }
+        buttons
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

@@ -32,24 +32,18 @@ export const useChats = () => {
     [user.data?.user.id],
   );
 
-  const chats = useQuery(CHATS, {
+  useQuery(CHATS, {
     variables: variables[type],
     fetchPolicy: 'no-cache',
+    onCompleted: (data) => {
+      dispatch(setChats(data.chats));
+    },
   });
 
-  React.useEffect(() => {
-    if (chats.data) {
-      dispatch(setChats(chats.data.chats));
-    }
-  }, [chats]);
-
-  const chatsCount = useQuery(CHATS_COUNT, {
+  useQuery(CHATS_COUNT, {
     fetchPolicy: 'no-cache',
+    onCompleted: (data) => {
+      dispatch(setChatsCount(data.chatsCount));
+    },
   });
-
-  React.useEffect(() => {
-    if (chatsCount.data) {
-      dispatch(setChatsCount(chatsCount.data.chatsCount));
-    }
-  }, [chatsCount.data]);
 };

@@ -9,7 +9,7 @@ import 'react-medium-image-zoom/dist/styles.css';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { client } from '../apollo';
-import { ChatsUpdatesProvider } from '../components/chats-updates-provider';
+import { ChatsProvider } from '../components/chats-provider';
 import { GuardContextProvider } from '../components/guard-context';
 import { initI18n } from '../i18n';
 import { store } from '../redux';
@@ -26,7 +26,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-export default function LeaballApp({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: React.ReactElement) => page);
 
   return (
@@ -46,9 +46,7 @@ export default function LeaballApp({ Component, pageProps }: AppPropsWithLayout)
             <AppThemeProvider>
               <CssBaseline />
               <ModalProvider>
-                <ChatsUpdatesProvider>
-                  {getLayout(<Component {...pageProps} />)}
-                </ChatsUpdatesProvider>
+                <ChatsProvider>{getLayout(<Component {...pageProps} />)}</ChatsProvider>
                 <ToastContainer position='bottom-right' />
               </ModalProvider>
             </AppThemeProvider>

@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Chat, Message } from '../../core/types';
 import { AppState } from '../store';
-import deepEqual from 'deep-equal';
 
 export interface ChatState extends Partial<Chat> {}
 
@@ -15,33 +14,30 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    setChat: (state, action: PayloadAction<Chat>) => {
+    setIdAndContact: (state, action: PayloadAction<Pick<Chat, 'id' | 'contact'>>) => {
       state.id = action.payload.id;
       state.contact = action.payload.contact;
     },
     setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;
     },
-    handleReceived: (state, action: PayloadAction<Chat>) => {
-      if (!deepEqual(state.contact, action.payload.contact)) {
-        state.contact = action.payload.contact;
-      }
-
-      action.payload.messages.forEach((message) => {
-        const index = state.messages?.findIndex(({ id }) => id === message.id);
-        if (~index) {
-          state.messages[index] = message;
-        } else {
-          if (state.messages.length === 0 || message.id > state.messages.at(-1)?.id) {
-            state.messages.unshift(message);
-          }
+    handleReceived: (state, action: PayloadAction<Message>) => {
+      const index = state.messages?.findIndex(({ id }) => id === action.payload.id);
+      if (~index) {
+        state.messages[index] = action.payload;
+      } else {
+        if (state.messages.length === 0 || action.payload.id > state.messages.at(-1)?.id) {
+          state.messages.unshift(action.payload);
         }
-      });
+      }
+    },
+    clearMessages: (state) => {
+      state.messages = [];
     },
   },
 });
 
-export const { setChat, setMessages, handleReceived } = chatSlice.actions;
+export const { setIdAndContact, setMessages, handleReceived, clearMessages } = chatSlice.actions;
 
 export const selectChat = (state: AppState) => state.chat;
 
