@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { isSameDay, isToday, isYesterday, format } from 'date-fns';
 import { nanoid } from 'nanoid';
 import React from 'react';
@@ -47,13 +47,13 @@ export const Chat: React.FC = () => {
                 new Date(array[index + 1]?.createdAt),
               ) ? null : (
                 <Box display='flex' flexDirection='column' alignItems='center'>
-                  <Box>
+                  <Typography variant='caption'>
                     {isToday(new Date(message.createdAt))
                       ? t<string>('chats:chat.system.today')
                       : isYesterday(new Date(message.createdAt))
                       ? t<string>('chats:chat.system.yesterday')
                       : format(new Date(message.createdAt), 'dd.MM.yyyy')}
-                  </Box>
+                  </Typography>
                 </Box>
               )}
             </React.Fragment>

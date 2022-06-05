@@ -59,7 +59,11 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
                   maxWidth,
                   wordBreak: 'break-all',
                 }}>
-                {empty ? <em>{t('chats:chat.message.empty')}</em> : text}
+                {empty ? (
+                  <Typography variant='caption'>{t('chats:chat.message.empty')}</Typography>
+                ) : (
+                  text
+                )}
               </Typography>
             )}
           </Box>
