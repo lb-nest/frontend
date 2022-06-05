@@ -23,8 +23,12 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
     }, [attachments.length]);
 
     return (
-      <Box display='flex' flexDirection='column' alignItems={fromMe ? 'flex-end' : 'flex-start'}>
-        <Box display='flex' flexDirection='column' maxWidth='60%' mt='15px'>
+      <Box
+        display='flex'
+        flexDirection='column'
+        alignItems={fromMe ? 'flex-end' : 'flex-start'}
+        mt='15px'>
+        <Box display='flex' flexDirection='column' maxWidth='60%'>
           <Box
             bgcolor={fromMe ? '#3d5afe' : '#c4c8d0'}
             color={fromMe ? '#ffffff' : '#000000'}
@@ -60,7 +64,9 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
                   wordBreak: 'break-all',
                 }}>
                 {empty ? (
-                  <Typography variant='caption'>{t('chats:chat.message.empty')}</Typography>
+                  <Typography variant='caption' fontWeight={700} fontStyle='italic'>
+                    {t('chats:chat.message.empty')}
+                  </Typography>
                 ) : (
                   text
                 )}
