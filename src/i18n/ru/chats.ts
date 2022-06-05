@@ -20,7 +20,7 @@ export const chats: ResourceLanguage = {
       accept: 'Принять',
       reopen: 'Открыть заново',
       view: 'Посмотреть контакт',
-      return: 'Возврат в очередь',
+      return: 'Вернуть в очередь',
       close: 'Закрыть',
       sendHsm: 'Шабонное сообщение',
     },

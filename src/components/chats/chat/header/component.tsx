@@ -92,6 +92,11 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
 
   if (contact.assignedTo != null) {
     items.push(
+      <MenuItem key='sendHsm' onClick={handleSendHsmModal({ id, contact })}>
+        {t<string>('chats:chat.list.sendHsm')}
+      </MenuItem>,
+    );
+    items.push(
       <MenuItem key='return' onClick={handleReturn(contact.id)}>
         {t<string>('chats:chat.list.return')}
       </MenuItem>,
@@ -99,11 +104,6 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
     items.push(
       <MenuItem key='close' onClick={handleClose(contact.id)}>
         {t<string>('chats:chat.list.close')}
-      </MenuItem>,
-    );
-    items.push(
-      <MenuItem key='sendHsm' onClick={handleSendHsmModal({ id, contact })}>
-        {t<string>('chats:chat.list.sendHsm')}
       </MenuItem>,
     );
   }
