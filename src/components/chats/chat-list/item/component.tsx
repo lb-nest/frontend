@@ -73,7 +73,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
         sx={{
           flexShrink: 0,
         }}>
-        <Typography component='span' variant='body2'>
+        <Typography component='span' variant='caption'>
           {format(new Date(messages[0].updatedAt), 'dd.MM.yyyy')}
         </Typography>
       </Box>
