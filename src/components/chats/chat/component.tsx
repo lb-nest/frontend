@@ -10,13 +10,13 @@ import { ChatItem } from './item';
 import { ChatOverlay } from './overlay';
 
 export const Chat: React.FC = () => {
-  const { contact, messages } = useAppSelector(selectChat);
+  const { messages, ...chat } = useAppSelector(selectChat);
 
   const id = React.useMemo(() => nanoid(), []);
 
   return (
     <Box display='flex' flexDirection='column' height='100%'>
-      <ChatHeader contact={contact} />
+      <ChatHeader id={chat.id} contact={chat.contact} />
       <Box
         id={id}
         display='flex'
@@ -42,7 +42,7 @@ export const Chat: React.FC = () => {
       </Box>
       <Box position='relative'>
         <ChatInput />
-        <ChatOverlay contact={contact} />
+        <ChatOverlay contact={chat.contact} />
       </Box>
     </Box>
   );

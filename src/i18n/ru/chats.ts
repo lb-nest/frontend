@@ -22,6 +22,7 @@ export const chats: ResourceLanguage = {
       view: 'Посмотреть контакт',
       return: 'Возврат в очередь',
       close: 'Закрыть',
+      sendHsm: 'Шабонное сообщение',
     },
     message: {
       empty: '<пустое сообщение>',
@@ -30,5 +31,11 @@ export const chats: ResourceLanguage = {
       unsupportedMediaType: 'Собеседник отправил неподдерживаемое сообщение',
     },
     input: 'Введите сообщение здесь...',
+    sendHsmModal: {
+      title: 'Отправка сообщения контакту {{name}}',
+      description: '',
+      submit: 'Отправить',
+      cancel: 'Отмена',
+    },
   },
 };

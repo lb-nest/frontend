@@ -6,15 +6,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { CLOSE_CONTACT, RETURN_CONTACT } from '../../../../core/api';
-import { Contact } from '../../../../core/types';
+import { Chat, Contact } from '../../../../core/types';
 import { ContactModal } from '../../../contacts';
 import { ContactCard } from '../contact-card';
+import { SendHsmModal } from '../send-hsm-modal';
 
 interface ChatHeaderProps {
+  id?: number;
   contact?: Contact;
 }
 
-export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
+export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement>();
 
   const { t } = useTranslation();
@@ -24,10 +26,24 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
 
   const { showModal } = useModal();
 
-  const handleShowModal = (initData?: Contact) => {
+  const handleContactModal = (initData?: Contact) => {
     return () => {
       const modal = showModal(ContactModal, {
         initData,
+        onSubmit: () => {
+          modal.hide();
+        },
+        onCancel: () => {
+          modal.hide();
+        },
+      });
+    };
+  };
+
+  const handleSendHsmModal = (chat: Pick<Chat, 'id' | 'contact'>) => {
+    return () => {
+      const modal = showModal(SendHsmModal, {
+        chat,
         onSubmit: () => {
           modal.hide();
         },
@@ -85,6 +101,11 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
         {t<string>('chats:chat.list.close')}
       </MenuItem>,
     );
+    items.push(
+      <MenuItem key='sendHsm' onClick={handleSendHsmModal({ id, contact })}>
+        {t<string>('chats:chat.list.sendHsm')}
+      </MenuItem>,
+    );
   }
 
   return (
@@ -95,7 +116,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ contact }) => {
           <MoreVert />
         </IconButton>
         <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={() => setAnchorEl(undefined)}>
-          <MenuItem onClick={handleShowModal(contact)}>
+          <MenuItem onClick={handleContactModal(contact)}>
             {t<string>('chats:chat.list.view')}
           </MenuItem>
           {items}
