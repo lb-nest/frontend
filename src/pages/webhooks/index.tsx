@@ -63,17 +63,15 @@ const WebhooksPage: NextPageWithLayout = () => {
           </Button>
         </Box>
         <Grid container spacing={2}>
-          {webhooks.data?.webhooks
-            .filter((webhook) => !webhook.name.startsWith('system.'))
-            .map((webhook) => (
-              <Grid key={webhook.id} item xs={6} sm={4}>
-                <Webhook
-                  {...webhook}
-                  onUpdate={handleShowModal(webhook)}
-                  onDelete={handleDelete(webhook.id)}
-                />
-              </Grid>
-            ))}
+          {webhooks.data?.webhooks.map((webhook) => (
+            <Grid key={webhook.id} item xs={6} sm={4}>
+              <Webhook
+                {...webhook}
+                onUpdate={handleShowModal(webhook)}
+                onDelete={handleDelete(webhook.id)}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </GuardWrapper>
