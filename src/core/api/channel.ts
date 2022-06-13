@@ -58,7 +58,7 @@ export const CHANNEL_BY_ID: TypedDocumentNode<ChannelByIdResult, ChannelByIdVari
 `;
 
 interface UpdateChannelResult {
-  createChannel: Channel;
+  updateChannel: Channel;
 }
 
 interface UpdateChannelVariables {

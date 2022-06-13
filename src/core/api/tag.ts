@@ -122,7 +122,7 @@ export const UPDATE_TAG: TypedDocumentNode<UpdateTagResult, UpdateTagVariables> 
 `;
 
 interface RemoveTagResult {
-  deleteTag: {
+  removeTag: {
     id: number;
   };
 }

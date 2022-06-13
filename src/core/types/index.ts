@@ -1,5 +1,6 @@
 export * from './channel';
 export * from './chat';
+export * from './chatbot';
 export * from './contact';
 export * from './hsm';
 export * from './message';

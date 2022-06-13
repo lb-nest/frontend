@@ -60,7 +60,7 @@ export const UPDATE_WEBHOOK: TypedDocumentNode<UpdateWebhookResult, UpdateWebhoo
 `;
 
 interface RemoveWebhookResult {
-  updateWebhook: Webhook;
+  removeWebhook: Webhook;
 }
 
 interface RemoveWebhookVariables {

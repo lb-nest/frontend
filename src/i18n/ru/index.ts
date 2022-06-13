@@ -5,6 +5,7 @@ import { chatbots } from './chatbots';
 import { chats } from './chats';
 import { common } from './common';
 import { contacts } from './contacts';
+import { dashboard } from './dashboard';
 import { docs } from './docs';
 import { hsm } from './hsm';
 import { integrations } from './intgerrations';
@@ -25,6 +26,7 @@ export const ru: ResourceLanguage = {
   chats,
   common,
   contacts,
+  dashboard,
   hsm,
   integrations,
   invites,

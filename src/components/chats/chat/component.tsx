@@ -47,7 +47,7 @@ export const Chat: React.FC = () => {
                 new Date(array[index + 1]?.createdAt),
               ) ? null : (
                 <Box display='flex' justifyContent='center'>
-                  <Typography variant='caption' fontWeight={700}>
+                  <Typography variant='caption' fontWeight={700} color='#6e778a'>
                     {isToday(new Date(message.createdAt))
                       ? t<string>('chats:chat.system.today')
                       : isYesterday(new Date(message.createdAt))
