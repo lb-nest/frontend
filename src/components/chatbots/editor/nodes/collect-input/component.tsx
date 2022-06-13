@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const CollectInput = () => {
+export const CollectInput: React.FC = React.memo(() => {
   return <div></div>;
-};
+});

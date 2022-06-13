@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const Branch = () => {
+export const Branch: React.FC = React.memo(() => {
   return <div></div>;
-};
+});

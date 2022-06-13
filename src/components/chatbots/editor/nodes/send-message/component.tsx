@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const SendMassage = () => {
+export const SendMessage: React.FC = React.memo(() => {
   return <div></div>;
-};
+});
