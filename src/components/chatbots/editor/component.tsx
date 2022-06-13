@@ -5,31 +5,37 @@ import ReactFlow, {
   Background,
   BackgroundVariant,
   Controls,
+  MarkerType,
   NodeMouseHandler,
   OnConnect,
   useEdgesState,
   useNodesState,
   useReactFlow,
 } from 'react-flow-renderer';
+import { useTranslation } from 'react-i18next';
 import { UPDATE_CHATBOT } from '../../../core/api';
 import { Chatbot } from '../../../core/types';
-import { createNodeId, getNodeDataByType } from './helpers';
-import { edgeTypes, NodeType, nodeTypes } from './types';
+import { createEdgeId, createNodeId, getNodeDataByType } from './helpers';
+import { EdgeType, edgeTypes, NodeType, nodeTypes } from './types';
 
 interface ChatbotEditorProps extends Chatbot {}
 
 export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, flow }) => {
+  const { t } = useTranslation();
+
   const [updateChatbot] = useMutation(UPDATE_CHATBOT);
 
   const [variables, setVariables] = React.useState(flow.variables);
 
   const instance = useReactFlow();
-  const [edges, setEdges, onEdgesChange] = useEdgesState(flow.edges);
-  const [nodes, setNodes, onNodesChange] = useNodesState(flow.nodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
 
   const handleDeleteEdge = React.useCallback(
     (id: string) => {
-      setEdges((edges) => edges.filter((edge) => edge.id !== id));
+      return () => {
+        setEdges((edges) => edges.filter((edge) => edge.id !== id));
+      };
     },
     [setEdges],
   );
@@ -65,9 +71,28 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, flow }) => {
     };
   }, []);
 
-  const onConnect: OnConnect = React.useCallback((params) => {
-    setEdges((edges) => addEdge(params, edges));
-  }, []);
+  const onConnect: OnConnect = React.useCallback(
+    (params) => {
+      setEdges((edges) => {
+        const id = createEdgeId();
+        return addEdge(
+          {
+            ...params,
+            id,
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+            },
+            type: EdgeType.Standard,
+            data: {
+              onDelete: handleDeleteEdge(id),
+            },
+          },
+          edges,
+        );
+      });
+    },
+    [setEdges, handleDeleteEdge],
+  );
 
   const handlePaneClick: React.MouseEventHandler = React.useCallback((event) => {
     event.preventDefault();
@@ -135,7 +160,9 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, flow }) => {
     } catch {}
   }, [instance, variables, updateChatbot, id]);
 
-  React.useEffect(() => {}, [flow]);
+  React.useEffect(() => {
+    // TODO: setEdges, setNodes
+  }, [flow]);
 
   return (
     <ReactFlow
@@ -153,7 +180,10 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, flow }) => {
       onDragEnd={handleDragEnd}
       deleteKeyCode={undefined}
       fitView
-      attributionPosition='bottom-right'>
+      attributionPosition='bottom-right'
+      style={{
+        background: '#f0f1f3',
+      }}>
       <Controls />
       <Background color='#000000' variant={BackgroundVariant.Dots} gap={50} />
     </ReactFlow>
