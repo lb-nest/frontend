@@ -14,9 +14,9 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { UPDATE_CHATBOT } from '../../../core/api';
-import { Chatbot } from '../../../core/types';
+import { Chatbot, EdgeType, NodeType } from '../../../core/types';
 import { createEdgeId, createNodeId, getNodeDataByType } from './helpers';
-import { EdgeType, edgeTypes, NodeType, nodeTypes } from './types';
+import { edgeTypes, nodeTypes } from './types';
 
 interface ChatbotEditorProps extends Chatbot {}
 

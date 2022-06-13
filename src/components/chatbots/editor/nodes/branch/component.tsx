@@ -1,5 +1,9 @@
 import React from 'react';
+import { NodeProps } from 'react-flow-renderer';
+import { useTranslation } from 'react-i18next';
 
-export const Branch: React.FC = React.memo(() => {
+export const Branch: React.FC<NodeProps<{}>> = React.memo(({ id, data }) => {
+  const { t } = useTranslation();
+
   return <div></div>;
 });
