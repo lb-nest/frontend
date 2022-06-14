@@ -1,11 +1,11 @@
 import { CloseOutlined } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import React from 'react';
-import { EdgeProps, getBezierPath, getEdgeCenter } from 'react-flow-renderer';
+import { EdgeProps, getEdgeCenter, getSmoothStepPath } from 'react-flow-renderer';
 
 const size = 40;
 
-export const Standard: React.FC<EdgeProps<undefined>> = React.memo(
+export const Standard: React.FC<EdgeProps<{ onDelete?: () => void }>> = React.memo(
   ({
     id,
     sourceX,
@@ -16,28 +16,35 @@ export const Standard: React.FC<EdgeProps<undefined>> = React.memo(
     targetPosition,
     style = {},
     markerEnd,
+    data,
   }) => {
-    const edgePath = getBezierPath({
+    const [centerX, centerY] = getEdgeCenter({
+      sourceX,
+      sourceY,
+      targetX,
+      targetY,
+    });
+
+    const edgePath = getSmoothStepPath({
       sourceX,
       sourceY,
       sourcePosition,
       targetX,
       targetY,
       targetPosition,
-    });
-
-    const [edgeCenterX, edgeCenterY] = getEdgeCenter({
-      sourceX,
-      sourceY,
-      targetX,
-      targetY,
+      centerX,
+      centerY,
+      borderRadius: 20,
     });
 
     return (
       <>
         <path
           id={id}
-          style={style}
+          style={{
+            strokeWidth: 3,
+            ...style,
+          }}
           className='react-flow__edge-path'
           d={edgePath}
           markerEnd={markerEnd}
@@ -45,18 +52,14 @@ export const Standard: React.FC<EdgeProps<undefined>> = React.memo(
         <foreignObject
           width={size}
           height={size}
-          x={edgeCenterX - size / 2}
-          y={edgeCenterY - size / 2}
+          x={centerX - size / 2}
+          y={centerY - size / 2}
           requiredExtensions='http://www.w3.org/1999/xhtml'>
-          <IconButton
-            disableRipple
-            sx={{
-              bgcolor: '#ffffff',
-              color: '#f44336',
-            }}
-            onClick={() => {}}>
-            <CloseOutlined />
-          </IconButton>
+          <Box bgcolor='#ffffff' borderRadius='50%'>
+            <IconButton color='error' onClick={data?.onDelete}>
+              <CloseOutlined />
+            </IconButton>
+          </Box>
         </foreignObject>
       </>
     );
