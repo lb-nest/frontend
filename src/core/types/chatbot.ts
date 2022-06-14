@@ -1,23 +1,10 @@
-export enum EdgeType {
-  Standard = 'Standard',
-}
-
-export enum NodeType {
-  Start = 'Start',
-  SendMessage = 'SendMessage',
-  CollectInput = 'CollectInput',
-  Buttons = 'Buttons',
-  Branch = 'Branch',
-  ServiceCall = 'ServiceCall',
-  Transfer = 'Transfer',
-  AssignTag = 'AssignTag',
-  Close = 'Close',
-}
+import { Edge, Node } from 'react-flow-renderer';
+import { EdgeData, NodeData, Variable } from '../../components/chatbots/editor/types';
 
 export interface Flow {
-  edges: any[];
-  nodes: any[];
-  variables: any[];
+  edges: Edge<EdgeData>[];
+  nodes: Node<NodeData>[];
+  variables: Variable[];
 }
 
 export interface Chatbot {
