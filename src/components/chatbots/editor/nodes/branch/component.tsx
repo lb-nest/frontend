@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 import { BranchItem } from '../../types';
 
+const color = '#3f51b5';
+
 interface BranchData {
   branches: BranchItem[];
 }
 
 export const Branch: React.FC<NodeProps<BranchData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#3f51b5';
 
   return (
     <>

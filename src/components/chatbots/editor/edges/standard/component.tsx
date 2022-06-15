@@ -3,7 +3,7 @@ import { Box, IconButton } from '@mui/material';
 import React from 'react';
 import { EdgeProps, getEdgeCenter, getSmoothStepPath } from 'react-flow-renderer';
 
-const size = 40;
+const size = 34;
 
 export const Standard: React.FC<EdgeProps<{ onDelete?: () => void }>> = React.memo(
   ({
@@ -55,8 +55,8 @@ export const Standard: React.FC<EdgeProps<{ onDelete?: () => void }>> = React.me
           x={centerX - size / 2}
           y={centerY - size / 2}
           requiredExtensions='http://www.w3.org/1999/xhtml'>
-          <Box bgcolor='#ffffff' borderRadius='50%'>
-            <IconButton color='error' onClick={data?.onDelete}>
+          <Box width='min-content' height='min-content' bgcolor='#ffffff' borderRadius='50%'>
+            <IconButton size='small' color='error' onClick={data?.onDelete}>
               <CloseOutlined />
             </IconButton>
           </Box>

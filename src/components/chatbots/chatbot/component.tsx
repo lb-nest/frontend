@@ -1,15 +1,15 @@
 import { useMutation } from '@apollo/client';
 import { MoreVert } from '@mui/icons-material';
-import { Box, IconButton, Link, Menu, MenuItem, Paper, Switch, Typography } from '@mui/material';
+import { Box, IconButton, Menu, MenuItem, Paper, Switch, Typography } from '@mui/material';
 import { formatDistance } from 'date-fns';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import NextLink from 'next/link';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { UPDATE_CHATBOT } from '../../../core/api';
 import * as types from '../../../core/types';
 import { locale } from '../../../i18n';
-import NextLink from 'next/link';
 
 interface ChatbotProps extends types.Chatbot {}
 
@@ -67,17 +67,11 @@ export const Chatbot: React.FC<ChatbotProps> = ({ id, name, updatedAt, enabled }
             <MoreVert />
           </IconButton>
           <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
-            <MenuItem>
-              <NextLink href={`/chatbots/${id}/editor`} passHref>
-                <Link
-                  sx={{
-                    color: 'inherit',
-                    textDecoration: 'inherit',
-                  }}>
-                  {t<string>('chatbots:chatbot.update')}
-                </Link>
-              </NextLink>
-            </MenuItem>
+            <li tabIndex={-1}>
+              <Link href={`/chatbots/${id}/editor`} passHref>
+                <MenuItem component='a'>{t<string>('chatbots:chatbot.update')}</MenuItem>
+              </Link>
+            </li>
             <MenuItem onClick={() => {}}>{t<string>('chatbots:chatbot.delete')}</MenuItem>
           </Menu>
           <Switch checked={enabled} onClick={handleEnabledChange} />

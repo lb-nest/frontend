@@ -5,6 +5,8 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 
+const color = '#ff9100';
+
 interface ServiceCallData {
   request: {
     url: string;
@@ -16,8 +18,6 @@ interface ServiceCallData {
 
 export const ServiceCall: React.FC<NodeProps<ServiceCallData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#ff9100';
 
   return (
     <>

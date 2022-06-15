@@ -12,9 +12,11 @@ const ChatbotEditorPage: NextPageWithLayout = () => {
 
   const router = useRouter();
   const result = useQuery(CHATBOT_BY_ID, {
+    skip: router.query.id === undefined,
     variables: {
       id: Number(router.query.id),
     },
+    fetchPolicy: 'no-cache',
   });
 
   return (

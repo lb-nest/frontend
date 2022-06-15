@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { HsmButton } from '../../../../../core/types';
 import { HandleBase, NodeBase } from '../../fragments';
 
+const color = '#e91e63';
+
 interface ButtonsData {
   text: string;
   buttons: HsmButton[];
@@ -13,8 +15,6 @@ interface ButtonsData {
 
 export const Buttons: React.FC<NodeProps<ButtonsData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#e91e63';
 
   return (
     <>

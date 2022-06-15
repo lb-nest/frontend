@@ -5,14 +5,14 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 
+const color = '#3d5afe';
+
 interface TransferData {
   assignedTo: number | null;
 }
 
 export const Transfer: React.FC<NodeProps<TransferData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#3d5afe';
 
   return (
     <>

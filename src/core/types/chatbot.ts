@@ -1,9 +1,8 @@
-import { Edge, Node } from 'react-flow-renderer';
-import { EdgeData, NodeData, Variable } from '../../components/chatbots/editor/types';
+import { Variable } from '../../components/chatbots/editor/types';
 
 export interface Flow {
-  edges: Edge<EdgeData>[];
-  nodes: Node<NodeData>[];
+  edges: any[];
+  nodes: any[];
   variables: Variable[];
 }
 

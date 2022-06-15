@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 import { ValidationType } from '../../types';
 
+const color = '#651fff';
+
 interface CollectInputData {
   text: string;
   variable: string;
@@ -14,8 +16,6 @@ interface CollectInputData {
 
 export const CollectInput: React.FC<NodeProps<CollectInputData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#651fff';
 
   return (
     <>

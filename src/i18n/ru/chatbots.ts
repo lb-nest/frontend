@@ -25,7 +25,8 @@ export const chatbots: ResourceLanguage = {
   editor: {
     nodes: {
       [NodeType.Start]: {
-        title: 'Начало',
+        title: 'Бот запускается, если…',
+        startHere: 'Начните здесь',
       },
       [NodeType.SendMessage]: {
         title: 'Отправка сообщения',
@@ -43,13 +44,18 @@ export const chatbots: ResourceLanguage = {
         title: 'Вызов стороннего API',
       },
       [NodeType.Transfer]: {
-        title: 'Назначение',
+        title: 'Назначение ответственного',
       },
       [NodeType.AssignTag]: {
         title: 'Присвоение тега',
       },
       [NodeType.Close]: {
         title: 'Закрытие обращения',
+      },
+    },
+    sidebar: {
+      nodeList: {
+        tooltip: 'Перетяните блок на диаграмму',
       },
     },
   },

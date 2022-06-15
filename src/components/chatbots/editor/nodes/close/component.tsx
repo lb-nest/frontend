@@ -5,12 +5,12 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 
+const color = '#f44336';
+
 interface CloseData {}
 
 export const Close: React.FC<NodeProps<CloseData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#f44336';
 
   return (
     <>

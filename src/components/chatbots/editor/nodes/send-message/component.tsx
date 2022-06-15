@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Attachment } from '../../../../../core/types';
 import { HandleBase, NodeBase } from '../../fragments';
 
+const color = '#35baf6';
+
 interface SendMessageData {
   text: string;
   attachments: Attachment[];
@@ -13,8 +15,6 @@ interface SendMessageData {
 
 export const SendMessage: React.FC<NodeProps<SendMessageData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#35baf6';
 
   return (
     <>

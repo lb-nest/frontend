@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 import { TriggerType } from '../../types';
 
+const color = '#6fbf73';
+
 interface StartData {
   trigger: TriggerType;
 }
@@ -13,10 +15,23 @@ interface StartData {
 export const Start: React.FC<NodeProps<StartData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
 
-  const color = '#6fbf73';
-
   return (
     <>
+      <Box
+        position='absolute'
+        left={-48}
+        top={-48}
+        color='#555'
+        sx={{
+          pointerEvents: 'none',
+        }}>
+        <Box fontSize={24} lineHeight={1}>
+          {t<string>('chatbots:editor.nodes.Start.startHere')}
+        </Box>
+        <Box fontSize={64} lineHeight={1}>
+          ⤹
+        </Box>
+      </Box>
       <NodeBase color={color}>
         <Box display='flex' alignItems='center'>
           <KeyboardArrowRightOutlined

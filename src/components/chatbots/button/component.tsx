@@ -6,6 +6,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { CREATE_CHATBOT } from '../../../core/api';
+import { NodeType, TriggerType } from '../editor/types';
 
 interface CreateChatbotButtonProps {
   onCreate?: () => void;
@@ -28,7 +29,20 @@ export const CreateChatbotButton: React.FC<CreateChatbotButtonProps> = ({ onCrea
             name: t<string>('chatbots:newChatbot'),
             flow: {
               edges: [],
-              nodes: [],
+              nodes: [
+                {
+                  id: '0',
+                  type: NodeType.Start,
+                  data: {
+                    name: '',
+                    trigger: TriggerType.NewChat,
+                  },
+                  position: {
+                    x: 0,
+                    y: 0,
+                  },
+                },
+              ],
               variables: [],
             },
           },

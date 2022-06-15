@@ -5,14 +5,14 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 
+const color = '#ffc400';
+
 interface AssignTagData {
   tag: number;
 }
 
 export const AssignTag: React.FC<NodeProps<AssignTagData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
-
-  const color = '#ffc400';
 
   return (
     <>
