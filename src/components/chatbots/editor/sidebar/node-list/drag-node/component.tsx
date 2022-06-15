@@ -19,6 +19,7 @@ export const DragNode: React.FC<DragNodeProps> = ({ icon, color, name, onDragSta
       draggable
       onDragStart={onDragStart}
       sx={{
+        cursor: 'grab',
         ':last-child': {
           mb: 0,
         },
