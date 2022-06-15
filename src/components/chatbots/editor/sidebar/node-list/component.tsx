@@ -67,7 +67,7 @@ export const NodeList: React.FC = () => {
       />
       <DragNode
         icon={<TagOutlined />}
-        color='#f44336'
+        color='#ffac33'
         name={t<string>('chatbots:editor.nodes.AssignTag.title')}
         onDragStart={handleDragStart(NodeType.AssignTag)}
       />

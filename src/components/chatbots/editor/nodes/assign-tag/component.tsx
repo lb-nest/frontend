@@ -5,7 +5,7 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 
-const color = '#f44336';
+const color = '#ffac33';
 
 interface AssignTagData {
   tag: number;
