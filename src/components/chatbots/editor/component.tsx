@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { DataObjectOutlined, SaveOutlined } from '@mui/icons-material';
-import { Box, IconButton, TextField } from '@mui/material';
+import { Box, IconButton, InputBase } from '@mui/material';
 import merge from 'lodash.merge';
 import React from 'react';
 import ReactFlow, {
@@ -256,8 +256,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         sx={{
           transform: 'translateX(50%)',
         }}>
-        <TextField
-          variant='standard'
+        <InputBase
           inputProps={{
             style: {
               textAlign: 'center',
