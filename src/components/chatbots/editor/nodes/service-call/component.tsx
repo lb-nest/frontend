@@ -5,7 +5,7 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 
-const color = '#ff9100';
+const color = '#e91e63';
 
 interface ServiceCallData {
   request: {

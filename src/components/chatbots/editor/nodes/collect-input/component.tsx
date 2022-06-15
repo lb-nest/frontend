@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 import { ValidationType } from '../../types';
 
-const color = '#651fff';
+const color = '#35baf6';
 
 interface CollectInputData {
   text: string;

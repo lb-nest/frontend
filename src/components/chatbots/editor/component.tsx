@@ -12,9 +12,9 @@ import ReactFlow, {
   Node,
   NodeMouseHandler,
   OnConnect,
+  ReactFlowInstance,
   useEdgesState,
   useNodesState,
-  useReactFlow,
 } from 'react-flow-renderer';
 import { useForm } from 'react-hook-form';
 import { UPDATE_CHATBOT } from '../../../core/api';
@@ -38,11 +38,11 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
     },
   });
 
-  const [selectedNode, setSelectedNode] = React.useState<Node<any>>();
   const [variables, setVariables] = React.useState(flow.variables);
+  const [node, setNode] = React.useState<Node<any>>();
 
+  const [instance, onInit] = React.useState<ReactFlowInstance>();
   const ref = React.useRef<HTMLDivElement>();
-  const instance = useReactFlow();
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
 
@@ -67,24 +67,27 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
     [setNodes, setEdges],
   );
 
-  const handleChangeNode = React.useCallback((id: string) => {
-    return (
-      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-    ) => {
-      setNodes((nodes) =>
-        nodes.map((node) => {
-          if (node.id === id) {
-            return {
-              ...node,
-              [event.target.id]: event.target.value,
-            };
-          }
+  const handleChangeNode = React.useCallback(
+    (id: string) => {
+      return (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+      ) => {
+        setNodes((nodes) =>
+          nodes.map((node) => {
+            if (node.id === id) {
+              return {
+                ...node,
+                [event.target.id]: event.target.value,
+              };
+            }
 
-          return node;
-        }),
-      );
-    };
-  }, []);
+            return node;
+          }),
+        );
+      };
+    },
+    [setNodes],
+  );
 
   const onConnect: OnConnect = React.useCallback(
     (params) => {
@@ -109,21 +112,27 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
     [setEdges, handleDeleteEdge],
   );
 
-  const handlePaneClick: React.MouseEventHandler = React.useCallback((event) => {
-    event.preventDefault();
-    setSelectedNode(undefined);
-  }, []);
+  const handlePaneClick: React.MouseEventHandler = React.useCallback(
+    (event) => {
+      event.preventDefault();
+      setNode(undefined);
+    },
+    [setNode],
+  );
 
-  const handleNodeClick: NodeMouseHandler = React.useCallback((event, node) => {
-    event.preventDefault();
-    setSelectedNode(node);
-  }, []);
+  const handleNodeClick: NodeMouseHandler = React.useCallback(
+    (event, node) => {
+      event.preventDefault();
+      setNode(node);
+    },
+    [setNode],
+  );
 
   const handleDrop: React.DragEventHandler<HTMLDivElement> = React.useCallback(
     (event) => {
       event.preventDefault();
 
-      const type = event.dataTransfer.getData('application/react-flow') as NodeType;
+      const type = event.dataTransfer.getData('application/reactflow') as NodeType;
 
       if (!(type in NodeType)) {
         return;
@@ -152,7 +161,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         }),
       );
     },
-    [setNodes, handleDeleteNode],
+    [instance, ref, setNodes, handleChangeNode, handleDeleteNode],
   );
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = React.useCallback((event) => {
@@ -205,7 +214,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         }),
       ),
     );
-  }, [flow, setNodes, setEdges]);
+  }, [setNodes, setEdges, flow, handleDeleteEdge, handleChangeNode, handleDeleteNode]);
 
   return (
     <Box
@@ -223,6 +232,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         onEdgesChange={onEdgesChange}
         onNodesChange={onNodesChange}
         onPaneClick={handlePaneClick}
+        onInit={onInit}
         onConnect={onConnect}
         onNodeClick={handleNodeClick}
         onDrop={handleDrop}
@@ -264,7 +274,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
           <SaveOutlined />
         </IconButton>
       </Box>
-      <Sidebar node={selectedNode} />
+      <Sidebar node={node} />
     </Box>
   );
 };

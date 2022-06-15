@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { HsmButton } from '../../../../../core/types';
 import { HandleBase, NodeBase } from '../../fragments';
 
-const color = '#e91e63';
+const color = '#35baf6';
 
 interface ButtonsData {
   text: string;

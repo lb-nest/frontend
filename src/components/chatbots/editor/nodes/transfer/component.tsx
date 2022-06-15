@@ -5,7 +5,7 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 
-const color = '#3d5afe';
+const color = '#f44336';
 
 interface TransferData {
   assignedTo: number | null;

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../fragments';
 import { BranchItem } from '../../types';
 
-const color = '#3f51b5';
+const color = '#ffeb3b';
 
 interface BranchData {
   branches: BranchItem[];
