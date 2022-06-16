@@ -5,8 +5,6 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { Client, ClientOptions, createClient } from 'graphql-ws';
 
-const BACKEND_URI = 'http://192.168.0.2:8020/graphql';
-
 interface RestartableClient extends Client {
   restart(): void;
 }
@@ -55,7 +53,7 @@ const wsLink =
     ? null
     : new GraphQLWsLink(
         createRestartableClient({
-          url: BACKEND_URI.replace('http', 'ws'),
+          url: process.env.NEXT_PUBLIC_BACKEND_URI.replace('http', 'ws'),
           connectionParams: () => ({
             authorization: getAuthorization(),
           }),
@@ -75,7 +73,7 @@ const link = ApolloLink.from([
       return definition.kind === 'OperationDefinition' && definition.operation !== 'subscription';
     },
     createUploadLink({
-      uri: BACKEND_URI,
+      uri: process.env.NEXT_PUBLIC_BACKEND_URI,
     }),
     wsLink,
   ),
