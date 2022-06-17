@@ -72,7 +72,7 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
           variables: {
             chatId: chat.id,
             text: Object.entries(variables.variables).reduce(
-              (text, [key, val]) => text.replace(key, val || key),
+              (text, [key, val]) => text.replace(key, val ?? key),
               variables.hsm.text,
             ),
             buttons: variables.hsm.buttons,
@@ -122,7 +122,7 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
               if (option) {
                 form.setValue(
                   'variables',
-                  Object.fromEntries(option.text.match(/{{[^{}]*}}/g).map((key) => [key, ''])),
+                  Object.fromEntries(option.text.match(/{{[0-9]+}}/g).map((key) => [key, ''])),
                 );
               }
             }}
