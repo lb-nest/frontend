@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { SmartButtonOutlined } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -9,8 +10,12 @@ import {
   DialogContentText,
   DialogProps,
   DialogTitle,
+  Divider,
+  IconButton,
+  InputBase,
   Popover,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -33,10 +38,10 @@ interface Variables {
 }
 
 export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel, ...props }) => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement>();
-  const [index, setIndex] = React.useState<number>();
-
   const isCreate = initData === undefined;
+
+  const [anchorButton, setAnchorButton] = React.useState<HTMLElement>();
+  const [button, setButton] = React.useState<number>();
 
   const { t } = useTranslation();
 
@@ -44,27 +49,33 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
     defaultValues: initData,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const text = useWatch({
+    control,
+    name: 'text',
+  });
+
+  const { append, remove } = useFieldArray({
     control,
     name: 'buttons',
   });
 
-  const text = useWatch({
+  const buttons = useWatch({
     control,
-    name: 'text',
+    name: 'buttons',
   });
 
   const [createHsm] = useMutation(CREATE_HSM);
   const [updateHsm] = useMutation(UPDATE_HSM);
 
   const handleSubmit = (variables: Variables) => {
-    variables.buttons.splice(-1, 1);
-
     if (isCreate) {
       toast
         .promise(
           createHsm({
-            variables,
+            variables: {
+              ...variables,
+              buttons: variables.buttons.slice(0, -1),
+            },
           }),
           t<any, any>('common:promise', { returnObjects: true }),
         )
@@ -93,27 +104,29 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
     });
   }, []);
 
-  const handleOpen = (index: number): React.MouseEventHandler<HTMLDivElement> => {
+  const handleEditButton = (id: number): React.MouseEventHandler<HTMLDivElement> => {
     return (event) => {
-      setAnchorEl(event.currentTarget);
-      setIndex(index);
+      setAnchorButton(event.currentTarget);
+      setButton(id);
     };
   };
 
-  const handleClose = () => {
-    setAnchorEl(undefined);
-    setIndex(undefined);
-
-    if (fields.at(-1).text) {
+  const handleStopEditButton: React.MouseEventHandler<HTMLDivElement> = () => {
+    if (buttons.at(-1).text) {
       append({
         type: HsmButtonType.QuickReply,
         text: '',
       });
     }
+
+    setAnchorButton(undefined);
+    setButton(undefined);
   };
 
-  const handleDelete = (index: number, length: number) => {
-    return index < length - 1 ? () => remove(index) : undefined;
+  const handleDeleteButton = (id: number) => {
+    if (id < buttons.length - 1) {
+      return () => remove(id);
+    }
   };
 
   return (
@@ -148,9 +161,9 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
               </Typography>
             </Box>
             <Box display='flex' flexDirection='column' alignItems='flex-end' mt={0.5}>
-              {fields?.map((button, index, array) => (
+              {buttons?.map((button, id) => (
                 <Chip
-                  key={index}
+                  key={id}
                   variant='outlined'
                   sx={{
                     mb: 0.5,
@@ -158,15 +171,15 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
                       mb: 0,
                     },
                   }}
-                  label={Boolean(button.text) ? button.text : t<string>('hsm:modal.fields.button')}
-                  onClick={handleOpen(index)}
-                  onDelete={handleDelete(index, array.length)}
+                  label={Boolean(button.text) ? button.text : t<string>('hsm:modal.default.button')}
+                  onClick={handleEditButton(id)}
+                  onDelete={handleDeleteButton(id)}
                 />
               ))}
               <Popover
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                onClose={handleClose}
+                open={Boolean(anchorButton)}
+                anchorEl={anchorButton}
+                onClose={handleStopEditButton}
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right',
@@ -175,8 +188,31 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
                   vertical: 'top',
                   horizontal: 'right',
                 }}>
-                <Box padding={1}>
-                  <TextField size='small' autoFocus {...form.register(`buttons.${index}.text`)} />
+                <Box display='flex' alignItems='center' padding={1}>
+                  <Tooltip title={t<string>(`hsm:modal.fields.button.type.QuickReply`)}>
+                    <IconButton>
+                      <SmartButtonOutlined />
+                    </IconButton>
+                  </Tooltip>
+                  <Divider
+                    orientation='vertical'
+                    sx={{
+                      width: 2,
+                      height: 28,
+                      ml: 1,
+                      mr: 1,
+                    }}
+                  />
+                  <InputBase
+                    inputProps={{
+                      maxLength: 16,
+                    }}
+                    size='small'
+                    autoFocus
+                    type='text'
+                    placeholder={t<string>('hsm:modal.fields.button.tooltip')}
+                    {...form.register(`buttons.${button}.text`)}
+                  />
                 </Box>
               </Popover>
             </Box>
