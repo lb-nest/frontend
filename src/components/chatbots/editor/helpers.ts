@@ -38,6 +38,7 @@ export const getNodeDataByType = (type: NodeType): NodeData => {
       request: {
         url: null,
         headers: {},
+        body: null,
       },
       response: {},
     },
