@@ -67,6 +67,24 @@ export const MESSAGES: TypedDocumentNode<MessagesResult, MessagesVariables> = gq
   }
 `;
 
+interface MarkMesagesAsReadResult {
+  markMessagesAsReadResult: boolean;
+}
+
+interface MarkMessagesAsReadVariables {
+  chatId: number;
+  ids: number[];
+}
+
+export const MARK_MESSAGES_AS_READ: TypedDocumentNode<
+  MarkMesagesAsReadResult,
+  MarkMessagesAsReadVariables
+> = gql`
+  mutation MarkMessagesAsRead($chatId: Int!, $ids: [Int!]!) {
+    markMessagesAsRead(chatId: $chatId, ids: $ids)
+  }
+`;
+
 interface MessagesReceivedResult {
   messagesReceived: Message;
 }

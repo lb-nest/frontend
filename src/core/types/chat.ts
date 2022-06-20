@@ -8,6 +8,7 @@ export interface ChatsCount {
 
 export interface Chat {
   id: number;
+  unreadCount: number;
   contact: Contact;
   messages: Message[];
 }

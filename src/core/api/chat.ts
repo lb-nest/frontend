@@ -64,6 +64,7 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
         createdAt
         updatedAt
       }
+      unreadCount
     }
   }
 `;
@@ -113,6 +114,7 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
         createdAt
         updatedAt
       }
+      unreadCount
     }
   }
 `;
@@ -166,6 +168,7 @@ export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = 
         createdAt
         updatedAt
       }
+      unreadCount
     }
   }
 `;
