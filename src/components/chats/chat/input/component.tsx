@@ -14,7 +14,7 @@ import { Attachment } from './attachment';
 interface Variables {
   text?: string;
   buttons?: types.HsmButton[];
-  files?: File[];
+  files?: any[];
 }
 
 export const ChatInput: React.FC = React.memo(() => {
