@@ -2,6 +2,7 @@ export * from './channel';
 export * from './chat';
 export * from './chatbot';
 export * from './contact';
+export * from './custom-field';
 export * from './hsm';
 export * from './message';
 export * from './project';

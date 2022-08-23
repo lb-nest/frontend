@@ -15,6 +15,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import Mustache from 'mustache';
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -45,7 +46,7 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const hsm = useQuery(HSM);
+  const res = useQuery(HSM);
 
   const { control, ...form } = useForm<Variables>({
     defaultValues: {
@@ -53,7 +54,7 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
     },
   });
 
-  const selected = useWatch({
+  const hsm = useWatch({
     control,
     name: 'hsm',
   });
@@ -71,10 +72,7 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
         createMessage({
           variables: {
             chatId: chat.id,
-            text: Object.entries(variables.variables).reduce(
-              (text, [key, val]) => text.replace(key, val ?? key),
-              variables.hsm.text,
-            ),
+            text: Mustache.render(variables.hsm.text, variables.variables),
             buttons: variables.hsm.buttons,
           },
         }),
@@ -95,7 +93,7 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
             autoHighlight
             filterOptions={filterOptions}
             renderInput={(params) => <TextField {...params} />}
-            options={hsm.data?.hsm ?? []}
+            options={res.data?.hsm ?? []}
             renderOption={(props, option) => (
               <Box
                 component='li'
@@ -122,12 +120,16 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
               if (option) {
                 form.setValue(
                   'variables',
-                  Object.fromEntries(option.text.match(/{{[0-9]+}}/g).map((key) => [key, ''])),
+                  Object.fromEntries(
+                    Mustache.parse(option.text)
+                      .filter(([type]) => type === 'name')
+                      .map(([, name]) => [name, '']),
+                  ),
                 );
               }
             }}
           />
-          {selected && (
+          {hsm && (
             <Paper
               sx={{
                 mt: 2,
@@ -153,14 +155,11 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
                     sx={{
                       wordBreak: 'break-all',
                     }}>
-                    {Object.entries(variables).reduce(
-                      (text, [key, val]) => text.replace(key, val || key),
-                      selected.text,
-                    )}
+                    {Mustache.render(hsm.text, variables)}
                   </Typography>
                 </Box>
                 <Box display='flex' flexDirection='column' alignItems='flex-end' mt={0.5}>
-                  {selected.buttons?.map((button, index) => (
+                  {hsm.buttons?.map((button, index) => (
                     <Chip
                       key={index}
                       variant='outlined'

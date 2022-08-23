@@ -6,7 +6,7 @@ import { Contact } from '../../../../core/types';
 interface ContactCardProps extends Contact {}
 
 export const ContactCard: React.FC<ContactCardProps> = React.memo(
-  ({ username, name, avatarUrl, assignedTo }) => {
+  ({ name, avatarUrl, assignedTo }) => {
     const { t } = useTranslation();
 
     return (
@@ -23,14 +23,10 @@ export const ContactCard: React.FC<ContactCardProps> = React.memo(
               display: 'flex',
             }}
             noWrap>
-            <Typography component='div' variant='inherit'>
-              {username}
-            </Typography>
             <Typography
               component='div'
               variant='inherit'
               sx={{
-                ml: 1,
                 mr: 1,
               }}>
               {t('chats:chat.header.assignedTo')}:

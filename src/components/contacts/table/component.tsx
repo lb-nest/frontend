@@ -22,7 +22,13 @@ const headCells: HeadCell[] = [
     id: 'id',
   },
   {
-    id: 'username',
+    id: 'telegramId',
+  },
+  {
+    id: 'webchatId',
+  },
+  {
+    id: 'whatsappId',
   },
   {
     id: 'name',
@@ -69,7 +75,9 @@ export const ContactsTable: React.FC<ContactsTableProps> = ({ items, onUpdate, o
         {stableSort(items, getComparator(order, orderBy)).map((item) => (
           <TableRow key={item.id}>
             <TableCell>{item.id}</TableCell>
-            <TableCell>{item.username}</TableCell>
+            <TableCell>{item.telegramId}</TableCell>
+            <TableCell>{item.webchatId}</TableCell>
+            <TableCell>{item.whatsappId}</TableCell>
             <TableCell>{item.name}</TableCell>
             <TableCell align='right'>
               <IconButton onClick={() => onUpdate?.(item)}>

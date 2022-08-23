@@ -3,7 +3,9 @@ import { ResourceLanguage } from 'i18next';
 export const contacts: ResourceLanguage = {
   list: {
     id: 'Идентификатор',
-    username: 'Имя пользователя',
+    telegramId: 'Telegram',
+    webchatId: 'Веб-чат',
+    whatsappId: 'WhatsApp',
     name: 'Имя',
     controls: 'Действия',
   },
@@ -18,7 +20,9 @@ export const contacts: ResourceLanguage = {
     },
     fields: {
       id: 'Идентификатор',
-      username: 'Имя пользователя',
+      telegramId: 'Telegram',
+      webchatId: 'Веб-чат',
+      whatsappId: 'WhatsApp',
       name: 'Имя',
       notes: 'Заметки',
       tags: 'Теги',

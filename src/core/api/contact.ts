@@ -9,10 +9,24 @@ export const CONTACTS: TypedDocumentNode<ContactsResult> = gql`
   query Contacts {
     contacts {
       id
-      username
       name
       avatarUrl
       notes
+      status
+      telegramId
+      webchatId
+      whatsappId
+      assignedTo {
+        id
+        name
+      }
+      priority
+      resolved
+      customFields {
+        id
+        name
+        value
+      }
       tags {
         tag {
           id
@@ -21,12 +35,6 @@ export const CONTACTS: TypedDocumentNode<ContactsResult> = gql`
           color
         }
       }
-      resolved
-      assignedTo {
-        id
-        name
-      }
-      status
     }
   }
 `;
@@ -47,25 +55,31 @@ interface UpdateContactVariables {
 export const UPDATE_CONTACT: TypedDocumentNode<UpdateContactResult, UpdateContactVariables> = gql`
   mutation UpdateContact(
     $id: Int!
-    $username: String
     $name: String
     $notes: String
     $tags: [Int!]
     $resolved: Boolean
   ) {
-    updateContact(
-      id: $id
-      username: $username
-      name: $name
-      notes: $notes
-      tags: $tags
-      resolved: $resolved
-    ) {
+    updateContact(id: $id, name: $name, notes: $notes, tags: $tags, resolved: $resolved) {
       id
-      username
       name
       avatarUrl
       notes
+      status
+      telegramId
+      webchatId
+      whatsappId
+      assignedTo {
+        id
+        name
+      }
+      priority
+      resolved
+      customFields {
+        id
+        name
+        value
+      }
       tags {
         tag {
           id
@@ -74,12 +88,6 @@ export const UPDATE_CONTACT: TypedDocumentNode<UpdateContactResult, UpdateContac
           color
         }
       }
-      resolved
-      assignedTo {
-        id
-        name
-      }
-      status
     }
   }
 `;

@@ -29,10 +29,24 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
       id
       contact {
         id
-        username
         name
         avatarUrl
         notes
+        status
+        telegramId
+        webchatId
+        whatsappId
+        assignedTo {
+          id
+          name
+        }
+        priority
+        resolved
+        customFields {
+          id
+          name
+          value
+        }
         tags {
           tag {
             id
@@ -41,12 +55,6 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
             color
           }
         }
-        resolved
-        assignedTo {
-          id
-          name
-        }
-        status
       }
       messages {
         id
@@ -79,10 +87,24 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
       id
       contact {
         id
-        username
         name
         avatarUrl
         notes
+        status
+        telegramId
+        webchatId
+        whatsappId
+        assignedTo {
+          id
+          name
+        }
+        priority
+        resolved
+        customFields {
+          id
+          name
+          value
+        }
         tags {
           tag {
             id
@@ -91,12 +113,6 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
             color
           }
         }
-        resolved
-        assignedTo {
-          id
-          name
-        }
-        status
       }
       messages {
         id
@@ -133,10 +149,24 @@ export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = 
       id
       contact {
         id
-        username
         name
         avatarUrl
         notes
+        status
+        telegramId
+        webchatId
+        whatsappId
+        assignedTo {
+          id
+          name
+        }
+        priority
+        resolved
+        customFields {
+          id
+          name
+          value
+        }
         tags {
           tag {
             id
@@ -145,12 +175,6 @@ export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = 
             color
           }
         }
-        resolved
-        assignedTo {
-          id
-          name
-        }
-        status
       }
       messages {
         id

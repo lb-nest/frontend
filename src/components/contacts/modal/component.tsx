@@ -24,7 +24,6 @@ interface ContactModalProps extends DialogProps {
 }
 
 interface Variables {
-  username?: string;
   name?: string;
   notes?: string;
   tags?: Array<{
@@ -102,15 +101,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({
               variant='outlined'
             />
           )}
-          <TextField
-            margin='dense'
-            label={t<string>('contacts:modal.fields.username')}
-            type='text'
-            disabled={!isCreate}
-            fullWidth
-            variant='outlined'
-            {...form.register('username')}
-          />
           <TextField
             margin='dense'
             label={t<string>('contacts:modal.fields.name')}

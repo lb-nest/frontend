@@ -46,13 +46,9 @@ export const chatsSlice = createSlice({
 
       const index = state.items.findIndex((item) => action.payload.id === item.id);
       if (~index) {
-        const prev = state.items[index];
-        const next = action.payload;
-
         if (
-          next.contact.status === prev.contact.status &&
-          next.contact.assignedTo?.id === prev.contact.assignedTo?.id &&
-          deepEqual(next.messages[0], prev.messages[0])
+          deepEqual(action.payload.contact, state.items[index].contact) &&
+          !deepEqual(action.payload.messages, state.items[index].messages)
         ) {
           state.items[index] = action.payload;
           return;
