@@ -74,9 +74,7 @@ export const ChatInput: React.FC = React.memo(() => {
       );
 
       form.reset();
-    } catch (e) {
-      console.log(e);
-    }
+    } catch {}
   };
 
   return (

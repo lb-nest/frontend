@@ -41,9 +41,7 @@ const NewProjectPage: NextPageWithLayout = () => {
         guard.signIn?.(res.data.createProject.token.token);
         await router.replace('/');
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch {}
   };
 
   return (
