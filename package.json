@@ -29,8 +29,10 @@
     "nanoid": "^3.3.4",
     "next": "^12.2.5",
     "react": "^18.1.0",
+    "react-day-picker": "^8.2.1",
     "react-dom": "^18.1.0",
     "react-flow-renderer": "^10.3.6",
+    "react-google-charts": "^4.0.0",
     "react-hook-form": "^7.30.0",
     "react-i18next": "^11.16.7",
     "react-infinite-scroll-component": "^6.1.0",
@@ -40,9 +42,9 @@
     "sharp": "^0.30.4"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.0.0",
-    "@testing-library/react": "^12.1.0",
-    "@testing-library/user-event": "^13.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/apollo-upload-client": "^17.0.0",
     "@types/deep-equal": "^1.0.1",
     "@types/jest": "^27.0.1",
