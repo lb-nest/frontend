@@ -28,6 +28,23 @@ export const ChatsProvider: React.FC<ChatsUpdatesProvider> = React.memo(({ child
         dispatch(setIdAndContact(subscriptionData.data.chatsReceived));
       }
       refetch();
+
+      if (
+        !subscriptionData.data.chatsReceived.messages[0].fromMe &&
+        !window.document.hasFocus() &&
+        Notification.permission === 'granted'
+      ) {
+        const notification = new Notification(subscriptionData.data.chatsReceived.contact.name, {
+          body: subscriptionData.data.chatsReceived.messages[0].content[0].text,
+          icon: '/favicon.png',
+          renotify: true,
+          tag: subscriptionData.data.chatsReceived.id.toString(),
+        });
+
+        notification.onclick = () => {
+          window.focus();
+        };
+      }
     },
   });
 

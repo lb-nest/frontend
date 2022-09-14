@@ -1,5 +1,5 @@
-import { HelpOutline, NotificationsOutlined } from '@mui/icons-material';
-import { Box, IconButton, Typography } from '@mui/material';
+import { HelpOutline, NotificationsOffOutlined, NotificationsOutlined } from '@mui/icons-material';
+import { Badge, Box, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -9,6 +9,18 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ title }) => {
+  const [permission, setPermission] = React.useState(Notification.permission);
+
+  const handleRequestPermission = (): void => {
+    if (permission === 'default') {
+      Notification.requestPermission()
+        .catch(() => {})
+        .finally(() => {
+          setPermission(Notification.permission);
+        });
+    }
+  };
+
   return (
     <Box
       component='header'
@@ -31,8 +43,10 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
         </Typography>
       </Box>
       <Box display='flex' alignItems='center'>
-        <IconButton>
-          <NotificationsOutlined />
+        <IconButton onClick={handleRequestPermission}>
+          <Badge color='primary' variant='dot' invisible={permission !== 'default'}>
+            {permission === 'granted' ? <NotificationsOutlined /> : <NotificationsOffOutlined />}
+          </Badge>
         </IconButton>
         <Link href='/docs' passHref>
           <IconButton>
