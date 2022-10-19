@@ -25,6 +25,8 @@ export const hsm: ResourceLanguage = {
       button: {
         type: {
           [HsmButtonType.QuickReply]: 'Быстрый ответ',
+          [HsmButtonType.Url]: 'Открыть ссылку',
+          [HsmButtonType.Phone]: 'Телефонный звонок',
         },
         tooltip: 'Текст на кнопке',
       },

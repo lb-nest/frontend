@@ -13,11 +13,15 @@ export interface Approval {
 
 export enum HsmButtonType {
   QuickReply = 'QuickReply',
+  Url = 'Url',
+  Phone = 'Phone',
 }
 
 export interface HsmButton extends Record<string, any> {
   type: HsmButtonType;
   text: string;
+  url?: string;
+  phone?: string;
 }
 
 export interface Hsm {
