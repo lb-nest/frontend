@@ -94,5 +94,5 @@ export enum ValidationType {
   Boolean = 'Boolean',
   Email = 'Email',
   Phone = 'Phone',
-  Regex = 'Regex',
+  RegExp = 'RegExp',
 }

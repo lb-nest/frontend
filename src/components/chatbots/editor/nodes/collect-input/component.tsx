@@ -12,6 +12,7 @@ interface CollectInputData {
   text: string;
   variable: string;
   validation: ValidationType;
+  regexp?: string;
 }
 
 export const CollectInput: React.FC<NodeProps<CollectInputData>> = React.memo(({ id, data }) => {
