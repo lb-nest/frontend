@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import { CssBaseline } from '@mui/material';
+import 'core-js/full';
 import ModalProvider from 'mui-modal-provider';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
