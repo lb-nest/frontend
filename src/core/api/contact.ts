@@ -1,6 +1,23 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
 import { Contact } from '../types';
 
+interface ImportContactsVariables {
+  csvOrXls: File;
+}
+
+interface ImportContactsResult {
+  importContacts: boolean;
+}
+
+export const IMPORT_CONTACTS: TypedDocumentNode<
+  ImportContactsResult,
+  ImportContactsVariables
+> = gql`
+  mutation ImportContacts($csvOrXls: Upload!) {
+    importContacts(csvOrXls: $csvOrXls)
+  }
+`;
+
 interface ContactsResult {
   contacts: Contact[];
 }
