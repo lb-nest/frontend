@@ -7,19 +7,30 @@ interface CreateMessageResult {
 
 interface CreateMessageVariables {
   chatId: number;
+  hsmId?: number;
   text?: string;
   attachments?: Attachment[];
   buttons?: HsmButton[];
+  variables?: Record<string, string>;
 }
 
 export const CREATE_MESSAGE: TypedDocumentNode<CreateMessageResult, CreateMessageVariables> = gql`
   mutation CreateMessage(
     $chatId: Int!
+    $hsmId: Int
     $text: String
     $attachments: [CreateAttachmentInput!]
-    $buttons: [JSON!]
+    $buttons: [CreateButtonInput!]
+    $variables: JSONObject
   ) {
-    createMessage(chatId: $chatId, text: $text, attachments: $attachments, buttons: $buttons) {
+    createMessage(
+      chatId: $chatId
+      hsmId: $hsmId
+      text: $text
+      attachments: $attachments
+      buttons: $buttons
+      variables: $variables
+    ) {
       id
       fromMe
       status

@@ -72,8 +72,10 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
         createMessage({
           variables: {
             chatId: chat.id,
+            hsmId: variables.hsm.id,
             text: Mustache.render(variables.hsm.text, variables.variables),
             buttons: variables.hsm.buttons,
+            variables: variables.variables,
           },
         }),
         t<any, any>('common:promise', { returnObjects: true }),
