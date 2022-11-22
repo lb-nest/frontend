@@ -267,10 +267,10 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         />
       </Box>
       <Box position='absolute' right={0} top={0} padding={1} zIndex={1001}>
-        <IconButton size='large' color='info'>
+        <IconButton size='large' color='secondary'>
           <DataObjectOutlined />
         </IconButton>
-        <IconButton type='submit' size='large' color='success'>
+        <IconButton type='submit' size='large' color='primary'>
           <SaveOutlined />
         </IconButton>
       </Box>
