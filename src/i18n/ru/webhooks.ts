@@ -29,10 +29,6 @@ export const webhooks: ResourceLanguage = {
     cancel: 'Отмена',
   },
   eventType: {
-    [WebhookEventType.All]: 'Все',
-    [WebhookEventType.IncomingChats]: 'Входящие чаты',
-    [WebhookEventType.IncomingMessages]: 'Входящие сообщения',
-    [WebhookEventType.OutgoingChats]: 'Исходящие чаты',
-    [WebhookEventType.OutgoingMessages]: 'Исходящие сообщения',
+    [WebhookEventType.All]: 'Все события',
   },
 };
