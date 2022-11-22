@@ -11,6 +11,7 @@ import { NodeType } from '../../types';
 const color = nodeColors[NodeType.SendMessage];
 
 interface SendMessageData {
+  name: string;
   text: string;
   attachments: Attachment[];
 }
@@ -33,7 +34,12 @@ export const SendMessage: React.FC<NodeProps<SendMessageData>> = React.memo(({ i
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.SendMessage.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.SendMessage.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
       <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />

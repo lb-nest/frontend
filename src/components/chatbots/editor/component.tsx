@@ -60,10 +60,10 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
   const handleDeleteNode = React.useCallback(
     (id: string) => {
       return () => {
-        setNodes((nodes) => nodes.filter((node) => node.id == id));
-        setEdges((edges) => {
-          return edges.filter((edge) => ![edge.source, edge.target].includes(id));
-        });
+        setNodes((nodes) => nodes.filter((node) => node.id !== id));
+        setEdges((edges) => edges.filter((edge) => ![edge.source, edge.target].includes(id)));
+
+        setNode(undefined);
       };
     },
     [setNodes, setEdges],

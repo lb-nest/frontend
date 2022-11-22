@@ -10,6 +10,7 @@ import { NodeType } from '../../types';
 const color = nodeColors[NodeType.Transfer];
 
 interface TransferData {
+  name: string;
   assignedTo: number | null;
 }
 
@@ -31,7 +32,12 @@ export const Transfer: React.FC<NodeProps<TransferData>> = React.memo(({ id, dat
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.Transfer.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.Transfer.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
     </>

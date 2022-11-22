@@ -10,6 +10,7 @@ import { NodeType } from '../../types';
 const color = nodeColors[NodeType.AssignTag];
 
 interface AssignTagData {
+  name: string;
   tagId: number;
 }
 
@@ -31,7 +32,12 @@ export const AssignTag: React.FC<NodeProps<AssignTagData>> = React.memo(({ id, d
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.AssignTag.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.AssignTag.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
       <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />

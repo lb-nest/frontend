@@ -10,6 +10,7 @@ import { BranchItem, NodeType } from '../../types';
 const color = nodeColors[NodeType.Branch];
 
 interface BranchData {
+  name: string;
   branches: BranchItem[];
 }
 
@@ -31,7 +32,12 @@ export const Branch: React.FC<NodeProps<BranchData>> = React.memo(({ id, data })
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.Branch.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.Branch.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
     </>

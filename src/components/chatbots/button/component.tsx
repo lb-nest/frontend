@@ -6,7 +6,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { CREATE_CHATBOT } from '../../../core/api';
-import { getNodeDataByType } from '../editor/helpers';
+import { createNodeId, getNodeDataByType } from '../editor/helpers';
 import { NodeType } from '../editor/types';
 
 interface CreateChatbotButtonProps {
@@ -27,12 +27,12 @@ export const CreateChatbotButton: React.FC<CreateChatbotButtonProps> = ({ onCrea
       const result = await toast.promise(
         createChatbot({
           variables: {
-            name: t<string>('chatbots:newChatbot'),
+            name: t<string>('chatbots:defaultName'),
             flow: {
               edges: [],
               nodes: [
                 {
-                  id: 'Start',
+                  id: createNodeId(),
                   type: NodeType.Start,
                   data: getNodeDataByType(NodeType.Start),
                   position: {

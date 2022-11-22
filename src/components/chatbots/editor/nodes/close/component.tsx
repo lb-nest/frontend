@@ -9,7 +9,9 @@ import { NodeType } from '../../types';
 
 const color = nodeColors[NodeType.Close];
 
-interface CloseData {}
+interface CloseData {
+  name: string;
+}
 
 export const Close: React.FC<NodeProps<CloseData>> = React.memo(({ id, data }) => {
   const { t } = useTranslation();
@@ -29,7 +31,12 @@ export const Close: React.FC<NodeProps<CloseData>> = React.memo(({ id, data }) =
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.Close.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.Close.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
     </>

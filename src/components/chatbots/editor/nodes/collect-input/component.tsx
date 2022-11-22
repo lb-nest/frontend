@@ -10,6 +10,7 @@ import { NodeType, ValidationType } from '../../types';
 const color = nodeColors[NodeType.CollectInput];
 
 interface CollectInputData {
+  name: string;
   text: string;
   variable: string;
   validation: ValidationType;
@@ -34,7 +35,12 @@ export const CollectInput: React.FC<NodeProps<CollectInputData>> = React.memo(({
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.CollectInput.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.CollectInput.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
       <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />

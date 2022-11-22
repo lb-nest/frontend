@@ -1,8 +1,8 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Box, Container } from '@mui/material';
 import { Chatbot, CreateChatbotButton } from '../../components/chatbots';
 import { Layout } from '../../components/layout';
-import { CHATBOTS } from '../../core/api';
+import { CHATBOTS, REMOVE_CHATBOT } from '../../core/api';
 import { projectGuard, useGuard } from '../../hooks/use-guard';
 import { NextPageWithLayout } from '../_app';
 
@@ -10,6 +10,22 @@ const ChatbotsPage: NextPageWithLayout = () => {
   const GuardWrapper = useGuard(projectGuard);
 
   const chatbots = useQuery(CHATBOTS);
+
+  const [removeChatbot] = useMutation(REMOVE_CHATBOT);
+
+  const handleDelete = (id: number) => {
+    return async () => {
+      try {
+        await removeChatbot({
+          variables: {
+            id,
+          },
+        });
+
+        chatbots.refetch();
+      } catch {}
+    };
+  };
 
   return (
     <GuardWrapper>
@@ -28,7 +44,7 @@ const ChatbotsPage: NextPageWithLayout = () => {
         </Box>
         <Box>
           {chatbots.data?.chatbots.map((chatbot) => (
-            <Chatbot key={chatbot.id} {...chatbot} />
+            <Chatbot key={chatbot.id} {...chatbot} onDelete={handleDelete(chatbot.id)} />
           ))}
         </Box>
       </Container>

@@ -32,7 +32,7 @@ export const NodeList: React.FC = () => {
     () => ({
       [NodeType.SendMessage]: {
         icon: <MessageOutlined />,
-        color: nodeColors[NodeType.Start],
+        color: nodeColors[NodeType.SendMessage],
         name: t<string>('chatbots:editor.nodes.SendMessage.title'),
         onDragStart: handleDragStart(NodeType.SendMessage),
       },

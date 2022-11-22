@@ -7,6 +7,7 @@ export const chatbots: ResourceLanguage = {
     scratch: 'С нуля',
     template: 'Используя шаблон',
   },
+  defaultName: 'Новый чат-бот',
   chatbot: {
     update: 'Редактировать',
     delete: 'Удалить',
@@ -26,7 +27,7 @@ export const chatbots: ResourceLanguage = {
     nodes: {
       [NodeType.Start]: {
         title: 'Бот запускается, если…',
-        startHere: 'Начните здесь',
+        tooltip: 'Начните здесь',
       },
       [NodeType.SendMessage]: {
         title: 'Отправка сообщения',
@@ -55,7 +56,7 @@ export const chatbots: ResourceLanguage = {
     },
     sidebar: {
       nodeEditor: {
-        title: 'Редактирование ноды {{name}}',
+        title: 'Редактирование ноды {{id}}',
       },
       nodeList: {
         title: 'Перетяните блок на диаграмму',

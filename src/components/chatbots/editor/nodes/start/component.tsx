@@ -10,6 +10,7 @@ import { NodeType, TriggerType } from '../../types';
 const color = nodeColors[NodeType.Start];
 
 interface StartData {
+  name: string;
   trigger: TriggerType;
 }
 
@@ -27,7 +28,7 @@ export const Start: React.FC<NodeProps<StartData>> = React.memo(({ id, data }) =
           pointerEvents: 'none',
         }}>
         <Box fontSize={24} lineHeight={1}>
-          {t<string>('chatbots:editor.nodes.Start.startHere')}
+          {t<string>('chatbots:editor.nodes.Start.tooltip')}
         </Box>
         <Box fontSize={64} lineHeight={1}>
           ⤹
@@ -45,7 +46,12 @@ export const Start: React.FC<NodeProps<StartData>> = React.memo(({ id, data }) =
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.Start.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.Start.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
       <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />

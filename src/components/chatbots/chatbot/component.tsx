@@ -3,7 +3,6 @@ import { MoreVert } from '@mui/icons-material';
 import { Box, IconButton, Menu, MenuItem, Paper, Switch, Typography } from '@mui/material';
 import { formatDistance } from 'date-fns';
 import Link from 'next/link';
-import NextLink from 'next/link';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -11,9 +10,11 @@ import { UPDATE_CHATBOT } from '../../../core/api';
 import * as types from '../../../core/types';
 import { locale } from '../../../i18n';
 
-interface ChatbotProps extends types.Chatbot {}
+interface ChatbotProps extends types.Chatbot {
+  onDelete?: () => void;
+}
 
-export const Chatbot: React.FC<ChatbotProps> = ({ id, name, updatedAt, enabled }) => {
+export const Chatbot: React.FC<ChatbotProps> = ({ id, name, updatedAt, enabled, onDelete }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>();
 
   const { t, i18n } = useTranslation();
@@ -72,7 +73,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ id, name, updatedAt, enabled }
                 <MenuItem component='a'>{t<string>('chatbots:chatbot.update')}</MenuItem>
               </Link>
             </li>
-            <MenuItem onClick={() => {}}>{t<string>('chatbots:chatbot.delete')}</MenuItem>
+            <MenuItem onClick={onDelete}>{t<string>('chatbots:chatbot.delete')}</MenuItem>
           </Menu>
           <Switch checked={enabled} onClick={handleEnabledChange} />
         </Box>

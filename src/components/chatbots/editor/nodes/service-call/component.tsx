@@ -10,6 +10,7 @@ import { NodeType } from '../../types';
 const color = nodeColors[NodeType.ServiceCall];
 
 interface ServiceCallData {
+  name: string;
   url: string;
   headers: Record<string, string>;
   body?: any;
@@ -34,7 +35,12 @@ export const ServiceCall: React.FC<NodeProps<ServiceCallData>> = React.memo(({ i
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.ServiceCall.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.ServiceCall.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
       <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />

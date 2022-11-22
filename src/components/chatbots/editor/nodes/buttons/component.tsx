@@ -11,6 +11,7 @@ import { NodeType } from '../../types';
 const color = nodeColors[NodeType.Buttons];
 
 interface ButtonsData {
+  name: string;
   text: string;
   buttons: HsmButton[];
 }
@@ -33,7 +34,12 @@ export const Buttons: React.FC<NodeProps<ButtonsData>> = React.memo(({ id, data 
               borderRadius: 2,
             }}
           />
-          <Typography>{t<string>('chatbots:editor.nodes.Buttons.title')}</Typography>
+          <Box>
+            <Typography variant='body1'>{data.name}</Typography>
+            <Typography variant='body2'>
+              {t<string>('chatbots:editor.nodes.Buttons.title')}
+            </Typography>
+          </Box>
         </Box>
       </NodeBase>
     </>
