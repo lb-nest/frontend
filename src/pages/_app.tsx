@@ -1,12 +1,12 @@
+import 'core-js/full';
+
 import { ApolloProvider } from '@apollo/client';
 import { CssBaseline } from '@mui/material';
-import 'core-js/full';
 import ModalProvider from 'mui-modal-provider';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
-import 'react-medium-image-zoom/dist/styles.css';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { client } from '../apollo';
@@ -14,8 +14,10 @@ import { ChatsProvider } from '../components/chats-provider';
 import { GuardContextProvider } from '../components/guard-context';
 import { initI18n } from '../i18n';
 import { store } from '../redux';
-import '../scss/react-toastify/main.scss';
 import { AppThemeProvider } from '../theme';
+
+import 'react-medium-image-zoom/dist/styles.css';
+import '../scss/react-toastify/main.scss';
 
 initI18n();
 
