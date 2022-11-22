@@ -1,5 +1,5 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Hsm, HsmButton } from '../types';
+import { Attachment, Hsm, Button } from '../types';
 
 interface CreateHsmResult {
   createHsm: Hsm;
@@ -8,16 +8,32 @@ interface CreateHsmResult {
 interface CreateHsmVariables {
   code: string;
   text: string;
-  buttons?: HsmButton[];
+  attachments?: Attachment[];
+  buttons?: Button[];
 }
 
 export const CREATE_HSM: TypedDocumentNode<CreateHsmResult, CreateHsmVariables> = gql`
-  mutation CreateHsm($code: String!, $text: String!, $buttons: [JSON!]) {
-    createHsm(code: $code, text: $text, buttons: $buttons) {
+  mutation CreateHsm(
+    $code: String!
+    $text: String!
+    $attachments: [CreateAttachmentInput!]
+    $buttons: [CreateButtonInput!]
+  ) {
+    createHsm(code: $code, text: $text, attachments: $attachments, buttons: $buttons) {
       id
       code
       text
-      buttons
+      attachments {
+        type
+        url
+        name
+      }
+      buttons {
+        type
+        text
+        url
+        phone
+      }
       approval {
         channel {
           id
@@ -41,7 +57,17 @@ export const HSM: TypedDocumentNode<HsmResult> = gql`
       id
       code
       text
-      buttons
+      attachments {
+        type
+        url
+        name
+      }
+      buttons {
+        type
+        text
+        url
+        phone
+      }
       approval {
         channel {
           id
@@ -59,19 +85,32 @@ interface UpdateHsmResult {
   updateHsm: Hsm;
 }
 
-interface UpdateHsmVariables {
+interface UpdateHsmVariables extends Partial<Omit<CreateHsmVariables, 'code'>> {
   id: number;
-  text?: string;
-  buttons?: HsmButton[];
 }
 
 export const UPDATE_HSM: TypedDocumentNode<UpdateHsmResult, UpdateHsmVariables> = gql`
-  mutation UpdateHsm($id: Int!, $text: String, $buttons: [JSON!]) {
-    updateHsm(id: $id, text: $text, buttons: $buttons) {
+  mutation UpdateHsm(
+    $id: Int!
+    $text: String
+    $attachments: [CreateAttachmentInput!]
+    $buttons: [CreateButtonInput!]
+  ) {
+    updateHsm(id: $id, text: $text, attachments: $attachments, buttons: $buttons) {
       id
       code
       text
-      buttons
+      attachments {
+        type
+        url
+        name
+      }
+      buttons {
+        type
+        text
+        url
+        phone
+      }
       approval {
         channel {
           id
@@ -99,7 +138,17 @@ export const REMOVE_HSM: TypedDocumentNode<RemoveHsmResult, RemoveHsmVariables> 
       id
       code
       text
-      buttons
+      attachments {
+        type
+        url
+        name
+      }
+      buttons {
+        type
+        text
+        url
+        phone
+      }
       approval {
         channel {
           id

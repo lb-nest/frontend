@@ -1,5 +1,5 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Attachment, HsmButton, Message } from '../types';
+import { Attachment, Button, Message } from '../types';
 
 interface CreateMessageResult {
   createMessage: Message;
@@ -10,7 +10,7 @@ interface CreateMessageVariables {
   hsmId?: number;
   text?: string;
   attachments?: Attachment[];
-  buttons?: HsmButton[];
+  buttons?: Button[];
   variables?: Record<string, string>;
 }
 
@@ -41,7 +41,12 @@ export const CREATE_MESSAGE: TypedDocumentNode<CreateMessageResult, CreateMessag
           url
           name
         }
-        buttons
+        buttons {
+          type
+          text
+          url
+          phone
+        }
       }
       createdAt
       updatedAt
@@ -70,7 +75,12 @@ export const MESSAGES: TypedDocumentNode<MessagesResult, MessagesVariables> = gq
           url
           name
         }
-        buttons
+        buttons {
+          type
+          text
+          url
+          phone
+        }
       }
       createdAt
       updatedAt
@@ -120,7 +130,12 @@ export const MESSAGES_RECEIVED: TypedDocumentNode<
           url
           name
         }
-        buttons
+        buttons {
+          type
+          text
+          url
+          phone
+        }
       }
       createdAt
       updatedAt

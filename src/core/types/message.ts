@@ -1,4 +1,4 @@
-import { HsmButton } from './hsm';
+import { Button } from './hsm';
 
 export enum AttachmentType {
   Audio = 'Audio',
@@ -10,7 +10,7 @@ export enum AttachmentType {
 export interface Attachment {
   type: AttachmentType;
   url: string;
-  name: string;
+  name?: string;
 }
 
 export enum MessageStatus {
@@ -27,7 +27,7 @@ export interface Message {
   content: Array<{
     text: string;
     attachments: Attachment[];
-    buttons?: HsmButton[];
+    buttons: Button[];
   }>;
   createdAt: string;
   updatedAt: string;

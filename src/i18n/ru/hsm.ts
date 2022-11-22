@@ -1,5 +1,5 @@
 import { ResourceLanguage } from 'i18next';
-import { HsmButtonType } from '../../core/types';
+import { ButtonType } from '../../core/types';
 
 export const hsm: ResourceLanguage = {
   create: 'Добавить новое шаблонное сообщение',
@@ -24,9 +24,9 @@ export const hsm: ResourceLanguage = {
       text: 'Сообщение',
       button: {
         type: {
-          [HsmButtonType.QuickReply]: 'Быстрый ответ',
-          [HsmButtonType.Url]: 'Открыть ссылку',
-          [HsmButtonType.Phone]: 'Телефонный звонок',
+          [ButtonType.QuickReply]: 'Быстрый ответ',
+          [ButtonType.Url]: 'Открыть ссылку',
+          [ButtonType.Phone]: 'Телефонный звонок',
         },
         tooltip: 'Текст на кнопке',
       },

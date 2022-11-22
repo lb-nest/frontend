@@ -67,7 +67,12 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
             url
             name
           }
-          buttons
+          buttons {
+            type
+            text
+            url
+            phone
+          }
         }
         createdAt
         updatedAt
@@ -125,7 +130,12 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
             url
             name
           }
-          buttons
+          buttons {
+            type
+            text
+            url
+            phone
+          }
         }
         createdAt
         updatedAt
@@ -187,7 +197,12 @@ export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = 
             url
             name
           }
-          buttons
+          buttons {
+            type
+            text
+            url
+            phone
+          }
         }
         createdAt
         updatedAt

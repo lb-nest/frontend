@@ -74,6 +74,7 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
             chatId: chat.id,
             hsmId: variables.hsm.id,
             text: Mustache.render(variables.hsm.text, variables.variables),
+            attachments: variables.hsm.attachments,
             buttons: variables.hsm.buttons,
             variables: variables.variables,
           },

@@ -13,7 +13,7 @@ import { Attachment } from './attachment';
 
 interface Variables {
   text?: string;
-  buttons?: types.HsmButton[];
+  buttons?: types.Button[];
   files?: any[];
 }
 

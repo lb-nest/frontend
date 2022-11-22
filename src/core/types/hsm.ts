@@ -1,4 +1,5 @@
 import { Channel } from './channel';
+import { Attachment } from './message';
 
 export enum ApprovalStatus {
   Requested = 'Requested',
@@ -11,14 +12,14 @@ export interface Approval {
   status: ApprovalStatus;
 }
 
-export enum HsmButtonType {
+export enum ButtonType {
   QuickReply = 'QuickReply',
   Url = 'Url',
   Phone = 'Phone',
 }
 
-export interface HsmButton extends Record<string, any> {
-  type: HsmButtonType;
+export interface Button {
+  type: ButtonType;
   text: string;
   url?: string;
   phone?: string;
@@ -28,6 +29,7 @@ export interface Hsm {
   id: number;
   code: string;
   text: string;
-  buttons?: HsmButton[];
+  attachments?: Attachment[];
+  buttons?: Button[];
   approval: Approval[];
 }

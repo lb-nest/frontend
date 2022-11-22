@@ -23,7 +23,7 @@ import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { CREATE_HSM, UPDATE_HSM } from '../../../core/api';
-import { Hsm, HsmButtonType } from '../../../core/types';
+import { ButtonType, Hsm } from '../../../core/types';
 
 interface HsmModalProps extends DialogProps {
   initData?: Hsm;
@@ -99,7 +99,7 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
 
   React.useEffect(() => {
     append({
-      type: HsmButtonType.QuickReply,
+      type: ButtonType.QuickReply,
       text: '',
     });
   }, []);
@@ -114,7 +114,7 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
   const handleStopEditButton: React.MouseEventHandler<HTMLDivElement> = () => {
     if (buttons.at(-1).text) {
       append({
-        type: HsmButtonType.QuickReply,
+        type: ButtonType.QuickReply,
         text: '',
       });
     }

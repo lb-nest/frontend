@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
-import { HsmButton } from '../../../../../core/types';
+import { Button } from '../../../../../core/types';
 import { HandleBase, NodeBase } from '../../artifacts';
 import { nodeColors } from '../../helpers';
 import { NodeType } from '../../types';
@@ -13,7 +13,7 @@ const color = nodeColors[NodeType.Buttons];
 interface ButtonsData {
   name: string;
   text: string;
-  buttons: HsmButton[];
+  buttons: Button[];
 }
 
 export const Buttons: React.FC<NodeProps<ButtonsData>> = React.memo(({ id, data }) => {
