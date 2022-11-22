@@ -20,7 +20,7 @@ export const contacts: ResourceLanguage = {
       fields: {
         examples: {
           csv: 'csv пример',
-          xls: 'xls/xlsx пример',
+          xls: 'xls пример',
         },
         file: 'Выбрать файл',
       },
