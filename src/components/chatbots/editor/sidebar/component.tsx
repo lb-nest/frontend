@@ -2,15 +2,17 @@ import { AddOutlined, KeyboardArrowLeftOutlined } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import React from 'react';
 import { Node } from 'react-flow-renderer';
+import { NodeEditor } from './node-editor';
 import { NodeList } from './node-list';
 
 const width = 360;
 
 interface SidebarProps {
-  node?: Node<any>;
+  node?: Node;
+  onClose?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ node }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ node, onClose }) => {
   const [show, setShow] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -28,7 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ node }) => {
           top={0}
           bgcolor='#ffffff'
           zIndex={1001}>
-          <NodeList />
+          {node === undefined ? <NodeList /> : <NodeEditor node={node} />}
         </Box>
       )}
       <Box position='absolute' left={show ? width : 0} top={0} padding={1} zIndex={1001}>
@@ -36,6 +38,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ node }) => {
           size='large'
           onClick={() => {
             setShow((prev) => !prev);
+            if (show) {
+              onClose?.();
+            }
           }}>
           {show ? <KeyboardArrowLeftOutlined /> : <AddOutlined />}
         </IconButton>

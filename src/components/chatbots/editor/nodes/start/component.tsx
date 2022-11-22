@@ -3,10 +3,11 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
-import { HandleBase, NodeBase } from '../../fragments';
-import { TriggerType } from '../../types';
+import { HandleBase, NodeBase } from '../../artifacts';
+import { nodeColors } from '../../helpers';
+import { NodeType, TriggerType } from '../../types';
 
-const color = '#6fbf73';
+const color = nodeColors[NodeType.Start];
 
 interface StartData {
   trigger: TriggerType;

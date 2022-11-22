@@ -1,14 +1,16 @@
-import { Tag, TagOutlined } from '@mui/icons-material';
+import { TagOutlined } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
-import { HandleBase, NodeBase } from '../../fragments';
+import { HandleBase, NodeBase } from '../../artifacts';
+import { nodeColors } from '../../helpers';
+import { NodeType } from '../../types';
 
-const color = '#ffac33';
+const color = nodeColors[NodeType.AssignTag];
 
 interface AssignTagData {
-  tag: number;
+  tagId: number;
 }
 
 export const AssignTag: React.FC<NodeProps<AssignTagData>> = React.memo(({ id, data }) => {

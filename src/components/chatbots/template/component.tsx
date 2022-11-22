@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const ChatbotTemplate: React.FC = () => {
-  return <div>ChatbotTemplate</div>;
+interface ChatbotTemplateProps {}
+
+export const ChatbotTemplate: React.FC<ChatbotTemplateProps> = () => {
+  return null;
 };

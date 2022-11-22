@@ -1,12 +1,13 @@
-import { AccountTree, AccountTreeOutlined, Check } from '@mui/icons-material';
+import { AccountTreeOutlined } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
-import { HandleBase, NodeBase } from '../../fragments';
-import { BranchItem } from '../../types';
+import { HandleBase, NodeBase } from '../../artifacts';
+import { nodeColors } from '../../helpers';
+import { BranchItem, NodeType } from '../../types';
 
-const color = '#ffeb3b';
+const color = nodeColors[NodeType.Branch];
 
 interface BranchData {
   branches: BranchItem[];

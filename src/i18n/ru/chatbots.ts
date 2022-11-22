@@ -54,8 +54,11 @@ export const chatbots: ResourceLanguage = {
       },
     },
     sidebar: {
+      nodeEditor: {
+        title: 'Редактирование ноды {{name}}',
+      },
       nodeList: {
-        tooltip: 'Перетяните блок на диаграмму',
+        title: 'Перетяните блок на диаграмму',
       },
     },
   },

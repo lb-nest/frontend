@@ -4,9 +4,11 @@ import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { Attachment } from '../../../../../core/types';
-import { HandleBase, NodeBase } from '../../fragments';
+import { HandleBase, NodeBase } from '../../artifacts';
+import { nodeColors } from '../../helpers';
+import { NodeType } from '../../types';
 
-const color = '#3d5afe';
+const color = nodeColors[NodeType.SendMessage];
 
 interface SendMessageData {
   text: string;

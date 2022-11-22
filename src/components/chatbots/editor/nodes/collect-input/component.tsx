@@ -3,10 +3,11 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
-import { HandleBase, NodeBase } from '../../fragments';
-import { ValidationType } from '../../types';
+import { HandleBase, NodeBase } from '../../artifacts';
+import { nodeColors } from '../../helpers';
+import { NodeType, ValidationType } from '../../types';
 
-const color = '#35baf6';
+const color = nodeColors[NodeType.CollectInput];
 
 interface CollectInputData {
   text: string;

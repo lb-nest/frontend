@@ -3,17 +3,17 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
-import { HandleBase, NodeBase } from '../../fragments';
+import { HandleBase, NodeBase } from '../../artifacts';
+import { nodeColors } from '../../helpers';
+import { NodeType } from '../../types';
 
-const color = '#e91e63';
+const color = nodeColors[NodeType.ServiceCall];
 
 interface ServiceCallData {
-  request: {
-    url: string;
-    headers: Record<string, string>;
-    body?: any;
-  };
-  response: Record<string, any>;
+  url: string;
+  headers: Record<string, string>;
+  body?: any;
+  variable?: string;
 }
 
 export const ServiceCall: React.FC<NodeProps<ServiceCallData>> = React.memo(({ id, data }) => {

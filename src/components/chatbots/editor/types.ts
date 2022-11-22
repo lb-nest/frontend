@@ -1,25 +1,8 @@
-import { Standard } from './edges';
-import {
-  AssignTag,
-  Branch,
-  Buttons,
-  Close,
-  CollectInput,
-  SendMessage,
-  ServiceCall,
-  Start,
-  Transfer,
-} from './nodes';
-
 export enum EdgeType {
   Standard = 'Standard',
 }
 
 export type EdgeData = undefined;
-
-export const edgeTypes = {
-  [EdgeType.Standard]: Standard,
-};
 
 export enum NodeType {
   Start = 'Start',
@@ -33,23 +16,13 @@ export enum NodeType {
   Close = 'Close',
 }
 
-export type NodeData = Record<string, any>;
-
-export const nodeTypes = {
-  [NodeType.Start]: Start,
-  [NodeType.SendMessage]: SendMessage,
-  [NodeType.CollectInput]: CollectInput,
-  [NodeType.Buttons]: Buttons,
-  [NodeType.Branch]: Branch,
-  [NodeType.ServiceCall]: ServiceCall,
-  [NodeType.Transfer]: Transfer,
-  [NodeType.AssignTag]: AssignTag,
-  [NodeType.Close]: Close,
-};
+export interface NodeData extends Record<string, any> {
+  name: string;
+}
 
 export enum TriggerType {
   NewChat = 'NewChat',
-  NewAssignment = 'NewAssignment',
+  Webhook = 'Webhook',
 }
 
 export enum VariableType {
