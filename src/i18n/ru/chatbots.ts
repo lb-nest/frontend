@@ -1,5 +1,5 @@
 import { ResourceLanguage } from 'i18next';
-import { NodeType, ValidationType } from '../../components/chatbots/editor/types';
+import { NodeType, TriggerType, ValidationType } from '../../components/chatbots/editor/types';
 
 export const chatbots: ResourceLanguage = {
   create: 'Создать',
@@ -95,6 +95,11 @@ export const chatbots: ResourceLanguage = {
         tooltip: 'Начните здесь',
         fields: {
           name: 'Название ноды',
+          trigger: 'Триггер',
+        },
+        triggerType: {
+          [TriggerType.NewChat]: 'Новый чат',
+          [TriggerType.Webhook]: 'Вебхук',
         },
       },
       [NodeType.Transfer]: {

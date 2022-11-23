@@ -15,7 +15,7 @@ export const defaultNodeData: Record<string, NodeData> = {
     attachments: [],
   },
   [NodeType.CollectInput]: {
-    name: 'CollentInput',
+    name: 'CollectInput',
     text: '',
     attachments: [],
     variable: null,
