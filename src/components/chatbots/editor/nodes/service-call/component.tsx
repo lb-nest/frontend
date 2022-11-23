@@ -5,7 +5,7 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../artifacts';
 import { nodeColors } from '../../helpers';
-import { NodeType } from '../../types';
+import { NodeType, Variable } from '../../types';
 
 const color = nodeColors[NodeType.ServiceCall];
 
@@ -15,6 +15,7 @@ export interface ServiceCallData {
   headers: Record<string, string>;
   body?: any;
   variable?: string;
+  variables: Variable[];
 }
 
 export const ServiceCall: React.FC<NodeProps<ServiceCallData>> = React.memo(

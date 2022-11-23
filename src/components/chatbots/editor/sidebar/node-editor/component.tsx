@@ -14,13 +14,14 @@ import {
   StartEditor,
   TransferEditor,
 } from '../../nodes';
-import { NodeType } from '../../types';
+import { NodeType, Variable } from '../../types';
 
 interface NodeEditorProps {
   node: Node;
+  variables: Variable[];
 }
 
-export const NodeEditor: React.FC<NodeEditorProps> = ({ node }) => {
+export const NodeEditor: React.FC<NodeEditorProps> = ({ node, variables }) => {
   const { t } = useTranslation();
 
   const handleDelete = () => {
@@ -30,12 +31,12 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({ node }) => {
   const editor = React.useMemo(() => {
     const nodes: Record<NodeType, JSX.Element> = {
       [NodeType.AssignTag]: <AssignTagEditor {...node.data} />,
-      [NodeType.Branch]: <BranchEditor {...node.data} />,
+      [NodeType.Branch]: <BranchEditor {...node.data} variables={variables} />,
       [NodeType.Buttons]: <ButtonsEditor {...node.data} />,
       [NodeType.Close]: <CloseEditor {...node.data} />,
-      [NodeType.CollectInput]: <CollectInputEditor {...node.data} />,
+      [NodeType.CollectInput]: <CollectInputEditor {...node.data} variables={variables} />,
       [NodeType.SendMessage]: <SendMessageEditor {...node.data} />,
-      [NodeType.ServiceCall]: <ServiceCallEditor {...node.data} />,
+      [NodeType.ServiceCall]: <ServiceCallEditor {...node.data} variables={variables} />,
       [NodeType.Start]: <StartEditor {...node.data} />,
       [NodeType.Transfer]: <TransferEditor {...node.data} />,
     };
@@ -46,7 +47,7 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({ node }) => {
   const title = t<string>('chatbots:editor.sidebar.nodeEditor.title', node);
 
   return (
-    <Box p={2}>
+    <Box p={2} maxHeight='100%' overflow='auto'>
       <Box
         display='flex'
         flexDirection='row'
@@ -70,7 +71,7 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({ node }) => {
           </IconButton>
         )}
       </Box>
-      <Box>{editor}</Box>
+      <Box mt={2}>{editor}</Box>
     </Box>
   );
 };

@@ -9,7 +9,6 @@ import ReactFlow, {
   BackgroundVariant,
   Controls,
   MarkerType,
-  Node,
   NodeMouseHandler,
   OnConnect,
   ReactFlowInstance,
@@ -23,7 +22,7 @@ import { edgeTypes } from './edge-types';
 import { createEdgeId, createNodeId, getNodeDataByType } from './helpers';
 import { nodeTypes } from './node-types';
 import { Sidebar } from './sidebar';
-import { EdgeData, EdgeType, NodeData, NodeType } from './types';
+import { EdgeData, EdgeType, NodeData, NodeType, Variable } from './types';
 
 interface Variables {
   name: string;
@@ -40,8 +39,8 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
     },
   });
 
-  const [variables, setVariables] = React.useState(flow.variables);
-  const [node, setNode] = React.useState<Node>();
+  const [variables, setVariables] = React.useState<Variable[]>(flow.variables);
+  const [node, setNode] = React.useState<string>();
 
   const [instance, onInit] = React.useState<ReactFlowInstance<NodeData, EdgeData>>();
   const ref = React.useRef<HTMLDivElement>();
@@ -66,13 +65,13 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
   );
 
   const handleChangeNode = React.useCallback(
-    (id: string) => (propertyName: string, value: any) => {
+    (id: string) => (name: string, data: any) => {
       setNodes((nodes) =>
         nodes.map((node) => {
           if (node.id === id) {
-            return merge(node, {
+            return merge({}, node, {
               data: {
-                [propertyName]: value,
+                [name]: data,
               },
             });
           }
@@ -113,7 +112,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
   const handleNodeClick: NodeMouseHandler = React.useCallback(
     (event, node) => {
       event.preventDefault();
-      setNode(node);
+      setNode(node.id);
     },
     [setNode],
   );
@@ -130,7 +129,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
 
       const id = createNodeId();
 
-      const data = merge(getNodeDataByType(type), {
+      const data = merge({}, getNodeDataByType(type), {
         onChange: handleChangeNode(id),
         onDelete: handleDeleteNode(id),
       });
@@ -168,9 +167,10 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         return;
       }
 
-      const flow = merge(instance.toObject(), {
+      const flow = merge({}, instance.toObject(), {
         variables,
       });
+
       try {
         await updateChatbot({
           variables: {
@@ -187,7 +187,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
   React.useEffect(() => {
     setEdges(
       flow.edges.map((edge) =>
-        merge(edge, {
+        merge({}, edge, {
           data: {
             onDelete: handleDeleteEdge(edge.id),
           },
@@ -197,7 +197,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
 
     setNodes(
       flow.nodes.map((node) =>
-        merge(node, {
+        merge({}, node, {
           data: {
             onChange: handleChangeNode(node.id),
             onDelete: handleDeleteNode(node.id),
@@ -265,7 +265,8 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         </IconButton>
       </Box>
       <Sidebar
-        node={node}
+        node={nodes.find(({ id }) => id === node)}
+        variables={variables}
         onClose={() => {
           if (node) {
             setNode(undefined);

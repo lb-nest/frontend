@@ -22,7 +22,7 @@ export const NodeBase: React.FC<NodeBaseProps> = ({ selected = false, color, chi
       boxShadow='0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)'
       overflow='hidden'
       sx={{
-        outlineWidth: selected ? 4 : 0,
+        outlineWidth: selected ? 3 : 0,
         outlineStyle: 'solid',
         outlineColor: '#b1b1b7',
       }}>

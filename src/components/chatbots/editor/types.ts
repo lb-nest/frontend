@@ -58,7 +58,7 @@ export interface Condition {
 
 export interface BranchItem {
   type: ComparsionType;
-  conditions: Condition;
+  conditions: Condition[];
 }
 
 export enum ValidationType {
