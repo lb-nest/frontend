@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { tags } from 'mustache';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PROJECT_USERS } from '../../../../../../core/api';
