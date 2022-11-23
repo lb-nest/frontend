@@ -62,7 +62,7 @@ const wsLink =
       );
 
 const cleanTypeName = new ApolloLink((operation, forward) => {
-  if (operation.variables) {
+  if (operation.variables && operation.operationName !== 'Upload') {
     operation.variables = JSON.parse(JSON.stringify(operation.variables), (key, value) =>
       key === '__typename' ? undefined : value,
     );
