@@ -56,7 +56,7 @@ export const chatbots: ResourceLanguage = {
     },
     sidebar: {
       nodeEditor: {
-        title: 'Редактирование ноды {{id}}',
+        title: 'Редактирование {{data.name}}',
       },
       nodeList: {
         title: 'Перетяните блок на диаграмму',

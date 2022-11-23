@@ -10,19 +10,19 @@ import { NodeType } from '../../types';
 
 const color = nodeColors[NodeType.Buttons];
 
-interface ButtonsData {
+export interface ButtonsData {
   name: string;
   text: string;
   buttons: Button[];
 }
 
-export const Buttons: React.FC<NodeProps<ButtonsData>> = React.memo(({ id, data }) => {
+export const Buttons: React.FC<NodeProps<ButtonsData>> = React.memo(({ id, data, selected }) => {
   const { t } = useTranslation();
 
   return (
     <>
       <HandleBase type='target' position={Position.Left} nodeId={id} />
-      <NodeBase color={color}>
+      <NodeBase color={color} selected={selected}>
         <Box display='flex' alignItems='center'>
           <DialpadOutlined
             sx={{

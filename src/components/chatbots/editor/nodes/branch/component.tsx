@@ -9,18 +9,18 @@ import { BranchItem, NodeType } from '../../types';
 
 const color = nodeColors[NodeType.Branch];
 
-interface BranchData {
+export interface BranchData {
   name: string;
   branches: BranchItem[];
 }
 
-export const Branch: React.FC<NodeProps<BranchData>> = React.memo(({ id, data }) => {
+export const Branch: React.FC<NodeProps<BranchData>> = React.memo(({ id, data, selected }) => {
   const { t } = useTranslation();
 
   return (
     <>
       <HandleBase type='target' position={Position.Left} nodeId={id} />
-      <NodeBase color={color}>
+      <NodeBase color={color} selected={selected}>
         <Box display='flex' alignItems='center'>
           <AccountTreeOutlined
             sx={{

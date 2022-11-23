@@ -49,51 +49,43 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
   const [nodes, setNodes, onNodesChange] = useNodesState<NodeData>([]);
 
   const handleDeleteEdge = React.useCallback(
-    (id: string) => {
-      return () => {
-        setEdges((edges) => edges.filter((edge) => edge.id !== id));
-      };
+    (id: string) => () => {
+      setEdges((edges) => edges.filter((edge) => edge.id !== id));
     },
     [setEdges],
   );
 
   const handleDeleteNode = React.useCallback(
-    (id: string) => {
-      return () => {
-        setNodes((nodes) => nodes.filter((node) => node.id !== id));
-        setEdges((edges) => edges.filter((edge) => ![edge.source, edge.target].includes(id)));
+    (id: string) => () => {
+      setNodes((nodes) => nodes.filter((node) => node.id !== id));
+      setEdges((edges) => edges.filter((edge) => ![edge.source, edge.target].includes(id)));
 
-        setNode(undefined);
-      };
+      setNode(undefined);
     },
     [setNodes, setEdges],
   );
 
   const handleChangeNode = React.useCallback(
-    (id: string) => {
-      return (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-      ) => {
-        setNodes((nodes) =>
-          nodes.map((node) => {
-            if (node.id === id) {
-              return merge(node, {
-                data: {
-                  [event.target.id]: event.target.value,
-                },
-              });
-            }
+    (id: string) => (propertyName: string, value: any) => {
+      setNodes((nodes) =>
+        nodes.map((node) => {
+          if (node.id === id) {
+            return merge(node, {
+              data: {
+                [propertyName]: value,
+              },
+            });
+          }
 
-            return node;
-          }),
-        );
-      };
+          return node;
+        }),
+      );
     },
     [setNodes],
   );
 
   const onConnect: OnConnect = React.useCallback(
-    (params) => {
+    (params) =>
       setEdges((edges) => {
         const id = createEdgeId();
         return addEdge(
@@ -110,8 +102,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
           },
           edges,
         );
-      });
-    },
+      }),
     [setEdges, handleDeleteEdge],
   );
 
@@ -139,11 +130,10 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
 
       const id = createNodeId();
 
-      const data = {
+      const data = merge(getNodeDataByType(type), {
         onChange: handleChangeNode(id),
         onDelete: handleDeleteNode(id),
-        ...getNodeDataByType(type),
-      };
+      });
 
       const rect = ref.current.getBoundingClientRect();
       const position = instance.project({

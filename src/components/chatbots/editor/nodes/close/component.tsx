@@ -9,17 +9,17 @@ import { NodeType } from '../../types';
 
 const color = nodeColors[NodeType.Close];
 
-interface CloseData {
+export interface CloseData {
   name: string;
 }
 
-export const Close: React.FC<NodeProps<CloseData>> = React.memo(({ id, data }) => {
+export const Close: React.FC<NodeProps<CloseData>> = React.memo(({ id, data, selected }) => {
   const { t } = useTranslation();
 
   return (
     <>
       <HandleBase type='target' position={Position.Left} nodeId={id} />
-      <NodeBase color={color}>
+      <NodeBase color={color} selected={selected}>
         <Box display='flex' alignItems='center'>
           <ExitToAppOutlined
             sx={{

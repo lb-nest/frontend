@@ -10,39 +10,41 @@ import { NodeType } from '../../types';
 
 const color = nodeColors[NodeType.SendMessage];
 
-interface SendMessageData {
+export interface SendMessageData {
   name: string;
   text: string;
   attachments: Attachment[];
 }
 
-export const SendMessage: React.FC<NodeProps<SendMessageData>> = React.memo(({ id, data }) => {
-  const { t } = useTranslation();
+export const SendMessage: React.FC<NodeProps<SendMessageData>> = React.memo(
+  ({ id, data, selected }) => {
+    const { t } = useTranslation();
 
-  return (
-    <>
-      <HandleBase type='target' position={Position.Left} nodeId={id} />
-      <NodeBase color={color}>
-        <Box display='flex' alignItems='center'>
-          <MessageOutlined
-            sx={{
-              mr: 1,
-              padding: 0.5,
-              bgcolor: `${color}2f`,
-              color,
-              fontSize: 30,
-              borderRadius: 2,
-            }}
-          />
-          <Box>
-            <Typography variant='body1'>{data.name}</Typography>
-            <Typography variant='body2'>
-              {t<string>('chatbots:editor.nodes.SendMessage.title')}
-            </Typography>
+    return (
+      <>
+        <HandleBase type='target' position={Position.Left} nodeId={id} />
+        <NodeBase color={color} selected={selected}>
+          <Box display='flex' alignItems='center'>
+            <MessageOutlined
+              sx={{
+                mr: 1,
+                padding: 0.5,
+                bgcolor: `${color}2f`,
+                color,
+                fontSize: 30,
+                borderRadius: 2,
+              }}
+            />
+            <Box>
+              <Typography variant='body1'>{data.name}</Typography>
+              <Typography variant='body2'>
+                {t<string>('chatbots:editor.nodes.SendMessage.title')}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-      </NodeBase>
-      <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />
-    </>
-  );
-});
+        </NodeBase>
+        <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />
+      </>
+    );
+  },
+);

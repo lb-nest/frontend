@@ -9,12 +9,12 @@ import { NodeType, TriggerType } from '../../types';
 
 const color = nodeColors[NodeType.Start];
 
-interface StartData {
+export interface StartData {
   name: string;
   trigger: TriggerType;
 }
 
-export const Start: React.FC<NodeProps<StartData>> = React.memo(({ id, data }) => {
+export const Start: React.FC<NodeProps<StartData>> = React.memo(({ id, data, selected }) => {
   const { t } = useTranslation();
 
   return (
@@ -34,7 +34,7 @@ export const Start: React.FC<NodeProps<StartData>> = React.memo(({ id, data }) =
           ⤹
         </Box>
       </Box>
-      <NodeBase color={color}>
+      <NodeBase color={color} selected={selected}>
         <Box display='flex' alignItems='center'>
           <KeyboardArrowRightOutlined
             sx={{

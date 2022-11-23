@@ -9,38 +9,40 @@ import { NodeType } from '../../types';
 
 const color = nodeColors[NodeType.AssignTag];
 
-interface AssignTagData {
+export interface AssignTagData {
   name: string;
   tagId: number;
 }
 
-export const AssignTag: React.FC<NodeProps<AssignTagData>> = React.memo(({ id, data }) => {
-  const { t } = useTranslation();
+export const AssignTag: React.FC<NodeProps<AssignTagData>> = React.memo(
+  ({ id, data, selected }) => {
+    const { t } = useTranslation();
 
-  return (
-    <>
-      <HandleBase type='target' position={Position.Left} nodeId={id} />
-      <NodeBase color={color}>
-        <Box display='flex' alignItems='center'>
-          <TagOutlined
-            sx={{
-              mr: 1,
-              padding: 0.5,
-              bgcolor: `${color}2f`,
-              color,
-              fontSize: 30,
-              borderRadius: 2,
-            }}
-          />
-          <Box>
-            <Typography variant='body1'>{data.name}</Typography>
-            <Typography variant='body2'>
-              {t<string>('chatbots:editor.nodes.AssignTag.title')}
-            </Typography>
+    return (
+      <>
+        <HandleBase type='target' position={Position.Left} nodeId={id} />
+        <NodeBase color={color} selected={selected}>
+          <Box display='flex' alignItems='center'>
+            <TagOutlined
+              sx={{
+                mr: 1,
+                padding: 0.5,
+                bgcolor: `${color}2f`,
+                color,
+                fontSize: 30,
+                borderRadius: 2,
+              }}
+            />
+            <Box>
+              <Typography variant='body1'>{data.name}</Typography>
+              <Typography variant='body2'>
+                {t<string>('chatbots:editor.nodes.AssignTag.title')}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-      </NodeBase>
-      <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />
-    </>
-  );
-});
+        </NodeBase>
+        <HandleBase type='source' id='next' position={Position.Right} nodeId={id} />
+      </>
+    );
+  },
+);
