@@ -20,7 +20,6 @@ export const CREATE_CHATBOT: TypedDocumentNode<CreateChatbotResult, CreateChatbo
       version
       flow
       enabled
-      error
       createdAt
       updatedAt
     }
@@ -39,7 +38,6 @@ export const CHATBOTS: TypedDocumentNode<ChatbotsResult> = gql`
       version
       flow
       enabled
-      error
       createdAt
       updatedAt
     }
@@ -62,7 +60,6 @@ export const CHATBOT_BY_ID: TypedDocumentNode<ChatbotByIdResult, ChatbotByIdVari
       version
       flow
       enabled
-      error
       createdAt
       updatedAt
     }
@@ -91,7 +88,6 @@ export const UPDATE_CHATBOT: TypedDocumentNode<UpdateChatbotResult, UpdateChatbo
       version
       flow
       enabled
-      error
       createdAt
       updatedAt
     }
@@ -114,7 +110,6 @@ export const REMOVE_CHATBOT: TypedDocumentNode<RemoveChatbotResult, RemoveChatbo
       version
       flow
       enabled
-      error
       createdAt
       updatedAt
     }
