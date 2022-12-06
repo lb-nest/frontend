@@ -1,14 +1,16 @@
 import { useMutation } from '@apollo/client';
 import { DataObjectOutlined, SaveOutlined } from '@mui/icons-material';
 import { Box, IconButton, InputBase } from '@mui/material';
-import merge from 'lodash.merge';
+import merge from 'deepmerge';
 import React from 'react';
 import ReactFlow, {
   addEdge,
   Background,
   BackgroundVariant,
   Controls,
+  Edge,
   MarkerType,
+  Node,
   NodeMouseHandler,
   OnConnect,
   ReactFlowInstance,
@@ -69,7 +71,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
       setNodes((nodes) =>
         nodes.map((node) => {
           if (node.id === id) {
-            return merge({}, node, {
+            return merge(node, {
               data: {
                 [name]: data,
               },
@@ -129,7 +131,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
 
       const id = createNodeId();
 
-      const data = merge({}, getNodeDataByType(type), {
+      const data = merge(getNodeDataByType(type), {
         onChange: handleChangeNode(id),
         onDelete: handleDeleteNode(id),
       });
@@ -167,7 +169,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         return;
       }
 
-      const flow = merge({}, instance.toObject(), {
+      const flow = merge(instance.toObject(), {
         variables,
       });
 
@@ -186,8 +188,8 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
 
   React.useEffect(() => {
     setEdges(
-      flow.edges.map((edge) =>
-        merge({}, edge, {
+      flow.edges.map((edge: Edge) =>
+        merge(edge, {
           data: {
             onDelete: handleDeleteEdge(edge.id),
           },
@@ -196,8 +198,8 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
     );
 
     setNodes(
-      flow.nodes.map((node) =>
-        merge({}, node, {
+      flow.nodes.map((node: Node) =>
+        merge(node, {
           data: {
             onChange: handleChangeNode(node.id),
             onDelete: handleDeleteNode(node.id),
