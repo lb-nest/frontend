@@ -36,7 +36,8 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
       <Box display='flex' alignItems='center'>
         <Image src='/icon.png' width={50} height={27} />
         <Typography
-          component='span'
+          component='h1'
+          noWrap
           sx={{
             ml: '30px',
             fontSize: 24,
