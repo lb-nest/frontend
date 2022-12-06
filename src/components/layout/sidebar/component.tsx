@@ -84,7 +84,7 @@ export const Sidebar: React.FC = () => {
         padding='25px 0 50px'
         overflow='auto'
         flexShrink={0}>
-        <SidebarItem title={t('common:pages.settings')} href='/settings'>
+        <SidebarItem title={t('common:pages.settings')} href='/settings/project'>
           <SettingsOutlined />
         </SidebarItem>
         <Box display='flex' flexDirection='column' alignItems='center' mt='30px'>

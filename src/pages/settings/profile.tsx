@@ -1,8 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Avatar, Box, Button, Container, TextField, Typography } from '@mui/material';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { Container } from '@mui/material';
 import { Profile, SettingsLayout } from '../../components/settings';
 import { USER } from '../../core/api';
 import { projectGuard, useGuard } from '../../hooks/use-guard';

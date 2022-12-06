@@ -16,11 +16,8 @@ export const Team: React.FC<TeamProps> = ({ users }) => {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            mb: 1,
-            padding: 1,
-            ':last-child': {
-              mb: 0,
-            },
+            mt: 1,
+            p: 1,
           }}>
           <Avatar src={user.avatarUrl} />
           <Box ml='15px' overflow='hidden' flexGrow={1}>

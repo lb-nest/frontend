@@ -2,10 +2,12 @@ import { ResourceLanguage } from 'i18next';
 
 export const settings: ResourceLanguage = {
   project: 'Проект',
-  team: 'Команда',
   profile: 'Профиль',
-  system: 'Система',
   pages: {
+    project: {
+      team: 'Команда',
+      invite: 'Пригласить сотрудника',
+    },
     profile: {
       avatar: {
         title: 'Аватар',
@@ -20,9 +22,6 @@ export const settings: ResourceLanguage = {
       },
       name: 'Имя',
       submit: 'Сохранить',
-    },
-    team: {
-      invite: 'Пригласить сотрудника',
     },
   },
 };
