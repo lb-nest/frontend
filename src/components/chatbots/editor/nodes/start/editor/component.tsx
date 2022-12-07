@@ -5,8 +5,7 @@ import { TriggerType } from '../../../types';
 import { StartData } from '../component';
 
 interface StartEditorProps extends StartData {
-  onChange: (name: string, data: any) => void;
-  onDelete: () => void;
+  onChange: <T = any>(name: keyof StartData, data: T) => void;
 }
 
 export const StartEditor: React.FC<StartEditorProps> = ({ name, trigger, onChange }) => {
@@ -16,7 +15,6 @@ export const StartEditor: React.FC<StartEditorProps> = ({ name, trigger, onChang
     <>
       <TextField
         fullWidth
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.Start.fields.name')}
@@ -26,10 +24,12 @@ export const StartEditor: React.FC<StartEditorProps> = ({ name, trigger, onChang
         }}
       />
 
-      <FormControl fullWidth margin='dense' variant='standard'>
-        <InputLabel>{t<string>('chatbots:editor.nodes.Start.fields.trigger')}</InputLabel>
+      <FormControl fullWidth size='small' variant='standard'>
+        <InputLabel id='trigger'>
+          {t<string>('chatbots:editor.nodes.Start.fields.trigger')}
+        </InputLabel>
         <Select
-          size='small'
+          labelId='trigger'
           value={trigger}
           onChange={(e) => {
             onChange('trigger', e.target.value);

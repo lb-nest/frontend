@@ -71,11 +71,17 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
       setNodes((nodes) =>
         nodes.map((node) => {
           if (node.id === id) {
-            return merge(node, {
-              data: {
-                [name]: data,
+            return merge(
+              node,
+              {
+                data: {
+                  [name]: data,
+                },
               },
-            });
+              {
+                arrayMerge: (_, source) => source,
+              },
+            );
           }
 
           return node;

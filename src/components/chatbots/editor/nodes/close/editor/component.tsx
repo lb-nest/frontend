@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { CloseData } from '../component';
 
 interface CloseEditorProps extends CloseData {
-  onChange: (name: string, data: any) => void;
-  onDelete: () => void;
+  onChange: <T = any>(name: keyof CloseData, data: T) => void;
 }
 
 export const CloseEditor: React.FC<CloseEditorProps> = ({ name, onChange }) => {
@@ -15,7 +14,6 @@ export const CloseEditor: React.FC<CloseEditorProps> = ({ name, onChange }) => {
     <>
       <TextField
         fullWidth
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.Close.fields.name')}

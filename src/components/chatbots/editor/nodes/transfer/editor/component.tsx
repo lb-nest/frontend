@@ -6,8 +6,7 @@ import { PROJECT_USERS } from '../../../../../../core/api';
 import { TransferData } from '../component';
 
 interface TransferEditorProps extends TransferData {
-  onChange: (name: string, data: any) => void;
-  onDelete: () => void;
+  onChange: <T = any>(name: keyof TransferData, data: T) => void;
 }
 
 export const TransferEditor: React.FC<TransferEditorProps> = ({ name, assignedTo, onChange }) => {
@@ -19,7 +18,6 @@ export const TransferEditor: React.FC<TransferEditorProps> = ({ name, assignedTo
     <>
       <TextField
         fullWidth
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.Transfer.fields.name')}
@@ -29,15 +27,18 @@ export const TransferEditor: React.FC<TransferEditorProps> = ({ name, assignedTo
         }}
       />
 
-      <FormControl fullWidth margin='dense' variant='standard'>
-        <InputLabel>{t<string>('chatbots:editor.nodes.Transfer.fields.assignedTo')}</InputLabel>
+      <FormControl fullWidth size='small' variant='standard'>
+        <InputLabel id='assignedTo'>
+          {t<string>('chatbots:editor.nodes.Transfer.fields.assignedTo')}
+        </InputLabel>
         <Select
+          labelId='assignedTo'
           size='small'
           value={users.loading ? 'noAssignedTo' : assignedTo ?? 'noAssignedTo'}
           onChange={(e) => {
             onChange('assignedTo', e.target.value);
           }}>
-          <MenuItem value='noAssignedTo'>
+          <MenuItem value='noAssignedTo' disabled>
             {t<string>('chatbots:editor.nodes.Transfer.noAssignedTo')}
           </MenuItem>
           {users.data?.projectUsers.map((user) => (

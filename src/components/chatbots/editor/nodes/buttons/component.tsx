@@ -1,23 +1,62 @@
 import { DialpadOutlined } from '@mui/icons-material';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
-import { Button } from '../../../../../core/types';
+import * as types from '../../../../../core/types';
 import { HandleBase, NodeBase } from '../../artifacts';
 import { nodeColors } from '../../helpers';
 import { NodeType } from '../../types';
 
 const color = nodeColors[NodeType.Buttons];
+const height = 44.491;
 
 export interface ButtonsData {
   name: string;
   text: string;
-  buttons: Button[];
+  buttons: types.Button[];
 }
 
 export const Buttons: React.FC<NodeProps<ButtonsData>> = React.memo(({ id, data, selected }) => {
+  const { length } = data.buttons;
+
   const { t } = useTranslation();
+
+  const buttons = React.useMemo(
+    () =>
+      data.buttons.map((button, i) => (
+        <Button
+          key={i}
+          variant='outlined'
+          disabled
+          sx={{
+            mt: 1,
+          }}>
+          {button.text ||
+            t<string>('chatbots:editor.nodes.Buttons.button', {
+              i,
+            })}
+        </Button>
+      )),
+    [data.buttons],
+  );
+
+  const handles = React.useMemo(
+    () =>
+      Array.from({ length }).map((_, i) => (
+        <HandleBase
+          key={i}
+          type='source'
+          id={i.toString()}
+          position={Position.Right}
+          nodeId={id}
+          style={{
+            top: 4 + height * (i + 2),
+          }}
+        />
+      )),
+    [length],
+  );
 
   return (
     <>
@@ -41,7 +80,9 @@ export const Buttons: React.FC<NodeProps<ButtonsData>> = React.memo(({ id, data,
             </Typography>
           </Box>
         </Box>
+        {buttons}
       </NodeBase>
+      {handles}
     </>
   );
 });

@@ -1,5 +1,11 @@
 import { ResourceLanguage } from 'i18next';
-import { NodeType, TriggerType, ValidationType } from '../../components/chatbots/editor/types';
+import {
+  ComparsionType,
+  NodeType,
+  TriggerType,
+  ValidationType,
+} from '../../components/chatbots/editor/types';
+import { ButtonType } from '../../core/types';
 
 export const chatbots: ResourceLanguage = {
   create: 'Создать',
@@ -38,12 +44,36 @@ export const chatbots: ResourceLanguage = {
         fields: {
           name: 'Название ноды',
         },
+        createBranch: 'Добавить ветку',
+        branch: 'Ветка {{i}}',
+        defaultBranch: 'Ни одно условие не сработало',
+        comparsion: {
+          start: 'Если',
+          end: 'условия соблюдены',
+        },
+        comparsionType: {
+          [ComparsionType.All]: 'Все',
+          [ComparsionType.Any]: 'Любое',
+        },
       },
       [NodeType.Buttons]: {
         title: 'Кнопки',
         fields: {
           name: 'Название ноды',
           text: 'Сообщение',
+          button: {
+            text: 'Текст на кнопке',
+            type: 'Тип',
+            phone: 'Телефон',
+            url: 'URL',
+          },
+        },
+        createButton: 'Добавить кнопку',
+        button: 'Кнопка {{i}}',
+        buttonType: {
+          [ButtonType.Phone]: 'Телефон',
+          [ButtonType.QuickReply]: 'Быстрый ответ',
+          [ButtonType.Url]: 'URL',
         },
       },
       [NodeType.Close]: {
@@ -85,7 +115,7 @@ export const chatbots: ResourceLanguage = {
           name: 'Название ноды',
           url: 'URL',
           headers: 'Заголовки запроса',
-          body: 'Тело запроса',
+          data: 'Тело запроса',
           variable: 'Переменная для сохранения',
         },
         noVariable: 'Не выбрано',

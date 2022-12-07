@@ -6,8 +6,7 @@ import { CollectInputData } from '../component';
 
 interface CollectInputEditorProps extends CollectInputData {
   variables: Variable[];
-  onChange: (name: string, data: any) => void;
-  onDelete: () => void;
+  onChange: <T = any>(name: keyof CollectInputData, data: T) => void;
 }
 
 export const CollectInputEditor: React.FC<CollectInputEditorProps> = ({
@@ -25,7 +24,6 @@ export const CollectInputEditor: React.FC<CollectInputEditorProps> = ({
     <>
       <TextField
         fullWidth
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.CollectInput.fields.name')}
@@ -37,23 +35,26 @@ export const CollectInputEditor: React.FC<CollectInputEditorProps> = ({
 
       <TextField
         fullWidth
-        multiline
-        minRows={3}
-        maxRows={5}
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.CollectInput.fields.text')}
+        multiline
+        minRows={3}
+        maxRows={5}
         defaultValue={text}
         onChange={(e) => {
           onChange('text', e.target.value);
         }}
       />
 
-      <FormControl fullWidth margin='dense' variant='standard'>
-        <InputLabel>{t<string>('chatbots:editor.nodes.CollectInput.fields.validation')}</InputLabel>
+      {/* TODO: attachments editor */}
+
+      <FormControl fullWidth size='small' variant='standard'>
+        <InputLabel id='validation'>
+          {t<string>('chatbots:editor.nodes.CollectInput.fields.validation')}
+        </InputLabel>
         <Select
-          size='small'
+          labelId='validation'
           value={validation}
           onChange={(e) => {
             onChange('validation', e.target.value);
@@ -81,7 +82,6 @@ export const CollectInputEditor: React.FC<CollectInputEditorProps> = ({
       {validation === ValidationType.RegExp && (
         <TextField
           fullWidth
-          margin='dense'
           variant='standard'
           size='small'
           label={t<string>('chatbots:editor.nodes.CollectInput.fields.regexp')}
@@ -92,19 +92,21 @@ export const CollectInputEditor: React.FC<CollectInputEditorProps> = ({
         />
       )}
 
-      <FormControl fullWidth margin='dense' variant='standard'>
-        <InputLabel>{t<string>('chatbots:editor.nodes.CollectInput.fields.variable')}</InputLabel>
+      <FormControl fullWidth size='small' variant='standard'>
+        <InputLabel id='variable'>
+          {t<string>('chatbots:editor.nodes.CollectInput.fields.variable')}
+        </InputLabel>
         <Select
-          size='small'
+          labelId='variable'
           value={variable ?? 'noVariable'}
           onChange={(e) => {
             onChange('variable', e.target.value);
           }}>
-          <MenuItem value='noVariable'>
+          <MenuItem value='noVariable' disabled>
             {t<string>('chatbots:editor.nodes.CollectInput.noVariable')}
           </MenuItem>
           {variables.map((variable) => (
-            <MenuItem key={variable.id} value={variable.id}>
+            <MenuItem key={variable.name} value={variable.name}>
               {variable.name}
             </MenuItem>
           ))}

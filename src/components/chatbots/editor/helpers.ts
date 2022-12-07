@@ -24,6 +24,7 @@ export const defaultNodeData: Record<string, NodeData> = {
   [NodeType.Buttons]: {
     name: 'Buttons',
     text: '',
+    attachments: [],
     buttons: [],
   },
   [NodeType.Branch]: {
@@ -35,7 +36,7 @@ export const defaultNodeData: Record<string, NodeData> = {
     name: 'ServiceCall',
     url: null,
     headers: {},
-    body: null,
+    data: null,
     variable: null,
   },
   [NodeType.Transfer]: {

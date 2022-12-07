@@ -12,9 +12,7 @@ export const NodeBase: React.FC<NodeBaseProps> = ({ selected = false, color, chi
     <Box
       display='flex'
       flexDirection='column'
-      justifyContent='center'
       width={320}
-      minHeight={100}
       padding='16px 16px 24px 16px'
       borderRadius={1}
       borderTop={`8px solid ${color}`}

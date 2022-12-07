@@ -30,9 +30,8 @@ export enum VariableType {
 }
 
 export interface Variable {
-  id: string;
-  type: VariableType;
   name: string;
+  type: VariableType;
   value?: any;
 }
 
@@ -48,6 +47,9 @@ export enum OperatorType {
   Lte = 'Lte',
   Gt = 'Gt',
   Gte = 'Gte',
+  Includes = 'Includes',
+  StartsWith = 'StartsWith',
+  EndsWith = 'EndsWith',
 }
 
 export interface Condition {
@@ -56,7 +58,7 @@ export interface Condition {
   variable2: string;
 }
 
-export interface BranchItem {
+export interface Branch {
   type: ComparsionType;
   conditions: Condition[];
 }

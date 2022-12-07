@@ -1,11 +1,15 @@
 import { CloseOutlined } from '@mui/icons-material';
-import { Box, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import React from 'react';
-import { EdgeProps, getEdgeCenter, getSmoothStepPath } from 'react-flow-renderer';
+import { EdgeProps, getBezierPath, getEdgeCenter } from 'react-flow-renderer';
 
-const size = 34;
+const size = 40;
 
-export const Standard: React.FC<EdgeProps<{ onDelete?: () => void }>> = React.memo(
+export const Standard: React.FC<
+  EdgeProps<{
+    onDelete?: () => void;
+  }>
+> = React.memo(
   ({
     id,
     sourceX,
@@ -15,8 +19,8 @@ export const Standard: React.FC<EdgeProps<{ onDelete?: () => void }>> = React.me
     sourcePosition,
     targetPosition,
     style = {},
-    markerEnd,
     data,
+    markerEnd,
   }) => {
     const [centerX, centerY] = getEdgeCenter({
       sourceX,
@@ -25,16 +29,13 @@ export const Standard: React.FC<EdgeProps<{ onDelete?: () => void }>> = React.me
       targetY,
     });
 
-    const edgePath = getSmoothStepPath({
+    const edgePath = getBezierPath({
       sourceX,
       sourceY,
-      sourcePosition,
       targetX,
       targetY,
+      sourcePosition,
       targetPosition,
-      centerX,
-      centerY,
-      borderRadius: 20,
     });
 
     return (
@@ -55,11 +56,16 @@ export const Standard: React.FC<EdgeProps<{ onDelete?: () => void }>> = React.me
           x={centerX - size / 2}
           y={centerY - size / 2}
           requiredExtensions='http://www.w3.org/1999/xhtml'>
-          <Box width='min-content' height='min-content' bgcolor='#ffffff' borderRadius='50%'>
-            <IconButton size='small' color='error' onClick={data?.onDelete}>
-              <CloseOutlined />
-            </IconButton>
-          </Box>
+          <IconButton
+            disableRipple
+            color='error'
+            sx={{
+              bgcolor: '#ffffff',
+              transform: 'scale(0.75)',
+            }}
+            onClick={data?.onDelete}>
+            <CloseOutlined />
+          </IconButton>
         </foreignObject>
       </>
     );

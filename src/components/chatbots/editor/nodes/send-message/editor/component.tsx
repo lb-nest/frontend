@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SendMessageData } from '../component';
 
 interface SendMessageEditorProps extends SendMessageData {
-  onChange: (name: string, data: any) => void;
-  onDelete: () => void;
+  onChange: <T = any>(name: keyof SendMessageData, data: T) => void;
 }
 
 export const SendMessageEditor: React.FC<SendMessageEditorProps> = ({
@@ -20,7 +19,6 @@ export const SendMessageEditor: React.FC<SendMessageEditorProps> = ({
     <>
       <TextField
         fullWidth
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.SendMessage.fields.name')}
@@ -32,13 +30,12 @@ export const SendMessageEditor: React.FC<SendMessageEditorProps> = ({
 
       <TextField
         fullWidth
-        multiline
-        minRows={3}
-        maxRows={5}
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.SendMessage.fields.text')}
+        multiline
+        minRows={3}
+        maxRows={5}
         defaultValue={text}
         onChange={(e) => {
           onChange('text', e.target.value);

@@ -5,17 +5,51 @@ import { NodeProps, Position } from 'react-flow-renderer';
 import { useTranslation } from 'react-i18next';
 import { HandleBase, NodeBase } from '../../artifacts';
 import { nodeColors } from '../../helpers';
-import { BranchItem, NodeType } from '../../types';
+import * as types from '../../types';
 
-const color = nodeColors[NodeType.Branch];
+const color = nodeColors[types.NodeType.Branch];
+const height = 44.006;
 
 export interface BranchData {
   name: string;
-  branches: BranchItem[];
+  branches: types.Branch[];
 }
 
 export const Branch: React.FC<NodeProps<BranchData>> = React.memo(({ id, data, selected }) => {
+  const length = data.branches.length + 1;
+
   const { t } = useTranslation();
+
+  const branches = React.useMemo(
+    () =>
+      Array.from({ length }).map((_, i) => (
+        <Box key={i} display='flex' alignItems='center' height={height}>
+          {i === length - 1
+            ? t<string>('chatbots:editor.nodes.Branch.defaultBranch')
+            : t<string>('chatbots:editor.nodes.Branch.branch', {
+                i,
+              })}
+        </Box>
+      )),
+    [length],
+  );
+
+  const handles = React.useMemo(
+    () =>
+      Array.from({ length }).map((_, i) => (
+        <HandleBase
+          key={i}
+          type='source'
+          id={i === length - 1 ? 'default' : i.toString()}
+          position={Position.Right}
+          nodeId={id}
+          style={{
+            top: 4 + height * (i + 2),
+          }}
+        />
+      )),
+    [length],
+  );
 
   return (
     <>
@@ -39,7 +73,9 @@ export const Branch: React.FC<NodeProps<BranchData>> = React.memo(({ id, data, s
             </Typography>
           </Box>
         </Box>
+        {branches}
       </NodeBase>
+      {handles}
     </>
   );
 });

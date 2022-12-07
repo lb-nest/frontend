@@ -13,7 +13,7 @@ export interface ServiceCallData {
   name: string;
   url: string;
   headers: Record<string, string>;
-  body?: any;
+  data?: any;
   variable?: string;
   variables: Variable[];
 }

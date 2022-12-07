@@ -29,7 +29,7 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({ node, variables }) => {
   };
 
   const editor = React.useMemo(() => {
-    const nodes: Record<NodeType, JSX.Element> = {
+    const editors: Record<NodeType, JSX.Element> = {
       [NodeType.AssignTag]: <AssignTagEditor {...node.data} />,
       [NodeType.Branch]: <BranchEditor {...node.data} variables={variables} />,
       [NodeType.Buttons]: <ButtonsEditor {...node.data} />,
@@ -41,7 +41,7 @@ export const NodeEditor: React.FC<NodeEditorProps> = ({ node, variables }) => {
       [NodeType.Transfer]: <TransferEditor {...node.data} />,
     };
 
-    return nodes[node.type as NodeType];
+    return editors[node.type as NodeType];
   }, [node.type, node.data]);
 
   const title = t<string>('chatbots:editor.sidebar.nodeEditor.title', node);

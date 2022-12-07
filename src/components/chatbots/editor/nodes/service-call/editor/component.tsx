@@ -4,15 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { ServiceCallData } from '../component';
 
 interface ServiceCallEditorProps extends ServiceCallData {
-  onChange: (name: string, data: any) => void;
-  onDelete: () => void;
+  onChange: <T = any>(name: keyof ServiceCallData, data: T) => void;
 }
 
 export const ServiceCallEditor: React.FC<ServiceCallEditorProps> = ({
   name,
   url,
   headers,
-  body,
+  data,
   variable,
   variables,
   onChange,
@@ -23,7 +22,6 @@ export const ServiceCallEditor: React.FC<ServiceCallEditorProps> = ({
     <>
       <TextField
         fullWidth
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.ServiceCall.fields.name')}
@@ -35,7 +33,6 @@ export const ServiceCallEditor: React.FC<ServiceCallEditorProps> = ({
 
       <TextField
         fullWidth
-        margin='dense'
         variant='standard'
         size='small'
         label={t<string>('chatbots:editor.nodes.ServiceCall.fields.url')}
@@ -49,37 +46,38 @@ export const ServiceCallEditor: React.FC<ServiceCallEditorProps> = ({
 
       <TextField
         fullWidth
+        variant='standard'
+        size='small'
+        label={t<string>('chatbots:editor.nodes.ServiceCall.fields.data')}
         multiline
         minRows={3}
         maxRows={5}
-        margin='dense'
-        variant='standard'
-        size='small'
+        defaultValue={data}
+        onChange={(e) => {
+          onChange('data', e.target.value);
+        }}
         InputProps={{
           sx: {
             fontFamily: 'monospace',
           },
         }}
-        label={t<string>('chatbots:editor.nodes.ServiceCall.fields.body')}
-        defaultValue={body}
-        onChange={(e) => {
-          onChange('body', e.target.value);
-        }}
       />
 
-      <FormControl fullWidth margin='dense' variant='standard'>
-        <InputLabel>{t<string>('chatbots:editor.nodes.ServiceCall.fields.variable')}</InputLabel>
+      <FormControl fullWidth size='small' variant='standard'>
+        <InputLabel id='variable'>
+          {t<string>('chatbots:editor.nodes.ServiceCall.fields.variable')}
+        </InputLabel>
         <Select
-          size='small'
+          labelId='variable'
           value={variable ?? 'noVariable'}
           onChange={(e) => {
             onChange('variable', e.target.value);
           }}>
-          <MenuItem value='noVariable'>
+          <MenuItem value='noVariable' disabled>
             {t<string>('chatbots:editor.nodes.ServiceCall.noVariable')}
           </MenuItem>
           {variables.map((variable) => (
-            <MenuItem key={variable.id} value={variable.id}>
+            <MenuItem key={variable.name} value={variable.name}>
               {variable.name}
             </MenuItem>
           ))}
