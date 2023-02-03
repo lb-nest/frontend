@@ -11,12 +11,9 @@ import { ContactModal } from '../../../contacts';
 import { ContactCard } from '../contact-card';
 import { SendHsmModal } from '../send-hsm-modal';
 
-interface ChatHeaderProps {
-  id?: number;
-  contact?: Contact;
-}
+interface ChatHeaderProps extends Partial<Pick<Chat, 'channelId' | 'accountId' | 'contact'>> {}
 
-export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
+export const ChatHeader: React.FC<ChatHeaderProps> = ({ channelId, accountId, contact }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement>();
 
   const { t } = useTranslation();
@@ -39,7 +36,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
     };
   };
 
-  const handleSendHsmModal = (chat: Pick<Chat, 'id' | 'contact'>) => {
+  const handleSendHsmModal = (chat: Pick<Chat, 'channelId' | 'accountId' | 'contact'>) => {
     return () => {
       const modal = showModal(SendHsmModal, {
         chat,
@@ -95,7 +92,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
 
   if (contact.assignedTo != null) {
     items.push(
-      <MenuItem key='sendHsm' onClick={handleSendHsmModal({ id, contact })}>
+      <MenuItem key='sendHsm' onClick={handleSendHsmModal({ channelId, accountId, contact })}>
         {t<string>('chats:chat.list.sendHsm')}
       </MenuItem>,
     );

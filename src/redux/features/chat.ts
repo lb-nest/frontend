@@ -16,6 +16,7 @@ export const chatSlice = createSlice({
       state.channelId = action.payload.channelId;
       state.accountId = action.payload.accountId;
       state.contact = action.payload.contact;
+      state.unreadCount = action.payload.unreadCount;
     },
     setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;

@@ -44,7 +44,11 @@ export const chatsSlice = createSlice({
         return;
       }
 
-      const index = state.items.findIndex((item) => action.payload.id === item.id);
+      const index = state.items.findIndex(
+        (item) =>
+          action.payload.channelId === item.channelId &&
+          action.payload.accountId === item.accountId,
+      );
       if (~index) {
         if (
           deepEqual(action.payload.contact, state.items[index].contact) &&

@@ -31,7 +31,7 @@ export const ChatsProvider: React.FC<ChatsUpdatesProvider> = React.memo(({ child
       const { chatReceived } = subscriptionData.data;
 
       dispatch(handleReceived(chatReceived));
-      if (router.query.id.toString() === `${chatReceived.channelId}:${chatReceived.accountId}`) {
+      if (router.query.id?.toString() === `${chatReceived.channelId}:${chatReceived.accountId}`) {
         dispatch(setChat(chatReceived));
       }
       refetch();

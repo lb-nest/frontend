@@ -74,7 +74,9 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
             channelId: chat.channelId,
             accountId: chat.accountId,
             hsmId: variables.hsm.id,
-            text: Mustache.render(variables.hsm.text, variables.variables),
+            text: Mustache.render(variables.hsm.text, variables.variables, undefined, {
+              escape: (value) => value,
+            }),
             attachments: variables.hsm.attachments,
             buttons: variables.hsm.buttons,
             variables: variables.variables,
@@ -159,7 +161,9 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
                     sx={{
                       wordBreak: 'break-all',
                     }}>
-                    {Mustache.render(hsm.text, variables)}
+                    {Mustache.render(hsm.text, variables, undefined, {
+                      escape: (value) => value,
+                    })}
                   </Typography>
                 </Box>
                 <Box display='flex' flexDirection='column' alignItems='flex-end' mt={0.5}>

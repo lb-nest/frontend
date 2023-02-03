@@ -20,7 +20,7 @@ export const Chat: React.FC = () => {
 
   return (
     <Box display='flex' flexDirection='column' height='100%'>
-      <ChatHeader id={chat.id} contact={chat.contact} />
+      <ChatHeader {...chat} />
       <Box
         id={id}
         display='flex'
