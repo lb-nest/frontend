@@ -5,8 +5,8 @@ import { useModal } from 'mui-modal-provider';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { CLOSE_CONTACT, RETURN_CONTACT } from '../../../../core/api';
-import { Chat, Contact } from '../../../../core/types';
+import { UPDATE_CONTACT } from '../../../../core/api';
+import { Chat, Contact, ContactStatus } from '../../../../core/types';
 import { ContactModal } from '../../../contacts';
 import { ContactCard } from '../contact-card';
 import { SendHsmModal } from '../send-hsm-modal';
@@ -21,8 +21,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
 
   const { t } = useTranslation();
 
-  const [returnContact] = useMutation(RETURN_CONTACT);
-  const [closeContact] = useMutation(CLOSE_CONTACT);
+  const [updateContact] = useMutation(UPDATE_CONTACT);
 
   const { showModal } = useModal();
 
@@ -58,9 +57,11 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
     return () => {
       toast
         .promise(
-          returnContact({
+          updateContact({
             variables: {
               id,
+              assignedTo: null,
+              status: ContactStatus.Open,
             },
           }),
           t<any, any>('common:promise', { returnObjects: true }),
@@ -73,9 +74,11 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ id, contact }) => {
     return () => {
       toast
         .promise(
-          closeContact({
+          updateContact({
             variables: {
               id,
+              assignedTo: null,
+              status: ContactStatus.Closed,
             },
           }),
           t<any, any>('common:promise', { returnObjects: true }),

@@ -8,8 +8,10 @@ export const channels: ResourceLanguage = {
     delete: 'Удалить',
   },
   modal: {
+    [ChannelType.Instagram]: 'Instagram',
     [ChannelType.Telegram]: 'Telegram',
-    [ChannelType.Webchat]: 'Веб-чат',
+    [ChannelType.Vkontakte]: 'VK',
+    [ChannelType.Webchat]: 'Чат на сайт',
     [ChannelType.Whatsapp]: 'Whatsapp',
     create: {
       title: 'Добавление нового канала',
@@ -20,9 +22,15 @@ export const channels: ResourceLanguage = {
       description: '',
     },
     fields: {
+      [ChannelType.Instagram]: {
+        name: 'Название',
+      },
       [ChannelType.Telegram]: {
         name: 'Название',
         token: 'API-токен',
+      },
+      [ChannelType.Vkontakte]: {
+        name: 'Название',
       },
       [ChannelType.Webchat]: {
         name: 'Название',

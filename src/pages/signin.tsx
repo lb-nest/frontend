@@ -1,8 +1,7 @@
 import { gql, TypedDocumentNode, useMutation } from '@apollo/client';
-import { Box, Button, Container, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, TextField } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -10,6 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { GuardContext } from '../components/guard-context';
+import { AuthHeader } from '../components/layout';
 
 interface Result {
   signIn: {
@@ -42,7 +42,9 @@ const SignIn: NextPage = () => {
   const handleSubmit: SubmitHandler<Variables> = async (variables) => {
     try {
       const result = await toast.promise(
-        signIn({ variables }),
+        signIn({
+          variables,
+        }),
         t('common:promise', { returnObjects: true }),
       );
       if (result.data) {
@@ -65,33 +67,31 @@ const SignIn: NextPage = () => {
           alignItems: 'center',
         }}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <Box display='flex' alignItems='center' justifyContent='space-between'>
-            <Box display='flex' alignItems='center'>
-              <Image src='/icon.png' alt='logo' width={64} height={35} />
-              <Box width={2} height={35} bgcolor='#0000003b' ml={1} mr={1} />
-              <Typography>{t('auth:signIn')}</Typography>
-            </Box>
-            <Link href='/signup' passHref>
-              <Button component='a' variant='outlined' size='small'>
-                {t('auth:signUp')}
-              </Button>
-            </Link>
-          </Box>
+          <AuthHeader
+            title={t<string>('auth:signIn')}
+            button={
+              <Link href='/signup' passHref>
+                <Button component='a' variant='outlined' size='small'>
+                  {t('auth:signUp')}
+                </Button>
+              </Link>
+            }
+          />
           <TextField
             fullWidth
-            margin='normal'
+            margin='dense'
             label={t('auth:email')}
             type='email'
             {...form.register('email')}
           />
           <TextField
             fullWidth
-            margin='normal'
+            margin='dense'
             label={t('auth:password')}
             type='password'
             {...form.register('password')}
           />
-          <Box display='flex' alignItems='center' justifyContent='space-between'>
+          <Box display='flex' alignItems='center' justifyContent='space-between' mt={1}>
             <Button component='a'>{t('auth:restore')}</Button>
             <Button variant='contained' type='submit'>
               {t('auth:signIn')}

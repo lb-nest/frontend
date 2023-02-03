@@ -3,7 +3,7 @@ export enum BillingType {
   Paid = 'Paid',
 }
 
-export enum RoleType {
+export enum AccessLevel {
   User = 'User',
   Admin = 'Admin',
   Owner = 'Owner',
@@ -13,11 +13,8 @@ export interface Project {
   id: number;
   name: string;
   slug: string;
-  billing: {
-    type: BillingType;
-  };
-  roles: Array<{
-    role: RoleType;
+  users: Array<{
+    accessLevel: AccessLevel;
   }>;
   token: {
     token: string;

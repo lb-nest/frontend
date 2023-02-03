@@ -1,5 +1,69 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Contact } from '../types';
+import { AssigneeType, Contact, ContactStatus } from '../types';
+
+interface CreateContactResult {
+  createContact: Contact;
+}
+
+interface CreateContactVariables {
+  name: string;
+  avatarUrl?: string;
+  notes?: string;
+  tags?: number[];
+  assignedTo?: {
+    id: number;
+    type: AssigneeType;
+  };
+  status?: ContactStatus;
+  priority?: number;
+}
+
+export const CREATE_CONTACT: TypedDocumentNode<CreateContactResult, CreateContactVariables> = gql`
+  mutation CreateContact(
+    $name: String
+    $avatarUrl: String
+    $notes: String
+    $tags: [Int!]
+    $assignedTo: CreateAssignedToInput
+    $status: ContactStatus
+    $priority: Int
+  ) {
+    createContact(
+      name: $name
+      avatarUrl: $avatarUrl
+      notes: $notes
+      tags: $tags
+      assignedTo: $assignedTo
+      status: $status
+      priority: $priority
+    ) {
+      id
+      name
+      avatarUrl
+      notes
+      tags {
+        tag {
+          id
+          name
+          description
+          color
+        }
+      }
+      status
+      assignedTo {
+        id
+        name
+      }
+      priority
+      resolved
+      customFields {
+        id
+        name
+        value
+      }
+    }
+  }
+`;
 
 interface ImportContactsVariables {
   csvOrXls: File;
@@ -29,10 +93,15 @@ export const CONTACTS: TypedDocumentNode<ContactsResult> = gql`
       name
       avatarUrl
       notes
+      tags {
+        tag {
+          id
+          name
+          description
+          color
+        }
+      }
       status
-      telegramId
-      webchatId
-      whatsappId
       assignedTo {
         id
         name
@@ -43,14 +112,6 @@ export const CONTACTS: TypedDocumentNode<ContactsResult> = gql`
         id
         name
         value
-      }
-      tags {
-        tag {
-          id
-          name
-          description
-          color
-        }
       }
     }
   }
@@ -60,12 +121,8 @@ interface UpdateContactResult {
   updateContact: Contact;
 }
 
-interface UpdateContactVariables {
+interface UpdateContactVariables extends Partial<CreateContactVariables> {
   id: number;
-  username?: string;
-  name?: string;
-  notes?: string;
-  tags?: number[];
   resolved?: boolean;
 }
 
@@ -73,19 +130,38 @@ export const UPDATE_CONTACT: TypedDocumentNode<UpdateContactResult, UpdateContac
   mutation UpdateContact(
     $id: Int!
     $name: String
+    $avatarUrl: String
     $notes: String
     $tags: [Int!]
+    $assignedTo: CreateAssignedToInput
+    $status: ContactStatus
+    $priority: Int
     $resolved: Boolean
   ) {
-    updateContact(id: $id, name: $name, notes: $notes, tags: $tags, resolved: $resolved) {
+    updateContact(
+      id: $id
+      name: $name
+      avatarUrl: $avatarUrl
+      notes: $notes
+      tags: $tags
+      assignedTo: $assignedTo
+      status: $status
+      priority: $priority
+      resolved: $resolved
+    ) {
       id
       name
       avatarUrl
       notes
+      tags {
+        tag {
+          id
+          name
+          description
+          color
+        }
+      }
       status
-      telegramId
-      webchatId
-      whatsappId
       assignedTo {
         id
         name
@@ -97,88 +173,6 @@ export const UPDATE_CONTACT: TypedDocumentNode<UpdateContactResult, UpdateContac
         name
         value
       }
-      tags {
-        tag {
-          id
-          name
-          description
-          color
-        }
-      }
     }
-  }
-`;
-
-interface AcceptContactResult {
-  acceptContact: boolean;
-}
-
-interface AcceptContactVariables {
-  id: number;
-}
-
-export const ACCEPT_CONTACT: TypedDocumentNode<AcceptContactResult, AcceptContactVariables> = gql`
-  mutation AcceptContact($id: Int!) {
-    acceptContact(id: $id)
-  }
-`;
-
-interface CloseContactResult {
-  closeContact: boolean;
-}
-
-interface CloseContactVariables {
-  id: number;
-}
-
-export const CLOSE_CONTACT: TypedDocumentNode<CloseContactResult, CloseContactVariables> = gql`
-  mutation CloseContact($id: Int!) {
-    closeContact(id: $id)
-  }
-`;
-
-interface TranserContactResult {
-  transferContact: boolean;
-}
-
-interface TransferContactVariables {
-  id: number;
-  assignedTo: number;
-}
-
-export const TRANSFER_CONTACT: TypedDocumentNode<
-  TranserContactResult,
-  TransferContactVariables
-> = gql`
-  mutation TransferContact($id: Int!, $assignedTo: Int!) {
-    transferContact(id: $id, assignedTo: $assignedTo)
-  }
-`;
-
-interface ReturnContactResult {
-  returnContact: boolean;
-}
-
-interface ReturnContactVariables {
-  id: number;
-}
-
-export const RETURN_CONTACT: TypedDocumentNode<ReturnContactResult, ReturnContactVariables> = gql`
-  mutation ReturnContact($id: Int!) {
-    returnContact(id: $id)
-  }
-`;
-
-interface ReopenContactResult {
-  reopenContact: boolean;
-}
-
-interface ReonenContactVariables {
-  id: number;
-}
-
-export const REOPEN_CONTACT: TypedDocumentNode<ReopenContactResult, ReonenContactVariables> = gql`
-  mutation ReopenContact($id: Int!) {
-    reopenContact(id: $id)
   }
 `;

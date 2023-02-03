@@ -1,11 +1,12 @@
 export enum ChannelStatus {
   Connected = 'Connected',
-  Connecting = 'Connecting',
-  Error = 'Error',
+  Failed = 'Failed',
 }
 
 export enum ChannelType {
+  Instagram = 'Instagram',
   Telegram = 'Telegram',
+  Vkontakte = 'Vkontakte',
   Webchat = 'Webchat',
   Whatsapp = 'Whatsapp',
 }
@@ -13,6 +14,6 @@ export enum ChannelType {
 export interface Channel {
   id: number;
   name: string;
-  status: ChannelStatus;
   type: ChannelType;
+  status: ChannelStatus;
 }

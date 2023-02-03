@@ -8,17 +8,17 @@ interface CreateChannelResult {
 interface CreateChannelVariables {
   name: string;
   type: ChannelType;
-  accountId?: string;
+  accountId: string;
   token: string;
 }
 
 export const CREATE_CHANNEL: TypedDocumentNode<CreateChannelResult, CreateChannelVariables> = gql`
-  mutation CreateChannel($name: String!, $type: ChannelType!, $accountId: String, $token: String!) {
+  mutation CreateChannel($name: String!, $type: ChannelType!, $accountId: String!, $token: JSON!) {
     createChannel(name: $name, type: $type, accountId: $accountId, token: $token) {
       id
       name
-      status
       type
+      status
     }
   }
 `;
@@ -32,8 +32,8 @@ export const CHANNELS: TypedDocumentNode<ChannelsResult> = gql`
     channels {
       id
       name
-      status
       type
+      status
     }
   }
 `;
@@ -51,8 +51,8 @@ export const CHANNEL_BY_ID: TypedDocumentNode<ChannelByIdResult, ChannelByIdVari
     channelById(id: $id) {
       id
       name
-      status
       type
+      status
     }
   }
 `;
@@ -63,7 +63,7 @@ interface UpdateChannelResult {
 
 interface UpdateChannelVariables {
   id: number;
-  name: string;
+  name?: string;
 }
 
 export const UPDATE_CHANNEL: TypedDocumentNode<UpdateChannelResult, UpdateChannelVariables> = gql`
@@ -71,8 +71,8 @@ export const UPDATE_CHANNEL: TypedDocumentNode<UpdateChannelResult, UpdateChanne
     updateChannel(id: $id, name: $name) {
       id
       name
-      status
       type
+      status
     }
   }
 `;

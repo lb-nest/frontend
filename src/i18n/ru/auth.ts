@@ -5,7 +5,7 @@ export const auth: ResourceLanguage = {
   signUp: 'Регистрация',
   restore: 'Восстановление',
   name: 'Имя',
-  email: 'Эектронная почта',
+  email: 'E-mail',
   password: 'Пароль',
   password2: 'Повторите пароль',
 };

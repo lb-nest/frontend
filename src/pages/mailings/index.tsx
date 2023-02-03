@@ -1,9 +1,22 @@
 import { Container } from '@mui/material';
-import React from 'react';
-import { WorkInProgress } from '../../components/common';
+import { format, getDay, parse, startOfWeek } from 'date-fns';
+import enUS from 'date-fns/locale/en-US';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import { Layout } from '../../components/layout';
 import { projectGuard, useGuard } from '../../hooks/use-guard';
 import { NextPageWithLayout } from '../_app';
+
+const locales = {
+  'en-US': enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
 
 const MailingsPage: NextPageWithLayout = () => {
   const GuardWrapper = useGuard(projectGuard);
@@ -16,11 +29,25 @@ const MailingsPage: NextPageWithLayout = () => {
           height: '100%',
           overflow: 'auto',
         }}>
-        <WorkInProgress />
-        {/* <Box display='flex' justifyContent='flex-end' mt={1} mb={1}>
-          <Button variant='outlined'>{t<string>('mailings:create')}</Button>
-        </Box>
-        <Box>content here...</Box> */}
+        <Calendar
+          localizer={localizer}
+          selectable
+          events={[
+            {
+              start: new Date(),
+              end: new Date(),
+              title: 'Welcome',
+            },
+          ]}
+          onSelectSlot={(data) => {
+            console.log('slot', data);
+          }}
+          onSelectEvent={(data) => {
+            console.log('event', data);
+          }}
+          startAccessor='start'
+          endAccessor='end'
+        />
       </Container>
     </GuardWrapper>
   );

@@ -15,11 +15,8 @@ export const CREATE_PROJECT: TypedDocumentNode<CreateProjectResult, CreateProjec
       id
       name
       slug
-      billing {
-        type
-      }
-      roles {
-        role
+      users {
+        accessLevel
       }
       token {
         token

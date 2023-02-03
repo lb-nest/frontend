@@ -1,10 +1,19 @@
 import decode from 'jwt-decode';
 import React from 'react';
+import { AccessLevel } from '../core/types';
 
 export const TOKEN_KEY = 'token';
 
 interface Token {
-  payload: any;
+  payload: {
+    id: number;
+    project: {
+      id: number;
+      roles: Array<{
+        role: AccessLevel;
+      }>;
+    };
+  };
   signIn: (token: string) => void;
   signOut: () => void;
 }

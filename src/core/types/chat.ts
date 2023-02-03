@@ -7,8 +7,9 @@ export interface ChatsCount {
 }
 
 export interface Chat {
-  id: number;
-  unreadCount: number;
+  channelId: number | null;
+  accountId: string;
   contact: Contact;
   messages: Message[];
+  unreadCount: number;
 }

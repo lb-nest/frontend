@@ -1,16 +1,17 @@
 import { useQuery, useSubscription } from '@apollo/client';
-import { MESSAGES, MESSAGES_RECEIVED } from '../core/api';
+import { MESSAGES, MESSAGE_RECEIVED } from '../core/api';
 import { useAppDispatch } from '../redux';
 import { handleReceived, setMessages } from '../redux/features/chat';
 
-export const useMessages = (chatId: number) => {
+export const useMessages = (id?: string[]) => {
   const dispatch = useAppDispatch();
 
-  const skip = Number.isNaN(chatId);
+  const skip = typeof id === 'undefined';
 
   useQuery(MESSAGES, {
     variables: {
-      chatId,
+      channelId: Number(id?.[0]),
+      accountId: id?.[1],
     },
     skip,
     fetchPolicy: 'no-cache',
@@ -19,14 +20,15 @@ export const useMessages = (chatId: number) => {
     },
   });
 
-  useSubscription(MESSAGES_RECEIVED, {
+  useSubscription(MESSAGE_RECEIVED, {
     variables: {
-      chatId,
+      channelId: Number(id?.[0]),
+      accountId: id?.[1],
     },
     skip,
     onSubscriptionData: ({ subscriptionData }) => {
       if (subscriptionData.data) {
-        dispatch(handleReceived(subscriptionData.data.messagesReceived));
+        dispatch(handleReceived(subscriptionData.data.messageReceived));
       }
     },
     shouldResubscribe: () => true,

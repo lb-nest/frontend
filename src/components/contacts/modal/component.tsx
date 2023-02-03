@@ -23,9 +23,8 @@ interface ContactModalProps extends DialogProps {
   onCancel?: () => void;
 }
 
-interface Variables {
-  name?: string;
-  notes?: string;
+interface Variables extends Partial<Omit<Contact, 'id' | 'tags' | 'chats' | 'assignedTo'>> {
+  assignedTo: undefined;
   tags?: Array<{
     tagId: number;
   }>;
@@ -47,6 +46,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
       tags: initData?.tags.map(({ tag }) => ({
         tagId: tag.id,
       })),
+      assignedTo: undefined,
     },
   });
 

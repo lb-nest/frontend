@@ -6,7 +6,8 @@ interface CreateMessageResult {
 }
 
 interface CreateMessageVariables {
-  chatId: number;
+  channelId: number;
+  accountId: string;
   hsmId?: number;
   text?: string;
   attachments?: Attachment[];
@@ -16,7 +17,8 @@ interface CreateMessageVariables {
 
 export const CREATE_MESSAGE: TypedDocumentNode<CreateMessageResult, CreateMessageVariables> = gql`
   mutation CreateMessage(
-    $chatId: Int!
+    $channelId: Int!
+    $accountId: String!
     $hsmId: Int
     $text: String
     $attachments: [CreateAttachmentInput!]
@@ -24,7 +26,8 @@ export const CREATE_MESSAGE: TypedDocumentNode<CreateMessageResult, CreateMessag
     $variables: JSONObject
   ) {
     createMessage(
-      chatId: $chatId
+      channelId: $channelId
+      accountId: $accountId
       hsmId: $hsmId
       text: $text
       attachments: $attachments
@@ -59,12 +62,13 @@ interface MessagesResult {
 }
 
 interface MessagesVariables {
-  chatId: number;
+  channelId: number;
+  accountId: string;
 }
 
 export const MESSAGES: TypedDocumentNode<MessagesResult, MessagesVariables> = gql`
-  query Messages($chatId: Int!) {
-    messages(chatId: $chatId) {
+  query Messages($channelId: Int!, $accountId: String!) {
+    messages(channelId: $channelId, accountId: $accountId) {
       id
       fromMe
       status
@@ -88,38 +92,21 @@ export const MESSAGES: TypedDocumentNode<MessagesResult, MessagesVariables> = gq
   }
 `;
 
-interface MarkMesagesAsReadResult {
-  markMessagesAsReadResult: boolean;
+interface MessageReceivedResult {
+  messageReceived: Message;
 }
 
-interface MarkMessagesAsReadVariables {
-  chatId: number;
-  ids: number[];
+interface MessageReceivedVariables {
+  channelId: number;
+  accountId: string;
 }
 
-export const MARK_MESSAGES_AS_READ: TypedDocumentNode<
-  MarkMesagesAsReadResult,
-  MarkMessagesAsReadVariables
+export const MESSAGE_RECEIVED: TypedDocumentNode<
+  MessageReceivedResult,
+  MessageReceivedVariables
 > = gql`
-  mutation MarkMessagesAsRead($chatId: Int!, $ids: [Int!]!) {
-    markMessagesAsRead(chatId: $chatId, ids: $ids)
-  }
-`;
-
-interface MessagesReceivedResult {
-  messagesReceived: Message;
-}
-
-interface MessagesReceivedVariables {
-  chatId: number;
-}
-
-export const MESSAGES_RECEIVED: TypedDocumentNode<
-  MessagesReceivedResult,
-  MessagesReceivedVariables
-> = gql`
-  subscription MessagesReceived($chatId: Int!) {
-    messagesReceived(chatId: $chatId) {
+  subscription MessageReceived($channelId: Int!, $accountId: String!) {
+    messageReceived(channelId: $channelId, accountId: $accountId) {
       id
       fromMe
       status

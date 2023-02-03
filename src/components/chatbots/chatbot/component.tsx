@@ -64,6 +64,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ id, name, updatedAt, enabled, 
           </Typography>
         </Box>
         <Box display='flex' alignItems='center' flexShrink={0}>
+          <Switch checked={enabled} onClick={handleEnabledChange} />
           <IconButton onClick={handleOpen}>
             <MoreVert />
           </IconButton>
@@ -75,7 +76,6 @@ export const Chatbot: React.FC<ChatbotProps> = ({ id, name, updatedAt, enabled, 
             </li>
             <MenuItem onClick={onDelete}>{t<string>('chatbots:chatbot.delete')}</MenuItem>
           </Menu>
-          <Switch checked={enabled} onClick={handleEnabledChange} />
         </Box>
       </Box>
     </Paper>

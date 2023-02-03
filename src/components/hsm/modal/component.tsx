@@ -18,6 +18,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import merge from 'deepmerge';
 import React from 'react';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -40,13 +41,27 @@ interface Variables {
 export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel, ...props }) => {
   const isCreate = initData === undefined;
 
-  const [anchorButton, setAnchorButton] = React.useState<HTMLElement>();
-  const [button, setButton] = React.useState<number>();
+  const [anchor, setAnchor] = React.useState<HTMLElement>();
+  const [index, setIndex] = React.useState<number>();
 
   const { t } = useTranslation();
 
   const { control, ...form } = useForm<Variables>({
-    defaultValues: initData,
+    defaultValues: {
+      ...initData,
+      buttons: [].concat(
+        initData?.buttons ?? [],
+        initData?.buttons.length >= 5
+          ? []
+          : [
+              {
+                type: ButtonType.QuickReply,
+                text: '',
+                init: true,
+              },
+            ],
+      ),
+    },
   });
 
   const text = useWatch({
@@ -54,7 +69,7 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
     name: 'text',
   });
 
-  const { append, remove } = useFieldArray({
+  const { append, update, remove } = useFieldArray({
     control,
     name: 'buttons',
   });
@@ -64,68 +79,75 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
     name: 'buttons',
   });
 
+  React.useEffect(() => {
+    if (typeof index === 'number') {
+      update(
+        index,
+        merge(buttons[index], {
+          init: buttons[index].text === '',
+        }),
+      );
+    }
+  }, [index, buttons]);
+
   const [createHsm] = useMutation(CREATE_HSM);
   const [updateHsm] = useMutation(UPDATE_HSM);
 
-  const handleSubmit = (variables: Variables) => {
-    if (isCreate) {
-      toast
-        .promise(
-          createHsm({
-            variables: {
-              ...variables,
-              buttons: variables.buttons.slice(0, -1),
-            },
-          }),
-          t<any, any>('common:promise', { returnObjects: true }),
-        )
-        .then(() => onSubmit?.())
-        .catch(() => null);
-    } else {
-      toast
-        .promise(
-          updateHsm({
-            variables: {
-              id: initData.id,
-              ...variables,
-            },
-          }),
-          t<any, any>('common:promise', { returnObjects: true }),
-        )
-        .then(() => onSubmit?.())
-        .catch(() => null);
-    }
+  const handleSubmit = ({ buttons, ...variables }: Variables) => {
+    const promise = isCreate
+      ? createHsm({
+          variables: {
+            ...variables,
+            buttons: buttons.filter(({ init }) => !init).map(({ init, ...button }) => button),
+          },
+        })
+      : updateHsm({
+          variables: {
+            id: initData.id,
+            ...variables,
+            buttons: buttons.filter(({ init }) => !init).map(({ init, ...button }) => button),
+          },
+        });
+
+    toast
+      .promise<any>(promise, t<any, any>('common:promise', { returnObjects: true }))
+      .then(() => onSubmit?.())
+      .catch(() => null);
   };
 
-  React.useEffect(() => {
-    append({
-      type: ButtonType.QuickReply,
-      text: '',
-    });
-  }, []);
-
-  const handleEditButton = (id: number): React.MouseEventHandler<HTMLDivElement> => {
-    return (event) => {
-      setAnchorButton(event.currentTarget);
-      setButton(id);
+  const handleEditButton =
+    (index: number) =>
+    (event: React.MouseEvent<HTMLElement>): void => {
+      setAnchor(event.currentTarget);
+      setIndex(index);
     };
-  };
 
-  const handleStopEditButton: React.MouseEventHandler<HTMLDivElement> = () => {
-    if (buttons.at(-1).text) {
+  const handleStopEditButton = (): void => {
+    setAnchor(undefined);
+    setIndex(undefined);
+
+    if (Boolean(buttons.at(-1).text) && buttons.length < 5) {
       append({
         type: ButtonType.QuickReply,
         text: '',
+        init: true,
       });
     }
-
-    setAnchorButton(undefined);
-    setButton(undefined);
   };
 
-  const handleDeleteButton = (id: number) => {
-    if (id < buttons.length - 1) {
-      return () => remove(id);
+  const handleDeleteButton = (index: number): (() => void | undefined) => {
+    if (!buttons[index].init) {
+      return () => {
+        remove(index);
+
+        if (Boolean(buttons.at(-1).text) && buttons.length === 5) {
+          append({
+            type: ButtonType.QuickReply,
+            text: '',
+            init: true,
+          });
+        }
+      };
     }
   };
 
@@ -161,9 +183,9 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
               </Typography>
             </Box>
             <Box display='flex' flexDirection='column' alignItems='flex-end' mt={0.5}>
-              {buttons?.map((button, id) => (
+              {buttons?.map((button, index) => (
                 <Chip
-                  key={id}
+                  key={index}
                   variant='outlined'
                   sx={{
                     mb: 0.5,
@@ -172,13 +194,13 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
                     },
                   }}
                   label={Boolean(button.text) ? button.text : t<string>('hsm:modal.default.button')}
-                  onClick={handleEditButton(id)}
-                  onDelete={handleDeleteButton(id)}
+                  onClick={handleEditButton(index)}
+                  onDelete={handleDeleteButton(index)}
                 />
               ))}
               <Popover
-                open={Boolean(anchorButton)}
-                anchorEl={anchorButton}
+                open={Boolean(anchor)}
+                anchorEl={anchor}
                 onClose={handleStopEditButton}
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -211,7 +233,7 @@ export const HsmModal: React.FC<HsmModalProps> = ({ initData, onSubmit, onCancel
                     autoFocus
                     type='text'
                     placeholder={t<string>('hsm:modal.fields.button.tooltip')}
-                    {...form.register(`buttons.${button}.text`)}
+                    {...form.register(`buttons.${index}.text`)}
                   />
                 </Box>
               </Popover>

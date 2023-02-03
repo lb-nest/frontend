@@ -24,7 +24,7 @@ import { CREATE_MESSAGE, HSM } from '../../../../core/api';
 import { Chat, Hsm } from '../../../../core/types';
 
 interface SendHsmModalProps extends DialogProps {
-  chat: Pick<Chat, 'id' | 'contact'>;
+  chat: Pick<Chat, 'channelId' | 'accountId' | 'contact'>;
   onSubmit?: () => void;
   onCancel?: () => void;
 }
@@ -71,7 +71,8 @@ export const SendHsmModal: React.FC<SendHsmModalProps> = ({
       .promise(
         createMessage({
           variables: {
-            chatId: chat.id,
+            channelId: chat.channelId,
+            accountId: chat.accountId,
             hsmId: variables.hsm.id,
             text: Mustache.render(variables.hsm.text, variables.variables),
             attachments: variables.hsm.attachments,

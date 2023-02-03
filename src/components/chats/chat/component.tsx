@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { isSameDay, isToday, isYesterday, format } from 'date-fns';
+import { format, isSameDay, isToday, isYesterday } from 'date-fns';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import { ChatItem } from './item';
 import { ChatOverlay } from './overlay';
 
 export const Chat: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { messages, ...chat } = useAppSelector(selectChat);
 

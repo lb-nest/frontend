@@ -19,12 +19,7 @@ interface HeadCell {
   id: keyof Contact;
 }
 
-const headCells: HeadCell[] = [
-  { id: 'id' },
-  { id: 'name' },
-  { id: 'telegramId' },
-  { id: 'whatsappId' },
-];
+const headCells: HeadCell[] = [{ id: 'id' }, { id: 'name' }];
 
 interface ContactsTableProps {
   items: Contact[];
@@ -85,8 +80,6 @@ export const ContactsTable: React.FC<ContactsTableProps> = ({ items }) => {
           <TableRow key={item.id}>
             <TableCell>{item.id}</TableCell>
             <TableCell>{item.name}</TableCell>
-            <TableCell>{item.telegramId}</TableCell>
-            <TableCell>{item.whatsappId}</TableCell>
             <TableCell align='right'>
               <IconButton onClick={handleShowUpdateModal(item)}>
                 <CreateOutlined />

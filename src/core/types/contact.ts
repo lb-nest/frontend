@@ -16,18 +16,17 @@ export interface Contact {
   name: string;
   avatarUrl: string;
   notes: string;
+  tags: Array<{
+    tag: Omit<Tag, 'parent' | 'children'>;
+  }>;
   status: ContactStatus;
-  telegramId: string | null;
-  webchatId: string | null;
-  whatsappId: string | null;
   assignedTo: AssignedTo | null;
   priority: number;
   resolved: boolean;
   customFields: CustomField[];
-  chats: Array<{
-    id: number;
-  }>;
-  tags: Array<{
-    tag: Omit<Tag, 'parent' | 'children'>;
-  }>;
+}
+
+export enum AssigneeType {
+  User = 'User',
+  Chatbot = 'Chatbot',
 }

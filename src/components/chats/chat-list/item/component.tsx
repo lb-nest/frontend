@@ -6,24 +6,30 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { ACCEPT_CONTACT } from '../../../../core/api';
-import { Chat, ContactStatus } from '../../../../core/types';
+import { UPDATE_CONTACT } from '../../../../core/api';
+import { AssigneeType, Chat, ContactStatus } from '../../../../core/types';
+import { GuardContext } from '../../../guard-context';
 
 interface ChatListItemProps extends Chat {
   showAssign?: boolean;
 }
 
 export const ChatListItem: React.FC<ChatListItemProps> = ({
-  id,
+  channelId,
+  accountId,
   contact,
   messages,
   showAssign = contact.assignedTo == null && contact.status === ContactStatus.Open,
 }) => {
+  const id = `${channelId}:${accountId}`;
+
+  const guard = React.useContext(GuardContext);
+
   const { t } = useTranslation();
 
   const router = useRouter();
 
-  const [acceptContact] = useMutation(ACCEPT_CONTACT);
+  const [updateContact] = useMutation(UPDATE_CONTACT);
 
   const handleOpen: React.MouseEventHandler = () => {
     router.push(`/chats/${id}`);
@@ -34,9 +40,14 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
 
     toast
       .promise(
-        acceptContact({
+        updateContact({
           variables: {
             id: contact.id,
+            assignedTo: {
+              id: guard.payload?.id,
+              type: AssigneeType.User,
+            },
+            status: ContactStatus.Open,
           },
         }),
         t<any, any>('common:promise', { returnObjects: true }),
@@ -52,7 +63,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
         alignItems: 'center',
         position: 'relative',
         padding: '5px 15px',
-        bgcolor: Number(router.query.id) === id && '#c4c8d0',
+        bgcolor: router.query.id === id && '#c4c8d0',
       }}
       onClick={handleOpen}>
       <Avatar

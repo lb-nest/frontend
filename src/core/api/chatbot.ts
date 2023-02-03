@@ -13,7 +13,7 @@ interface CreateChatbotVariables {
 }
 
 export const CREATE_CHATBOT: TypedDocumentNode<CreateChatbotResult, CreateChatbotVariables> = gql`
-  mutation CreateChatbot($name: String!, $version: String, $flow: JSON!, $enabled: Boolean) {
+  mutation CreateChatbot($name: String!, $version: String, $flow: JSONObject!, $enabled: Boolean) {
     createChatbot(name: $name, version: $version, flow: $flow, enabled: $enabled) {
       id
       name
@@ -79,7 +79,7 @@ export const UPDATE_CHATBOT: TypedDocumentNode<UpdateChatbotResult, UpdateChatbo
     $id: Int!
     $name: String
     $version: String
-    $flow: JSON
+    $flow: JSONObject
     $enabled: Boolean
   ) {
     updateChatbot(id: $id, name: $name, version: $version, flow: $flow, enabled: $enabled) {

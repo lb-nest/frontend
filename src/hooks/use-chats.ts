@@ -1,11 +1,14 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
+import { GuardContext } from '../components/guard-context';
 import { CHATS, CHATS_COUNT, USER } from '../core/api';
-import { ContactStatus } from '../core/types';
+import { AssigneeType, ContactStatus } from '../core/types';
 import { useAppDispatch, useAppSelector } from '../redux';
 import { clearChats, selectType, setChats, setChatsCount } from '../redux/features/chat-list';
 
 export const useChats = () => {
+  const guard = React.useContext(GuardContext);
+
   const dispatch = useAppDispatch();
 
   const type = useAppSelector(selectType);
@@ -13,11 +16,13 @@ export const useChats = () => {
     dispatch(clearChats());
   }, [type]);
 
-  const user = useQuery(USER);
   const variables = React.useMemo(
     () => [
       {
-        assignedTo: user.data?.user.id,
+        assignedTo: {
+          id: guard.payload?.id,
+          type: AssigneeType.User,
+        },
         status: ContactStatus.Open,
       },
       {
@@ -29,7 +34,7 @@ export const useChats = () => {
         status: ContactStatus.Closed,
       },
     ],
-    [user.data?.user.id],
+    [guard.payload?.id],
   );
 
   useQuery(CHATS, {

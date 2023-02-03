@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import { CREATE_MESSAGE } from '../../../../core/api';
 import * as types from '../../../../core/types';
 import { useUpload } from '../../../../hooks/use-upload';
+import { useAppSelector } from '../../../../redux';
+import { selectChat } from '../../../../redux/features/chat';
 import { Attachment } from './attachment';
 
 interface Variables {
@@ -20,7 +22,7 @@ interface Variables {
 export const ChatInput: React.FC = React.memo(() => {
   const { t } = useTranslation();
 
-  const router = useRouter();
+  const chat = useAppSelector(selectChat);
 
   const { control, ...form } = useForm<Variables>({
     defaultValues: {
@@ -65,7 +67,8 @@ export const ChatInput: React.FC = React.memo(() => {
       await toast.promise(
         createMessage({
           variables: {
-            chatId: Number(router.query.id),
+            channelId: chat.channelId,
+            accountId: chat.accountId,
             ...variables,
             attachments,
           },

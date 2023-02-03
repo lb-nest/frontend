@@ -29,11 +29,8 @@ export const USER_PROJECTS: TypedDocumentNode<UserProjectsResult> = gql`
       id
       name
       slug
-      billing {
-        type
-      }
-      roles {
-        role
+      users {
+        accessLevel
       }
       createdAt
       updatedAt

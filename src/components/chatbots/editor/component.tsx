@@ -250,7 +250,7 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
         position='absolute'
         right='50%'
         top={0}
-        padding={1}
+        padding='15px'
         zIndex={1001}
         sx={{
           transform: 'translateX(50%)',
@@ -264,11 +264,11 @@ export const ChatbotEditor: React.FC<ChatbotEditorProps> = ({ id, name, flow }) 
           {...form.register('name')}
         />
       </Box>
-      <Box position='absolute' right={0} top={0} padding={1} zIndex={1001}>
-        <IconButton size='large' color='secondary'>
+      <Box position='absolute' right={0} top={0} padding='15px' zIndex={1001}>
+        <IconButton color='info'>
           <DataObjectOutlined />
         </IconButton>
-        <IconButton type='submit' size='large' color='primary'>
+        <IconButton type='submit' color='success'>
           <SaveOutlined />
         </IconButton>
       </Box>

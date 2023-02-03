@@ -5,8 +5,6 @@ import { AppState } from '../store';
 export interface ChatState extends Partial<Chat> {}
 
 const initialState: ChatState = {
-  id: undefined,
-  contact: undefined,
   messages: [],
 };
 
@@ -14,8 +12,9 @@ export const chatSlice = createSlice({
   name: 'chat',
   initialState,
   reducers: {
-    setIdAndContact: (state, action: PayloadAction<Pick<Chat, 'id' | 'contact'>>) => {
-      state.id = action.payload.id;
+    setChat: (state, action: PayloadAction<Omit<Chat, 'messages'>>) => {
+      state.channelId = action.payload.channelId;
+      state.accountId = action.payload.accountId;
       state.contact = action.payload.contact;
     },
     setMessages: (state, action: PayloadAction<Message[]>) => {
@@ -37,7 +36,7 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { setIdAndContact, setMessages, handleReceived, clearMessages } = chatSlice.actions;
+export const { setChat, setMessages, handleReceived, clearMessages } = chatSlice.actions;
 
 export const selectChat = (state: AppState) => state.chat;
 

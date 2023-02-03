@@ -2,6 +2,9 @@ import { createTheme } from '@mui/material';
 import { palette } from './palette';
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: ['Nunito', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
+  },
   palette,
   components: {
     MuiCssBaseline: {

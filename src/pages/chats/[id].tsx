@@ -1,12 +1,12 @@
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { Chat, ChatsLayout } from '../../components/chats';
-import { CHAT_BY_ID } from '../../core/api';
+import { CHAT } from '../../core/api';
 import { projectGuard, useGuard } from '../../hooks/use-guard';
 import { useMessages } from '../../hooks/use-messages';
 import { useAppDispatch } from '../../redux';
-import { setIdAndContact } from '../../redux/features/chat';
+import { setChat } from '../../redux/features/chat';
 import { NextPageWithLayout } from '../_app';
 
 const ChatPage: NextPageWithLayout = () => {
@@ -15,28 +15,24 @@ const ChatPage: NextPageWithLayout = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const [fetchChat] = useLazyQuery(CHAT_BY_ID, {
+  const id = router.query.id?.toString().split(':');
+
+  const chat = useQuery(CHAT, {
+    variables: {
+      channelId: Number(id?.[0]),
+      accountId: id?.[1],
+    },
     fetchPolicy: 'no-cache',
+    skip: typeof id == 'undefined',
   });
 
   React.useEffect(() => {
-    (async () => {
-      const id = Number(router.query.id);
-      if (Number.isInteger(id)) {
-        const result = await fetchChat({
-          variables: {
-            id,
-          },
-        });
+    if (chat.data) {
+      dispatch(setChat(chat.data.chat));
+    }
+  }, [chat]);
 
-        if (result.data) {
-          dispatch(setIdAndContact(result.data.chatById));
-        }
-      }
-    })();
-  }, [router.query.id]);
-
-  useMessages(Number(router.query.id));
+  useMessages(id);
 
   return (
     <GuardWrapper>

@@ -26,7 +26,7 @@ interface ChannelModalProps extends DialogProps {
 interface Variables {
   name: string;
   accountId?: string;
-  token: string;
+  token?: string;
 }
 
 export const ChannelModal: React.FC<ChannelModalProps> = ({
@@ -54,6 +54,8 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
           createChannel({
             variables: {
               type,
+              accountId: 'accountId',
+              token: 'token',
               ...variables,
             },
           }),
@@ -93,29 +95,34 @@ export const ChannelModal: React.FC<ChannelModalProps> = ({
             label={t<string>(`channels:modal.fields.${type}.name`)}
             type='text'
             fullWidth
-            variant='outlined'
+            variant='filled'
+            size='small'
             {...form.register('name')}
           />
-          {type === ChannelType.Whatsapp && (
-            <TextField
-              margin='dense'
-              label={t<string>(`channels:modal.fields.${type}.accountId`)}
-              type='text'
-              fullWidth
-              variant='outlined'
-              disabled={!isCreate}
-              {...form.register('accountId')}
-            />
+          {isCreate && (
+            <>
+              {type === ChannelType.Whatsapp && (
+                <TextField
+                  margin='dense'
+                  label={t<string>(`channels:modal.fields.${type}.accountId`)}
+                  type='text'
+                  fullWidth
+                  variant='filled'
+                  size='small'
+                  {...form.register('accountId')}
+                />
+              )}
+              <TextField
+                margin='dense'
+                label={t<string>(`channels:modal.fields.${type}.token`)}
+                type='text'
+                fullWidth
+                variant='filled'
+                size='small'
+                {...form.register('token')}
+              />
+            </>
           )}
-          <TextField
-            margin='dense'
-            label={t<string>(`channels:modal.fields.${type}.token`)}
-            type='text'
-            fullWidth
-            variant='outlined'
-            disabled={!isCreate}
-            {...form.register('token')}
-          />
         </DialogContent>
         <DialogActions>
           <Button color='error' onClick={onCancel}>

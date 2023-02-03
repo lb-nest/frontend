@@ -3,41 +3,33 @@ import { Box, Button } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { ACCEPT_CONTACT, REOPEN_CONTACT } from '../../../../core/api';
-import { Contact, ContactStatus } from '../../../../core/types';
+import { UPDATE_CONTACT } from '../../../../core/api';
+import { AssigneeType, Contact, ContactStatus } from '../../../../core/types';
+import { GuardContext } from '../../../guard-context';
 
 interface ChatOverlayProps {
   contact?: Contact;
 }
 
 export const ChatOverlay: React.FC<ChatOverlayProps> = ({ contact }) => {
+  const guard = React.useContext(GuardContext);
+
   const { t } = useTranslation();
 
-  const [accectContact] = useMutation(ACCEPT_CONTACT);
-  const [reopenContact] = useMutation(REOPEN_CONTACT);
+  const [updateContact] = useMutation(UPDATE_CONTACT);
 
   const handleAccept = (id: number) => {
     return () => {
       toast
         .promise(
-          accectContact({
+          updateContact({
             variables: {
               id,
-            },
-          }),
-          t<any, any>('common:promise', { returnObjects: true }),
-        )
-        .catch(() => null);
-    };
-  };
-
-  const handleReopen = (id: number) => {
-    return () => {
-      toast
-        .promise(
-          reopenContact({
-            variables: {
-              id,
+              assignedTo: {
+                id: guard.payload?.id,
+                type: AssigneeType.User,
+              },
+              status: ContactStatus.Open,
             },
           }),
           t<any, any>('common:promise', { returnObjects: true }),
@@ -70,8 +62,8 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({ contact }) => {
           width: '100%',
           height: '100%',
         }}
-        onClick={closed ? handleReopen(contact.id) : handleAccept(contact.id)}>
-        {t<string>(`chats:chat.list.${closed ? 'reopen' : 'accept'}`)}
+        onClick={handleAccept(contact.id)}>
+        {t<string>('chats:chat.list.accept')}
       </Button>
     </Box>
   );

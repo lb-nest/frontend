@@ -35,9 +35,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ node, variables, onClose }) =>
           {node === undefined ? <NodeList /> : <NodeEditor node={node} variables={variables} />}
         </Box>
       )}
-      <Box position='absolute' left={show ? width : 0} top={0} padding={1} zIndex={1001}>
+      <Box position='absolute' left={show ? width : 0} top={0} padding='15px' zIndex={1001}>
         <IconButton
-          size='large'
           onClick={() => {
             setShow((prev) => !prev);
             if (show) {

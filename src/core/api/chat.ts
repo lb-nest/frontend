@@ -1,5 +1,5 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Chat, ChatsCount, ContactStatus } from '../types';
+import { AssigneeType, Chat, ChatsCount, ContactStatus } from '../types';
 
 interface ChatsCountResult {
   chatsCount: ChatsCount;
@@ -19,23 +19,32 @@ interface ChatsResult {
 }
 
 interface ChatsVariables {
-  assignedTo?: number;
+  assignedTo?: {
+    id: number;
+    type: AssigneeType;
+  };
   status: ContactStatus;
 }
 
 export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
-  query Chats($status: ContactStatus!, $assignedTo: Int) {
+  query Chats($status: ContactStatus!, $assignedTo: CreateAssignedToInput) {
     chats(status: $status, assignedTo: $assignedTo) {
-      id
+      channelId
+      accountId
       contact {
         id
         name
         avatarUrl
         notes
+        tags {
+          tag {
+            id
+            name
+            description
+            color
+          }
+        }
         status
-        telegramId
-        webchatId
-        whatsappId
         assignedTo {
           id
           name
@@ -46,14 +55,6 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
           id
           name
           value
-        }
-        tags {
-          tag {
-            id
-            name
-            description
-            color
-          }
         }
       }
       messages {
@@ -82,23 +83,29 @@ export const CHATS: TypedDocumentNode<ChatsResult, ChatsVariables> = gql`
   }
 `;
 
-interface ChatsReceivedResult {
-  chatsReceived: Chat;
+interface ChatReceivedResult {
+  chatReceived: Chat;
 }
 
-export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
-  subscription ChatsReceived {
-    chatsReceived {
-      id
+export const CHAT_RECEIVED: TypedDocumentNode<ChatReceivedResult> = gql`
+  subscription ChatReceived {
+    chatReceived {
+      channelId
+      accountId
       contact {
         id
         name
         avatarUrl
         notes
+        tags {
+          tag {
+            id
+            name
+            description
+            color
+          }
+        }
         status
-        telegramId
-        webchatId
-        whatsappId
         assignedTo {
           id
           name
@@ -109,14 +116,6 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
           id
           name
           value
-        }
-        tags {
-          tag {
-            id
-            name
-            description
-            color
-          }
         }
       }
       messages {
@@ -145,27 +144,34 @@ export const CHATS_RECEIVED: TypedDocumentNode<ChatsReceivedResult> = gql`
   }
 `;
 
-interface ChatByIdResult {
-  chatById: Chat;
+interface ChatResult {
+  chat: Chat;
 }
 
-interface ChatByIdVariables {
-  id: number;
+interface ChatVariables {
+  channelId: number;
+  accountId: string;
 }
 
-export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = gql`
-  query ChatById($id: Int!) {
-    chatById(id: $id) {
-      id
+export const CHAT: TypedDocumentNode<ChatResult, ChatVariables> = gql`
+  query Chat($channelId: Int!, $accountId: String!) {
+    chat(channelId: $channelId, accountId: $accountId) {
+      channelId
+      accountId
       contact {
         id
         name
         avatarUrl
         notes
+        tags {
+          tag {
+            id
+            name
+            description
+            color
+          }
+        }
         status
-        telegramId
-        webchatId
-        whatsappId
         assignedTo {
           id
           name
@@ -176,14 +182,6 @@ export const CHAT_BY_ID: TypedDocumentNode<ChatByIdResult, ChatByIdVariables> = 
           id
           name
           value
-        }
-        tags {
-          tag {
-            id
-            name
-            description
-            color
-          }
         }
       }
       messages {

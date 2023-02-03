@@ -35,7 +35,9 @@ export const ChatList: React.FC<ChatListProps> = () => {
             <Typography color='#6e778a'>{t<string>('chats:noData')}</Typography>
           </Box>
         ) : (
-          chats.map((item) => <ChatListItem key={item.id} {...item} />)
+          chats.map((item) => (
+            <ChatListItem key={`${item.channelId}:${item.accountId}`} {...item} />
+          ))
         )}
       </Box>
     </Box>
