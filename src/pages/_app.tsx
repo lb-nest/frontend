@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, GlobalStyles } from '@mui/material';
 import ModalProvider from 'mui-modal-provider';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
@@ -48,6 +48,16 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           rel='stylesheet'
         />
       </Head>
+      <GlobalStyles
+        styles={{
+          '[data-rmiz-modal-overlay="hidden"]': {
+            backgroundColor: '#00000000',
+          },
+          '[data-rmiz-modal-overlay="visible"]': {
+            backgroundColor: '#00000080',
+          },
+        }}
+      />
       <ApolloProvider client={client}>
         <Provider store={store}>
           <GuardContextProvider>

@@ -19,7 +19,7 @@ const createRestartableClient = (options: ClientOptions): RestartableClient => {
     ...options,
     on: {
       ...options.on,
-      opened: (socket: any) => {
+      opened: (socket: WebSocket) => {
         options.on?.opened?.(socket);
 
         restart = () => {

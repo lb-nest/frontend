@@ -12,16 +12,16 @@ export const MenuItem: React.FC<MenuItemProps> = ({ href, children }) => {
   const router = useRouter();
 
   return (
-    <Link href={href} passHref>
-      <Button
-        size='large'
-        sx={{
-          justifyContent: 'flex-start',
-          bgcolor: router.pathname === href ? 'rgba(61, 90, 254, 0.04)' : undefined,
-          textTransform: 'none',
-        }}>
-        {children}
-      </Button>
-    </Link>
+    <Button
+      href={href}
+      component={Link}
+      size='large'
+      sx={{
+        justifyContent: 'flex-start',
+        bgcolor: router.pathname === href ? 'rgba(61, 90, 254, 0.04)' : undefined,
+        textTransform: 'none',
+      }}>
+      {children}
+    </Button>
   );
 };

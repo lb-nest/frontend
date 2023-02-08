@@ -31,15 +31,15 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ title, href, children 
               }
             : undefined,
         }}>
-        <Link href={href} passHref>
-          <ButtonBase
-            sx={{
-              width: '100%',
-              height: '100%',
-            }}>
-            {children}
-          </ButtonBase>
-        </Link>
+        <ButtonBase
+          href={href}
+          component={Link}
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}>
+          {children}
+        </ButtonBase>
       </Box>
     </Tooltip>
   );

@@ -13,7 +13,7 @@ import {
   TagOutlined,
   WebhookOutlined,
 } from '@mui/icons-material';
-import { Avatar, Box, Button, IconButton, Menu, Popover, Typography } from '@mui/material';
+import { Avatar, Box, Button, IconButton, Popover, Typography } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -122,22 +122,22 @@ export const Sidebar: React.FC = () => {
               <Typography fontSize={22} fontWeight={700}>
                 {user.data?.user.name}
               </Typography>
-              <Link href='/settings/profile' passHref>
-                <Button
-                  disableRipple
-                  sx={{
-                    color: 'inherit',
-                    textTransform: 'none',
-                    fontSize: 12,
-                    fontWeight: 500,
-                    ':hover': {
-                      bgcolor: 'transparent',
-                    },
-                  }}
-                  startIcon={<AccountBoxOutlined />}>
-                  {t<string>('sidebar:popover.profile')}
-                </Button>
-              </Link>
+              <Button
+                href='/settings/profile'
+                component={Link}
+                disableRipple
+                sx={{
+                  color: 'inherit',
+                  textTransform: 'none',
+                  fontSize: 12,
+                  fontWeight: 500,
+                  ':hover': {
+                    bgcolor: 'transparent',
+                  },
+                }}
+                startIcon={<AccountBoxOutlined />}>
+                {t<string>('sidebar:popover.profile')}
+              </Button>
               <Button
                 disableRipple
                 sx={{

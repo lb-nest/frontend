@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
       padding='0 15px'
       flexShrink={0}>
       <Box display='flex' alignItems='center'>
-        <Image src='/icon.png' width={50} height={27} />
+        <Image src='/icon.png' alt='icon' width={50} height={27} />
         <Typography
           component='h1'
           noWrap
