@@ -72,11 +72,9 @@ const SignUp: NextPage = () => {
           <AuthHeader
             title={t<string>('auth:signUp')}
             button={
-              <Link href='/signin' passHref>
-                <Button component='a' variant='outlined' size='small'>
-                  {t('auth:signIn')}
-                </Button>
-              </Link>
+              <Button href='/signin' component={Link} variant='outlined' size='small'>
+                {t('auth:signIn')}
+              </Button>
             }
           />
 

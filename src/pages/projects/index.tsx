@@ -59,29 +59,30 @@ const ProjectsPage: NextPageWithLayout = () => {
           {userProjects.data?.userProjects.map((project) => (
             <ProjectCard key={project.id} {...project} onClick={handleClick} />
           ))}
-          <Link href='/projects/new'>
-            <Paper
+          <Paper
+            href='/projects/new'
+            component={Link}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              mt: 1,
+              padding: 2,
+              textDecoration: 'none',
+              cursor: 'pointer',
+              transition: '200ms ease',
+              ':hover': {
+                bgcolor: '#f0f1f3',
+              },
+            }}>
+            <Add />
+            <Typography
+              variant='body1'
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                mt: 1,
-                padding: 2,
-                cursor: 'pointer',
-                transition: '200ms ease',
-                ':hover': {
-                  bgcolor: '#f0f1f3',
-                },
+                ml: 1,
               }}>
-              <Add />
-              <Typography
-                variant='body1'
-                sx={{
-                  ml: 1,
-                }}>
-                {t('projects:new.title')}
-              </Typography>
-            </Paper>
-          </Link>
+              {t('projects:new.title')}
+            </Typography>
+          </Paper>
         </Stack>
       </GuardWrapper>
     </>

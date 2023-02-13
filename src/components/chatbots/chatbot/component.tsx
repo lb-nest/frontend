@@ -70,9 +70,9 @@ export const Chatbot: React.FC<ChatbotProps> = ({ id, name, updatedAt, enabled, 
           </IconButton>
           <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
             <li tabIndex={-1}>
-              <Link href={`/chatbots/${id}/editor`} passHref>
-                <MenuItem component='a'>{t<string>('chatbots:chatbot.update')}</MenuItem>
-              </Link>
+              <MenuItem href={`/chatbots/${id}/editor`} component={Link}>
+                {t<string>('chatbots:chatbot.update')}
+              </MenuItem>
             </li>
             <MenuItem onClick={onDelete}>{t<string>('chatbots:chatbot.delete')}</MenuItem>
           </Menu>

@@ -22,7 +22,7 @@ interface Variables {
   password: string;
 }
 
-const SIGNIN: TypedDocumentNode<Result, Variables> = gql`
+const SIGN_IN: TypedDocumentNode<Result, Variables> = gql`
   mutation SignIn($email: String!, $password: String!) {
     signIn(email: $email, password: $password) {
       token
@@ -37,7 +37,7 @@ const SignIn: NextPage = () => {
   const router = useRouter();
 
   const form = useForm<Variables>();
-  const [signIn] = useMutation(SIGNIN);
+  const [signIn] = useMutation(SIGN_IN);
 
   const handleSubmit: SubmitHandler<Variables> = async (variables) => {
     try {
@@ -70,11 +70,9 @@ const SignIn: NextPage = () => {
           <AuthHeader
             title={t<string>('auth:signIn')}
             button={
-              <Link href='/signup' passHref>
-                <Button component='a' variant='outlined' size='small'>
-                  {t('auth:signUp')}
-                </Button>
-              </Link>
+              <Button href='/signup' component={Link} variant='outlined' size='small'>
+                {t('auth:signUp')}
+              </Button>
             }
           />
           <TextField
@@ -92,7 +90,9 @@ const SignIn: NextPage = () => {
             {...form.register('password')}
           />
           <Box display='flex' alignItems='center' justifyContent='space-between' mt={1}>
-            <Button component='a'>{t('auth:restore')}</Button>
+            <Button href='#' component={Link}>
+              {t('auth:restore')}
+            </Button>
             <Button variant='contained' type='submit'>
               {t('auth:signIn')}
             </Button>

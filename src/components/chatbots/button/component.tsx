@@ -22,7 +22,7 @@ export const CreateChatbotButton: React.FC<CreateChatbotButtonProps> = ({ onCrea
 
   const [createChatbot] = useMutation(CREATE_CHATBOT);
 
-  const handleCreateFromScatch = async () => {
+  const handleCreateFromScratch = async () => {
     try {
       const result = await toast.promise(
         createChatbot({
@@ -61,19 +61,19 @@ export const CreateChatbotButton: React.FC<CreateChatbotButtonProps> = ({ onCrea
         {t<string>('chatbots:create')}
       </Button>
       <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={() => setAnchorEl(undefined)}>
-        <MenuItem onClick={handleCreateFromScatch}>
+        <MenuItem onClick={handleCreateFromScratch}>
           {t<string>('chatbots:createFrom.scratch')}
         </MenuItem>
         <MenuItem>
-          <NextLink href='/chatbots/templates' passHref>
-            <Link
-              sx={{
-                color: 'inherit',
-                textDecoration: 'inherit',
-              }}>
-              {t<string>('chatbots:createFrom.template')}
-            </Link>
-          </NextLink>
+          <Link
+            href='/chatbots/templates'
+            component={NextLink}
+            sx={{
+              color: 'inherit',
+              textDecoration: 'inherit',
+            }}>
+            {t<string>('chatbots:createFrom.template')}
+          </Link>
         </MenuItem>
       </Menu>
     </>

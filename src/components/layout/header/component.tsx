@@ -56,11 +56,9 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
             </Badge>
           </IconButton>
         </Tooltip>
-        <Link href='/docs' passHref>
-          <IconButton>
-            <HelpOutline />
-          </IconButton>
-        </Link>
+        <IconButton href='/docs' component={Link}>
+          <HelpOutline />
+        </IconButton>
       </Box>
     </Box>
   );
