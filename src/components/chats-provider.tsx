@@ -37,7 +37,7 @@ export const ChatsProvider: React.FC<ChatsUpdatesProvider> = React.memo(({ child
       refetch();
 
       if (
-        !subscriptionData.data.chatReceived.messages[0].fromMe &&
+        !subscriptionData.data.chatReceived.messages[0]?.fromMe &&
         !window.document.hasFocus() &&
         Notification.permission === 'granted'
       ) {

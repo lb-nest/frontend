@@ -77,7 +77,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
           {contact.name}
         </Typography>
         <Typography component='div' variant='body2' noWrap>
-          {messages[0].content[0].text}
+          {messages[0]?.content[0].text}
         </Typography>
       </Box>
       <Box
