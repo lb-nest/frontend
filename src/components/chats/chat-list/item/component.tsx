@@ -72,7 +72,7 @@ export const ChatListItem: React.FC<ChatListItemProps> = React.memo(
             <IconButton
               sx={{
                 position: 'absolute',
-                left: 8,
+                left: 16,
                 color: '#212121',
                 zIndex: 1,
               }}
