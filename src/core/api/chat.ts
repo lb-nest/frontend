@@ -1,18 +1,5 @@
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { AssigneeType, Chat, ChatsCount, ContactStatus } from '../types';
-
-interface ChatsCountResult {
-  chatsCount: ChatsCount;
-}
-
-export const CHATS_COUNT: TypedDocumentNode<ChatsCountResult> = gql`
-  query ChatsCount {
-    chatsCount {
-      assigned
-      unassigned
-    }
-  }
-`;
+import { AssigneeType, Chat, ContactStatus } from '../types';
 
 interface ChatsResult {
   chats: Chat[];

@@ -20,7 +20,7 @@ export const Team: React.FC<TeamProps> = ({ users }) => {
             p: 1,
           }}>
           <Avatar src={user.avatarUrl} />
-          <Box ml='15px' overflow='hidden' flexGrow={1}>
+          <Box ml={2} overflow='hidden' flexGrow={1}>
             <Typography variant='body1' noWrap>
               {user.name}
             </Typography>

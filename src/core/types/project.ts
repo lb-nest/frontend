@@ -16,9 +16,6 @@ export interface Project {
   users: Array<{
     accessLevel: AccessLevel;
   }>;
-  token: {
-    token: string;
-  };
   createdAt: string;
   updatedAt: string;
 }

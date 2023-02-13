@@ -59,47 +59,42 @@ export const ChatListItem: React.FC<ChatListItemProps> = ({
     <ButtonBase
       component='div'
       sx={{
-        display: 'flex',
-        alignItems: 'center',
+        width: '100%',
         position: 'relative',
-        padding: '5px 15px',
-        bgcolor: router.query.id === id && '#c4c8d0',
+        p: 2,
+        bgcolor: router.query.id === id && 'rgba(0, 0, 0, 0.04)',
       }}
       onClick={handleOpen}>
-      <Avatar
-        src={contact.avatarUrl}
-        sx={{
-          flexShrink: 0,
-        }}
-      />
-      <Box flexGrow={1} ml='10px' overflow='hidden'>
-        <Typography component='div' variant='body1' noWrap>
-          {contact.name}
-        </Typography>
-        <Typography component='div' variant='body2' noWrap>
-          {messages[0]?.content[0].text}
-        </Typography>
+      <Box display='flex' alignItems='center' width='100%'>
+        <Avatar src={contact.avatarUrl} alt={contact.name} />
+        {showAssign && (
+          <IconButton
+            sx={{
+              position: 'absolute',
+              left: 8,
+              color: '#212121',
+              zIndex: 1,
+            }}
+            onClick={handleAssign}>
+            <AddTaskOutlined />
+          </IconButton>
+        )}
+        <Box ml={1} display='flex' width='calc(100% - 48px)'>
+          <Box display='flex' flexDirection='column' minWidth={0} flexGrow={1}>
+            <Typography component='span' variant='body1' noWrap>
+              {contact.name}
+            </Typography>
+            <Typography component='span' variant='body2' noWrap>
+              {messages[0]?.content[0].text}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography component='span' variant='caption'>
+              {format(new Date(messages[0].updatedAt), 'dd.MM.yyyy')}
+            </Typography>
+          </Box>
+        </Box>
       </Box>
-      <Box
-        sx={{
-          flexShrink: 0,
-        }}>
-        <Typography component='span' variant='caption'>
-          {format(new Date(messages[0].updatedAt), 'dd.MM.yyyy')}
-        </Typography>
-      </Box>
-      {showAssign && (
-        <IconButton
-          sx={{
-            position: 'absolute',
-            left: 15,
-            color: '#000000',
-            zIndex: 1,
-          }}
-          onClick={handleAssign}>
-          <AddTaskOutlined />
-        </IconButton>
-      )}
     </ButtonBase>
   );
 };

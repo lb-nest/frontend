@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { MoreVert } from '@mui/icons-material';
+import { MoreVertOutlined } from '@mui/icons-material';
 import { Box, IconButton, Menu, MenuItem } from '@mui/material';
 import { useModal } from 'mui-modal-provider';
 import React from 'react';
@@ -109,11 +109,11 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ channelId, accountId, co
   }
 
   return (
-    <Box display='flex' alignItems='center' height={50} padding='0 15px' flexShrink={0}>
+    <Box display='flex' alignItems='center' height={56} pl={2} pr={2} flexShrink={0}>
       <ContactCard {...contact} />
       <Box display='flex' alignItems='center' flexShrink={0}>
         <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-          <MoreVert />
+          <MoreVertOutlined />
         </IconButton>
         <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={() => setAnchorEl(undefined)}>
           <MenuItem onClick={handleContactModal(contact)}>

@@ -27,12 +27,12 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
         display='flex'
         flexDirection='column'
         alignItems={fromMe ? 'flex-end' : 'flex-start'}
-        mt='15px'>
-        <Box display='flex' flexDirection='column' maxWidth='60%'>
+        mt={2}>
+        <Box display='flex' flexDirection='column' maxWidth='80%'>
           <Box
             bgcolor={fromMe ? '#3d5afe' : '#c4c8d0'}
             color={fromMe ? '#ffffff' : '#000000'}
-            borderRadius='10px'
+            borderRadius={2}
             overflow='hidden'
             sx={
               fromMe
@@ -58,7 +58,7 @@ export const ChatItem: React.FC<ChatItemProps> = React.memo(
             {(Boolean(text) || empty) && (
               <Typography
                 component='div'
-                padding='5px'
+                p={0.5}
                 sx={{
                   maxWidth,
                   wordBreak: 'break-all',

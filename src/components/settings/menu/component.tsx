@@ -7,7 +7,7 @@ interface MenuProps {
 
 export const Menu: React.FC<MenuProps> = ({ children }) => {
   return (
-    <Box display='flex' flexDirection='column' padding='50px 15px' flexShrink={0}>
+    <Box display='flex' flexDirection='column' mt={7} flexShrink={0}>
       {children}
     </Box>
   );

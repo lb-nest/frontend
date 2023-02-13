@@ -83,7 +83,7 @@ export const ChatInput: React.FC = React.memo(() => {
   return (
     <Box>
       {files?.length > 0 && (
-        <Box display='flex' padding='15px 15px 0 10px'>
+        <Box display='flex' pt={1} pr={1}>
           {files.map((file, i) => (
             <Attachment key={i} file={file} onRemove={() => remove(i)} />
           ))}
@@ -93,7 +93,7 @@ export const ChatInput: React.FC = React.memo(() => {
         component='form'
         display='flex'
         alignItems='center'
-        padding='15px'
+        p={1}
         onSubmit={form.handleSubmit(handleSubmit)}>
         <IconButton component='label' disabled={loading}>
           <input
@@ -112,7 +112,7 @@ export const ChatInput: React.FC = React.memo(() => {
           fullWidth
           multiline
           placeholder={t('chats:chat.input')}
-          maxRows={4}
+          maxRows={8}
           disabled={loading}
           {...form.register('text')}
           InputProps={{

@@ -17,7 +17,7 @@ import { Avatar, Box, Button, IconButton, Popover, Typography } from '@mui/mater
 import Link from 'next/link';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { USER } from '../../../core/api';
+import { PROJECT, USER } from '../../../core/api';
 import { GuardContext } from '../../guard-context';
 import { SidebarItem } from './item';
 
@@ -26,6 +26,7 @@ export const Sidebar: React.FC = () => {
 
   const { t } = useTranslation();
 
+  const project = useQuery(PROJECT);
   const user = useQuery(USER);
 
   const guard = React.useContext(GuardContext);
@@ -36,71 +37,70 @@ export const Sidebar: React.FC = () => {
       display='flex'
       flexDirection='column'
       justifyContent='space-between'
-      width={80}
+      width={86}
       height='calc(100vh - 50px)'
       bgcolor='#2d3e4f'>
       <Box
         display='flex'
         flexDirection='column'
-        padding='50px 0'
-        overflow='auto'
-        flexShrink={1}
-        sx={{
-          overflow: 'hidden auto',
-        }}>
-        <Box display='flex' flexDirection='column' width={80}>
-          <SidebarItem title={t('common:pages.chats')} href='/chats'>
-            <ChatOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.contacts')} href='/contacts'>
-            <ContactPhoneOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.mailings')} href='/mailings'>
-            <ContactMailOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.channels')} href='/channels'>
-            <SyncAltOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.chatbots')} href='/chatbots'>
-            <SmartToyOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.webhooks')} href='/webhooks'>
-            <WebhookOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.integrations')} href='/integrations'>
-            <IntegrationInstructionsOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.tags')} href='/tags'>
-            <TagOutlined />
-          </SidebarItem>
-          <SidebarItem title={t('common:pages.hsm')} href='/hsm'>
-            <CodeOutlined />
-          </SidebarItem>
+        pt={7}
+        pb={7}
+        overflow='hidden auto'
+        flexShrink={1}>
+        <Box display='flex' flexDirection='column' width={86}>
+          <SidebarItem href='/chats' title={t('common:pages.chats')} icon={<ChatOutlined />} />
+          <SidebarItem
+            href='/contacts'
+            title={t('common:pages.contacts')}
+            icon={<ContactPhoneOutlined />}
+          />
+          <SidebarItem
+            href='/mailings'
+            title={t('common:pages.mailings')}
+            icon={<ContactMailOutlined />}
+          />
+          <SidebarItem
+            href='/channels'
+            title={t('common:pages.channels')}
+            icon={<SyncAltOutlined />}
+          />
+          <SidebarItem
+            href='/chatbots'
+            title={t('common:pages.chatbots')}
+            icon={<SmartToyOutlined />}
+          />
+          <SidebarItem
+            href='/webhooks'
+            title={t('common:pages.webhooks')}
+            icon={<WebhookOutlined />}
+          />
+          <SidebarItem
+            href='/integrations'
+            title={t('common:pages.integrations')}
+            icon={<IntegrationInstructionsOutlined />}
+          />
+          <SidebarItem href='/tags' title={t('common:pages.tags')} icon={<TagOutlined />} />
+          <SidebarItem href='/hsm' title={t('common:pages.hsm')} icon={<CodeOutlined />} />
         </Box>
       </Box>
-      <Box
-        display='flex'
-        flexDirection='column'
-        padding='25px 0 50px'
-        overflow='auto'
-        flexShrink={0}>
-        <SidebarItem title={t('common:pages.settings')} href='/settings/project'>
-          <SettingsOutlined />
-        </SidebarItem>
-        <Box display='flex' flexDirection='column' alignItems='center' mt='30px'>
+      <Box display='flex' flexDirection='column' pb={7} overflow='auto' flexShrink={0}>
+        <SidebarItem
+          href='/settings/project'
+          title={t('common:pages.settings')}
+          icon={<SettingsOutlined />}
+        />
+        <Box display='flex' flexDirection='column' alignItems='center' mt={5}>
           <IconButton
             disableRipple
             sx={{
-              padding: 0,
+              p: 0,
             }}
             onClick={(e) => {
               setAnchorEl(e.currentTarget);
             }}>
-            <Avatar src={user.data?.user.avatarUrl} />
+            <Avatar src={user.data?.user.avatarUrl} alt={user.data?.user.name} />
           </IconButton>
           <Popover
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'right',
@@ -109,28 +109,23 @@ export const Sidebar: React.FC = () => {
               vertical: 'bottom',
               horizontal: 'left',
             }}
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
             onClose={() => {
               setAnchorEl(undefined);
             }}>
-            <Box
-              display='flex'
-              flexDirection='column'
-              alignItems='flex-start'
-              minWidth={150}
-              maxWidth={300}
-              padding='15px'>
-              <Typography fontSize={22} fontWeight={700}>
-                {user.data?.user.name}
+            <Box display='flex' flexDirection='column' alignItems='flex-start' width={240} p={2}>
+              <Typography variant='subtitle1'>{user.data?.user.name}</Typography>
+              <Typography variant='subtitle1'>
+                {t<string>('sidebar:popover.project', project.data?.project)}
               </Typography>
               <Button
                 href='/settings/profile'
                 component={Link}
                 disableRipple
+                color='inherit'
                 sx={{
-                  color: 'inherit',
                   textTransform: 'none',
-                  fontSize: 12,
-                  fontWeight: 500,
                   ':hover': {
                     bgcolor: 'transparent',
                   },
@@ -140,11 +135,9 @@ export const Sidebar: React.FC = () => {
               </Button>
               <Button
                 disableRipple
+                color='error'
                 sx={{
-                  color: 'inherit',
                   textTransform: 'none',
-                  fontSize: 12,
-                  fontWeight: 500,
                   ':hover': {
                     bgcolor: 'transparent',
                   },

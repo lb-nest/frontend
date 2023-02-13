@@ -31,7 +31,8 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
       alignItems='center'
       justifyContent='space-between'
       height={50}
-      padding='0 15px'
+      pl={2}
+      pr={2}
       flexShrink={0}>
       <Box display='flex' alignItems='center'>
         <Image src='/icon.png' alt='icon' width={50} height={27} />
@@ -39,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
           component='h1'
           noWrap
           sx={{
-            ml: '30px',
+            ml: 4,
             fontSize: 24,
             fontWeight: 700,
           }}>

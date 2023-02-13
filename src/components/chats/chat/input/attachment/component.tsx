@@ -11,10 +11,10 @@ export const Attachment: React.FC<AttachmentProps> = React.memo(({ file, onRemov
   return file.type.startsWith('image/') ? (
     <Box
       component='img'
-      width={64}
-      height={64}
-      ml='5px'
-      borderRadius='5px'
+      width={56}
+      height={56}
+      ml={1}
+      borderRadius={1}
       sx={{
         objectFit: 'cover',
         cursor: 'pointer',
@@ -24,11 +24,11 @@ export const Attachment: React.FC<AttachmentProps> = React.memo(({ file, onRemov
     />
   ) : (
     <Box
-      width={64}
-      height={64}
-      ml='5px'
+      width={56}
+      height={56}
+      ml={1}
       textAlign='center'
-      borderRadius='5px'
+      borderRadius={1}
       overflow='hidden'
       sx={{
         cursor: 'pointer',

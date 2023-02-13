@@ -4,13 +4,13 @@ import { Chat, ChatsCount, ContactStatus } from '../../core/types';
 import type { AppState } from '../store';
 
 export interface ChatsState {
-  type: number;
+  type: 'assigned' | 'unassigned' | 'closed';
   items: Chat[];
   count: ChatsCount;
 }
 
 const initialState: ChatsState = {
-  type: 1,
+  type: 'assigned',
   items: [],
   count: {
     assigned: 0,
@@ -18,22 +18,19 @@ const initialState: ChatsState = {
   },
 };
 
-const toType = (chat: Chat) => {
+const toType = (chat: Chat): ChatsState['type'] => {
   if (chat.contact.status === ContactStatus.Closed) {
-    return 2;
+    return 'closed';
   }
 
-  return chat.contact.assignedTo == null ? 1 : 0;
+  return chat.contact.assignedTo == null ? 'unassigned' : 'assigned';
 };
 
 export const chatsSlice = createSlice({
   name: 'chats',
   initialState,
   reducers: {
-    setChatsCount: (state, action: PayloadAction<ChatsCount>) => {
-      state.count = action.payload;
-    },
-    setType: (state, action: PayloadAction<number>) => {
+    setType: (state, action: PayloadAction<ChatsState['type']>) => {
       state.type = action.payload;
     },
     setChats: (state, action: PayloadAction<Chat[]>) => {
@@ -72,10 +69,9 @@ export const chatsSlice = createSlice({
   },
 });
 
-export const { setChatsCount, setType, setChats, handleReceived, clearChats } = chatsSlice.actions;
+export const { setType, setChats, handleReceived, clearChats } = chatsSlice.actions;
 
 export const selectChats = (state: AppState) => state.chats.items;
 export const selectType = (state: AppState) => state.chats.type;
-export const selectChatsCount = (state: AppState) => state.chats.count;
 
 export default chatsSlice.reducer;

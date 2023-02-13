@@ -2,7 +2,11 @@ import { gql, TypedDocumentNode } from '@apollo/client';
 import { Project, User } from '../types';
 
 interface CreateProjectResult {
-  createProject: Project;
+  createProject: Project & {
+    token: {
+      token: string;
+    };
+  };
 }
 
 interface CreateProjectVariables {
@@ -41,6 +45,25 @@ export const SIGNIN_PROJECT: TypedDocumentNode<SignInProjectResult, SignInProjec
   mutation SignInProject($id: Int!) {
     signInProject(id: $id) {
       token
+    }
+  }
+`;
+
+interface ProjectResult {
+  project: Project;
+}
+
+export const PROJECT: TypedDocumentNode<ProjectResult> = gql`
+  query ProjectUsers {
+    project {
+      id
+      name
+      slug
+      users {
+        accessLevel
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

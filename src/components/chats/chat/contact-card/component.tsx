@@ -12,7 +12,7 @@ export const ContactCard: React.FC<ContactCardProps> = React.memo(
     return (
       <Box display='flex' alignItems='center' flexGrow={1} flexShrink={1} overflow='hidden'>
         <Avatar src={avatarUrl} alt={name} />
-        <Box ml='10px'>
+        <Box ml={1}>
           <Typography component='div' variant='body1' noWrap>
             {name}
           </Typography>

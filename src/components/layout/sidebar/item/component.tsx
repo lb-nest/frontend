@@ -6,10 +6,10 @@ import React from 'react';
 interface SidebarItemProps {
   title: string;
   href: string;
-  children?: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
-export const SidebarItem: React.FC<SidebarItemProps> = ({ title, href, children }) => {
+export const SidebarItem: React.FC<SidebarItemProps> = ({ title, href, icon }) => {
   const router = useRouter();
 
   return (
@@ -38,7 +38,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ title, href, children 
             width: '100%',
             height: '100%',
           }}>
-          {children}
+          {icon}
         </ButtonBase>
       </Box>
     </Tooltip>

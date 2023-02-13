@@ -1,45 +1,48 @@
-import { Box, Typography } from '@mui/material';
+import {
+  AssignmentIndOutlined,
+  AssignmentLateOutlined,
+  AssignmentTurnedInOutlined,
+} from '@mui/icons-material';
+import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../../redux';
-import { selectChatsCount, setType } from '../../../../redux/features/chat-list';
-import { ChatListMenuItem } from './item';
+import { selectType, setType } from '../../../../redux/features/chat-list';
 
 export const ChatListMenu: React.FC = () => {
   const { t } = useTranslation();
 
-  const chatsCount = useAppSelector(selectChatsCount);
+  const type = useAppSelector(selectType);
+
   const dispatch = useAppDispatch();
 
+  const handleChange = (event: React.SyntheticEvent<Element, Event>, value: any) => {
+    dispatch(setType(value));
+  };
+
   return (
-    <Box padding='50px 15px' flexShrink={0}>
-      <Typography fontWeight={700}>{t<string>('chats:open')}</Typography>
-      <Box padding='10px'>
-        <ChatListMenuItem
-          name={t<string>('chats:assigned')}
-          count={chatsCount.assigned}
-          onClick={() => {
-            dispatch(setType(0));
-          }}
-        />
-        <ChatListMenuItem
-          name={t<string>('chats:unassigned')}
-          count={chatsCount.unassigned}
-          onClick={() => {
-            dispatch(setType(1));
-          }}
-        />
-      </Box>
-      <Typography
-        fontWeight={700}
-        sx={{
-          cursor: 'pointer',
-        }}
-        onClick={() => {
-          dispatch(setType(2));
-        }}>
-        {t<string>('chats:closed')}
-      </Typography>
-    </Box>
+    <BottomNavigation
+      showLabels
+      value={type}
+      onChange={handleChange}
+      sx={{
+        bgcolor: 'transparent',
+      }}>
+      <BottomNavigationAction
+        value='assigned'
+        icon={<AssignmentIndOutlined />}
+        label={t<string>('chats:assigned')}
+      />
+      <BottomNavigationAction
+        value='unassigned'
+        label={t<string>('chats:unassigned')}
+        icon={<AssignmentLateOutlined />}
+      />
+      <BottomNavigationAction
+        value='closed'
+        label={t<string>('chats:closed')}
+        icon={<AssignmentTurnedInOutlined />}
+      />
+    </BottomNavigation>
   );
 };

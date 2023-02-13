@@ -46,8 +46,6 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({ contact }) => {
     return null;
   }
 
-  const closed = contact.status === ContactStatus.Closed;
-
   return (
     <Box
       width='100%'

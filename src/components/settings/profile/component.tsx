@@ -33,8 +33,9 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
     name: 'avatar',
   });
 
-  const handleSubmit = async (variables: Variables) => {
+  const handleSubmit = async (variables: Variables): Promise<void> => {
     let avatarUrl: string;
+
     if (variables.avatar?.length === 1) {
       const res = await upload({
         variables: {
@@ -71,7 +72,7 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
               height: 64,
             }}
           />
-          <Box ml='15px' mr='15px'>
+          <Box ml={1} mr={1}>
             <Typography variant='body1'>
               {t<string>('settings:pages.profile.avatar.title')}
             </Typography>
@@ -87,7 +88,7 @@ export const Profile: React.FC<ProfileProps> = ({ user }) => {
           </Button>
         </Box>
       </Box>
-      <Box mt='15px' mb='15px'>
+      <Box>
         <TextField
           margin='dense'
           fullWidth
