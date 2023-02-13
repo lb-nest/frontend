@@ -9,7 +9,7 @@ interface SidebarItemProps {
   icon?: React.ReactNode;
 }
 
-export const SidebarItem: React.FC<SidebarItemProps> = ({ title, href, icon }) => {
+export const SidebarItem: React.FC<SidebarItemProps> = React.memo(({ title, href, icon }) => {
   const router = useRouter();
 
   return (
@@ -43,4 +43,4 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ title, href, icon }) =
       </Box>
     </Tooltip>
   );
-};
+});

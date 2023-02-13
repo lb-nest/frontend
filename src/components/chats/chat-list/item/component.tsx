@@ -14,87 +14,89 @@ interface ChatListItemProps extends Chat {
   showAssign?: boolean;
 }
 
-export const ChatListItem: React.FC<ChatListItemProps> = ({
-  channelId,
-  accountId,
-  contact,
-  messages,
-  showAssign = contact.assignedTo == null && contact.status === ContactStatus.Open,
-}) => {
-  const id = `${channelId}:${accountId}`;
+export const ChatListItem: React.FC<ChatListItemProps> = React.memo(
+  ({
+    channelId,
+    accountId,
+    contact,
+    messages,
+    showAssign = contact.assignedTo == null && contact.status === ContactStatus.Open,
+  }) => {
+    const id = `${channelId}:${accountId}`;
 
-  const guard = React.useContext(GuardContext);
+    const guard = React.useContext(GuardContext);
 
-  const { t } = useTranslation();
+    const { t } = useTranslation();
 
-  const router = useRouter();
+    const router = useRouter();
 
-  const [updateContact] = useMutation(UPDATE_CONTACT);
+    const [updateContact] = useMutation(UPDATE_CONTACT);
 
-  const handleOpen: React.MouseEventHandler = () => {
-    router.push(`/chats/${id}`);
-  };
+    const handleOpen: React.MouseEventHandler = () => {
+      router.push(`/chats/${id}`);
+    };
 
-  const handleAssign: React.MouseEventHandler = (e) => {
-    e.stopPropagation();
+    const handleAssign: React.MouseEventHandler = (e) => {
+      e.stopPropagation();
 
-    toast
-      .promise(
-        updateContact({
-          variables: {
-            id: contact.id,
-            assignedTo: {
-              id: guard.payload?.id,
-              type: AssigneeType.User,
+      toast
+        .promise(
+          updateContact({
+            variables: {
+              id: contact.id,
+              assignedTo: {
+                id: guard.payload?.id,
+                type: AssigneeType.User,
+              },
+              status: ContactStatus.Open,
             },
-            status: ContactStatus.Open,
-          },
-        }),
-        t<any, any>('common:promise', { returnObjects: true }),
-      )
-      .catch(() => null);
-  };
+          }),
+          t<any, any>('common:promise', { returnObjects: true }),
+        )
+        .catch(() => null);
+    };
 
-  return (
-    <ButtonBase
-      component='div'
-      sx={{
-        width: '100%',
-        position: 'relative',
-        p: 2,
-        bgcolor: router.query.id === id && 'rgba(0, 0, 0, 0.04)',
-      }}
-      onClick={handleOpen}>
-      <Box display='flex' alignItems='center' width='100%'>
-        <Avatar src={contact.avatarUrl} alt={contact.name} />
-        {showAssign && (
-          <IconButton
-            sx={{
-              position: 'absolute',
-              left: 8,
-              color: '#212121',
-              zIndex: 1,
-            }}
-            onClick={handleAssign}>
-            <AddTaskOutlined />
-          </IconButton>
-        )}
-        <Box ml={1} display='flex' width='calc(100% - 48px)'>
-          <Box display='flex' flexDirection='column' minWidth={0} flexGrow={1}>
-            <Typography component='span' variant='body1' noWrap>
-              {contact.name}
-            </Typography>
-            <Typography component='span' variant='body2' noWrap>
-              {messages[0]?.content[0].text}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography component='span' variant='caption'>
-              {format(new Date(messages[0].updatedAt), 'dd.MM.yyyy')}
-            </Typography>
+    return (
+      <ButtonBase
+        component='div'
+        sx={{
+          width: '100%',
+          position: 'relative',
+          p: 2,
+          bgcolor: router.query.id === id && 'rgba(0, 0, 0, 0.04)',
+        }}
+        onClick={handleOpen}>
+        <Box display='flex' alignItems='center' width='100%'>
+          <Avatar src={contact.avatarUrl} alt={contact.name} />
+          {showAssign && (
+            <IconButton
+              sx={{
+                position: 'absolute',
+                left: 8,
+                color: '#212121',
+                zIndex: 1,
+              }}
+              onClick={handleAssign}>
+              <AddTaskOutlined />
+            </IconButton>
+          )}
+          <Box ml={1} display='flex' width='calc(100% - 48px)'>
+            <Box display='flex' flexDirection='column' minWidth={0} flexGrow={1}>
+              <Typography component='span' variant='body1' noWrap>
+                {contact.name}
+              </Typography>
+              <Typography component='span' variant='body2' noWrap>
+                {messages[0]?.content[0].text}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography component='span' variant='caption'>
+                {format(new Date(messages[0].updatedAt), 'dd.MM.yyyy')}
+              </Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </ButtonBase>
-  );
-};
+      </ButtonBase>
+    );
+  },
+);

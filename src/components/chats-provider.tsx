@@ -16,12 +16,12 @@ export const ChatsProvider: React.FC<ChatsUpdatesProvider> = React.memo(({ child
 
   useSubscription(CHAT_RECEIVED, {
     shouldResubscribe: () => true,
-    onSubscriptionData: ({ subscriptionData }) => {
-      if (!subscriptionData.data) {
+    onData: ({ data }) => {
+      if (!data.data) {
         return;
       }
 
-      const { chatReceived } = subscriptionData.data;
+      const { chatReceived } = data.data;
 
       dispatch(handleReceived(chatReceived));
       if (router.query.id?.toString() === `${chatReceived.channelId}:${chatReceived.accountId}`) {
@@ -29,15 +29,15 @@ export const ChatsProvider: React.FC<ChatsUpdatesProvider> = React.memo(({ child
       }
 
       if (
-        !subscriptionData.data.chatReceived.messages[0]?.fromMe &&
+        !data.data.chatReceived.messages[0]?.fromMe &&
         !window.document.hasFocus() &&
         Notification.permission === 'granted'
       ) {
-        const notification = new Notification(subscriptionData.data.chatReceived.contact.name, {
-          body: subscriptionData.data.chatReceived.messages[0].content[0].text,
+        const notification = new Notification(data.data.chatReceived.contact.name, {
+          body: data.data.chatReceived.messages[0].content[0].text,
           icon: '/favicon.png',
           renotify: true,
-          tag: subscriptionData.data.chatReceived.contact.id.toString(),
+          tag: data.data.chatReceived.contact.id.toString(),
         });
 
         notification.onclick = () => {

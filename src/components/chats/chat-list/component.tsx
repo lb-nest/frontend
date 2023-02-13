@@ -3,7 +3,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../../redux';
 import { selectChats } from '../../../redux/features/chat-list';
-// import { ChatListHeader } from './header';
 import { ChatListItem } from './item';
 import { ChatListMenu } from './menu';
 
@@ -16,7 +15,7 @@ export const ChatList: React.FC<ChatListProps> = () => {
 
   return (
     <Box display='flex' flexDirection='column' flexGrow={1} overflow='hidden'>
-      {/* <ChatListHeader /> */}
+      <ChatListMenu />
       <Box flexGrow={1} overflow='auto'>
         {chats.length === 0 ? (
           <Box display='flex' alignItems='center' justifyContent='center' height='100%'>
@@ -28,7 +27,6 @@ export const ChatList: React.FC<ChatListProps> = () => {
           ))
         )}
       </Box>
-      <ChatListMenu />
     </Box>
   );
 };

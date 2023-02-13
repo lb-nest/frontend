@@ -26,9 +26,9 @@ export const useMessages = (id?: string[]) => {
       accountId: id?.[1],
     },
     skip,
-    onSubscriptionData: ({ subscriptionData }) => {
-      if (subscriptionData.data) {
-        dispatch(handleReceived(subscriptionData.data.messageReceived));
+    onData: ({ data }) => {
+      if (data.data) {
+        dispatch(handleReceived(data.data.messageReceived));
       }
     },
     shouldResubscribe: () => true,
