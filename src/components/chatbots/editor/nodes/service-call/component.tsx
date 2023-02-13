@@ -11,6 +11,7 @@ const color = nodeColors[NodeType.ServiceCall];
 
 export interface ServiceCallData {
   name: string;
+  method?: string;
   url: string;
   headers: Record<string, string>;
   data?: any;

@@ -1,6 +1,6 @@
 import { ResourceLanguage } from 'i18next';
 import {
-  ComparsionType,
+  ComparisonType,
   NodeType,
   TriggerType,
   ValidationType,
@@ -47,13 +47,13 @@ export const chatbots: ResourceLanguage = {
         createBranch: 'Добавить ветку',
         branch: 'Ветка {{i}}',
         defaultBranch: 'Ни одно условие не сработало',
-        comparsion: {
+        comparison: {
           start: 'Если',
           end: 'условия соблюдены',
         },
-        comparsionType: {
-          [ComparsionType.All]: 'Все',
-          [ComparsionType.Any]: 'Любое',
+        comparisonType: {
+          [ComparisonType.All]: 'Все',
+          [ComparisonType.Any]: 'Любое',
         },
       },
       [NodeType.Buttons]: {

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Branch, ComparsionType, Variable } from '../../../types';
+import { Branch, ComparisonType, Variable } from '../../../types';
 import { BranchData } from '../component';
 
 interface BranchEditorProps extends BranchData {
@@ -69,7 +69,7 @@ export const BranchEditor: React.FC<BranchEditorProps> = ({
               </IconButton>
             </Box>
             <Box>
-              {t<string>('chatbots:editor.nodes.Branch.comparsion.start')}
+              {t<string>('chatbots:editor.nodes.Branch.comparison.start')}
               <ToggleButtonGroup
                 size='small'
                 sx={{
@@ -79,7 +79,7 @@ export const BranchEditor: React.FC<BranchEditorProps> = ({
                 color='primary'
                 exclusive
                 value={branch.type}
-                onChange={(_, type: ComparsionType) => {
+                onChange={(_, type: ComparisonType) => {
                   onChange<Branch[]>(
                     'branches',
                     branches.map((branch, j) => {
@@ -91,14 +91,14 @@ export const BranchEditor: React.FC<BranchEditorProps> = ({
                     }),
                   );
                 }}>
-                <ToggleButton value={ComparsionType.All}>
-                  {t<string>('chatbots:editor.nodes.Branch.comparsionType.All')}
+                <ToggleButton value={ComparisonType.All}>
+                  {t<string>('chatbots:editor.nodes.Branch.comparisonType.All')}
                 </ToggleButton>
-                <ToggleButton value={ComparsionType.Any}>
-                  {t<string>('chatbots:editor.nodes.Branch.comparsionType.Any')}
+                <ToggleButton value={ComparisonType.Any}>
+                  {t<string>('chatbots:editor.nodes.Branch.comparisonType.Any')}
                 </ToggleButton>
               </ToggleButtonGroup>
-              {t<string>('chatbots:editor.nodes.Branch.comparsion.end')}
+              {t<string>('chatbots:editor.nodes.Branch.comparison.end')}
             </Box>
           </Paper>
         ))}
@@ -113,7 +113,7 @@ export const BranchEditor: React.FC<BranchEditorProps> = ({
             onChange<Branch[]>(
               'branches',
               branches.concat({
-                type: ComparsionType.All,
+                type: ComparisonType.All,
                 conditions: [],
               }),
             );

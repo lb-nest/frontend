@@ -35,7 +35,7 @@ export interface Variable {
   value?: any;
 }
 
-export enum ComparsionType {
+export enum ComparisonType {
   All = 'All',
   Any = 'Any',
 }
@@ -59,7 +59,7 @@ export interface Condition {
 }
 
 export interface Branch {
-  type: ComparsionType;
+  type: ComparisonType;
   conditions: Condition[];
 }
 
